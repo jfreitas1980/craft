@@ -1,0 +1,100 @@
+//-----------------------------------------------------------------------------------------
+// AUTHOR: ANDERSON RODRIGUES - 03.11.2014 - 17:33
+//-----------------------------------------------------------------------------------------
+// FUNCAO GLOBAL QUE RECEBE UM VALOR ALFANUMERICO NORMALMENTE ORIUNDO DO PADRAO ANSI
+//        IDENTIFICA E REMOVE A ACENTUACAO DOS CARACTERES CORRESPONDENTES
+//        '+°+†+£+¢+§+©+®+™+´+≠+¨+Æ+Ø+›+›+µ+›+∂+›+›+++++ß+Å+Ä+É+Ç+Ñ+â+à+ä+ã+ç+å+é+è+ì+í+ï+ñ+î+ö+ô+õ+ú+á'
+//-----------------------------------------------------------------------------------------
+Use CharTranslate.pkg
+Function gf_ClearANSI Global String sValue Returns String
+    Integer iX
+    Address aUTF8Buffer addrValue
+
+    Move (Trim(sValue)) to sValue
+
+    Move (AddressOf(sValue)) to addrValue
+    Move (Utf8toOemBuffer(AddressOf(sValue),CStringLength(addrValue))) to aUTF8Buffer
+    Move aUTF8Buffer to sValue
+
+    // a ----------------------------------------------------------------------------------
+    For iX from 131 to 134
+        Move (REPLACES(Character(iX),sValue,Character(97)))     to sValue
+    Loop
+
+    // A ----------------------------------------------------------------------------------
+    For iX from 142 to 143
+        Move (REPLACES(Character(iX),sValue,Character(65)))     to sValue
+    Loop
+    For iX from 181 to 183
+        Move (REPLACES(Character(iX),sValue,Character(65)))     to sValue
+    Loop
+    For iX from 198 to 199
+        Move (REPLACES(Character(iX),sValue,Character(65)))     to sValue
+    Loop
+
+    // c ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(135),sValue,Character(99)))    to sValue
+
+    // C ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(128),sValue,Character(67)))    to sValue
+
+    // e ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(130),sValue,Character(101)))   to sValue
+    For iX from 136 to 138
+        Move (REPLACES(Character(iX),sValue,Character(101)))    to sValue
+    Loop
+
+    // E ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(144),sValue,Character(69)))    to sValue
+    For iX from 210 to 212
+        Move (REPLACES(Character(iX),sValue,Character(69)))     to sValue
+    Loop
+
+    // i ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(161),sValue,Character(105)))   to sValue
+    For iX from 139 to 141
+        Move (REPLACES(Character(iX),sValue,Character(105)))    to sValue
+    Loop
+
+    // I ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(222),sValue,Character(73)))    to sValue
+    For iX from 214 to 216
+        Move (REPLACES(Character(iX),sValue,Character(73)))     to sValue
+    Loop
+
+    // n ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(164),sValue,Character(110)))   to sValue
+
+    // N ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(165),sValue,Character(78)))    to sValue
+
+    // o ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(162),sValue,Character(111)))   to sValue
+    For iX from 224 to 229
+        Move (REPLACES(Character(iX),sValue,Character(111)))    to sValue
+    Loop
+
+    // O ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(153),sValue,Character(79)))    to sValue
+
+    // u ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(129),sValue,Character(117)))   to sValue
+        Move (REPLACES(Character(163),sValue,Character(117)))   to sValue
+    For iX from 249 to 252
+        Move (REPLACES(Character(iX),sValue,Character(117)))    to sValue
+    Loop
+
+    // U ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(154),sValue,Character(85)))    to sValue
+    For iX from 233 to 235
+        Move (REPLACES(Character(iX),sValue,Character(85)))     to sValue
+    Loop
+
+    // y ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(236),sValue,Character(121)))   to sValue
+
+    // Y ----------------------------------------------------------------------------------
+        Move (REPLACES(Character(237),sValue,Character(89)))    to sValue
+
+    Function_Return sValue
+End_Function // gf_ClearANSI

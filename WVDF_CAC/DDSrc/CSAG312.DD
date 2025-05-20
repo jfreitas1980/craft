@@ -1,0 +1,129 @@
+// Class Name: Csag312_DataDictionary
+// Revision  : 35
+// Version   : 2
+//-2WA
+Use  Windows           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  DDvalTbl          // Validation Table Class Definitions
+
+Open Csag312
+
+
+Class Csag312_DataDictionary  is a DataDictionary
+
+    // Define_Fields:
+    // This procedure is used to set up all data-dictionary rules.
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Csag312.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        // Field-based properties.......................
+
+        Set Field_Label_Long Field Csag312.Idioma To "Idioma"
+        Set Field_Option Field Csag312.Idioma DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Idiomanm To "Idioma"
+        Set Field_Option Field Csag312.Idiomanm DD_RETAINALL to True
+        Set Field_Option Field Csag312.Idiomanm DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field Csag312.Salvar To "Salvar"
+        Set Field_Option Field Csag312.Salvar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Excluir To "Excluir"
+        Set Field_Option Field Csag312.Excluir DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Limpar To "Limpar"
+        Set Field_Option Field Csag312.Limpar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Pesquisar To "Pesquisar"
+        Set Field_Option Field Csag312.Pesquisar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Segue To "Segue"
+        Set Field_Option Field Csag312.Segue DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Voltar To "Voltar"
+        Set Field_Option Field Csag312.Voltar DD_RETAINALL to True
+
+        Set Field_Label_Long Field CSAG312.VOLTARDISABLE to "VOLTAR DISABLE"
+
+
+        Set Field_Label_Long Field Csag312.Proxima To "Proxima"
+        Set Field_Option Field Csag312.Proxima DD_RETAINALL to True
+
+        Set Field_Label_Long Field CSAG312.PROXIMADISABLE to "PROXIMA DISABLE"
+
+
+        Set Field_Label_Long Field Csag312.Novo To "Novo"
+        Set Field_Option Field Csag312.Novo DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Fechar To "Fechar"
+        Set Field_Option Field Csag312.Fechar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Criacao To "Criacao"
+        Set Field_Option Field Csag312.Criacao DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Enviar To "Enviar"
+        Set Field_Option Field Csag312.Enviar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Lixeira To "Lixeira"
+        Set Field_Option Field Csag312.Lixeira DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Retornar To "Retornar"
+        Set Field_Option Field Csag312.Retornar DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Inicio To "Inicio"
+        Set Field_Option Field Csag312.Inicio DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Final To "Final"
+        Set Field_Option Field Csag312.Final DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag312.Achar To "Achar"
+        Set Field_Option Field Csag312.Achar DD_RETAINALL to True
+
+        Set Field_Option Field Csag312.Imprimir DD_RETAINALL to True
+        Set Field_Label_Long Field CSAG312.IMPRIMIR to "IMPRIMIR"
+
+        Set Field_Option Field Csag312.Prompt DD_RETAINALL to True
+        Set Field_Label_Long Field CSAG312.PROMPT to "PROMPT"
+
+        Set Field_Option Field Csag312.Data DD_RETAINALL to True
+        Set Field_Label_Long Field CSAG312.DATA to "DATA"
+
+        Set Field_Option Field Csag312.Csalvar DD_RETAINALL to True
+        Set Field_Label_Long Field CSAG312.CSALVAR to "C SALVAR"
+
+        Set Field_Label_Long Field Csag312.Cexcluir to "C EXCLUIR"
+        Set Field_Option Field Csag312.Cexcluir DD_RETAINALL to True
+
+        Set Field_Option Field Csag312.Email DD_RETAINALL to True
+        Set Field_Label_Long Field CSAG312.EMAIL to "EMAIL"
+
+        Set Field_Label_Long Field CSAG312.MSG_INCLUIR to "Mensagem para inclusao"
+
+        Set Field_Label_Long Field CSAG312.MSG_ALTERAR to "Mensagem para alteracao"
+
+        Set Field_Label_Long Field CSAG312.MSG_EXCLUIR to "Mensagem para exclusao"
+
+        Set Field_Label_Long Field CSAG312.MSG_EXPORTAR to "MENSSAGEM PARA EXPOTAR"
+
+    End_Procedure    // Construct_Object
+
+    // Field_Defaults:
+    // This procedure is used to establish default field values.
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+End_Class    // Csag312_DataDictionary
+

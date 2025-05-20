@@ -1,0 +1,200 @@
+//-2WA
+Use CtrlData.PKG
+
+Use TabelasdeValidacao.pkg
+
+Open HGED4001
+Open TSMG800
+Open TSMG801
+
+Class cHGED4001_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to HGED4001.File_Number
+
+        Set Add_System_File to TSMG800.File_Number DD_Lock_On_All
+        Set Add_System_File to TSMG801.File_Number DD_Lock_On_All
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Field_Label_Long Field HGED4001.CODIGO to "CODIGO"
+
+        Set Field_Label_Long Field HGED4001.TABELA_NM to "TABELA"
+        Set Field_Option Field HGED4001.TABELA_NM DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field HGED4001.TABELA_FIELD_NM to "RECNUM DA TABELA"
+
+        Set Field_Label_Long Field HGED4001.TABELA_ID to "CODIGO DA TABELA"
+
+        Set Field_Label_Long Field HGED4001.FILE_PATH_F to "CAMINHO DO ARQUIVO(FISICO)"
+
+        Set Field_Label_Long Field HGED4001.FILE_PATH_L to "CAMINHO DO ARQUIVO(LOGICO)"
+
+        Set Field_Label_Long Field HGED4001.FILE_NM to "NOME DO ARQUIVO"
+
+        Set Field_Label_Long Field HGED4001.ASSUNTO to "ASSUNTOO"
+
+        Set Field_Label_Long Field HGED4001.OBSERVACAO to "OBSERVACAO"
+
+        Set Field_Label_Long Field HGED4001.MALA_DIRETA to "MALA DIRETA"
+        Set Field_Checkbox_Values Field HGED4001.MALA_DIRETA to "S" "N"
+
+        Set Field_Label_Long Field HGED4001.MALA_DIRETA_QTY to "QTD."
+
+        Set Field_Label_Long Field HGED4001.MALA_DIRETA_NM to "NOME"
+
+        Set Field_Label_Long Field HGED4001.MALA_DIRETA_DT to "DATA"
+
+        Set Field_Label_Long Field HGED4001.MALA_DIRETA_HR to "HORA"
+
+        Set Field_Label_Long Field HGED4001.EXCLUIDO to "EXCLUIDO"
+
+        Set Field_Label_Long Field HGED4001.FUP to "FOLLOW-UP"
+
+    End_Procedure
+    
+    Procedure Creating_PGED4001_01
+        String sPath_Logico
+        String sHttp_GED
+        String sCopy_GED
+        
+        Clear TSMG800
+        SMART_FIND GE TSMG800 by 0
+        
+        Clear TSMG801
+        SMART_FIND GE TSMG801 by 0
+        Add 1 to TSMG801.HGED4001_CODIGO
+        SaveRecord TSMG801
+        
+        //--- MOVER SEQUENCIA PARA CAMPO
+        Move TSMG801.HGED4001_CODIGO to HGED4001.CODIGO
+        
+        
+        //--- VERIFICA O CAMPO E A TABELA PARA VINCULAR AO FUP  
+        If ((HGED4001.TABELA_NM = 'HCGS2101' or HGED4001.TABELA_NM = 'HCGS2109') and HGED4001.TABELA_FIELD_NM = 'CODIGO') Begin
+            Clear HCGS2101
+            Move (Number(HGED4001.TABELA_ID)) to HCGS2101.CODIGO
+            Find EQ HCGS2101 by 1
+            If Found Move HCGS2101.CODIGO to HGED4001.FUP
+        End
+        
+        If ((HGED4001.TABELA_NM = 'HCGS2101' or HGED4001.TABELA_NM = 'HCGS2109') and HGED4001.TABELA_FIELD_NM = 'RECNUM') Begin
+            Clear HCGS2101
+            Move HGED4001.TABELA_ID to HCGS2101.Recnum
+            Find EQ HCGS2101 by 0
+            If Found Move HCGS2101.CODIGO to HGED4001.FUP
+        End
+        
+        //CRIAR PATH LOGICO
+        Move (Trim(HGED4001.FILE_PATH_F)) to sPath_Logico
+        Move (Trim(sPath_Logico)) to sPath_Logico
+        Move (Uppercase(sPath_Logico)) to sPath_Logico
+        //If (Right(sPath_Logico,1) <> '\') Begin
+        //    Move (sPath_Logico + '\') to sPath_Logico
+        //End //(Right(sPath_Logico,1) <> '\')
+        //
+        Move (Replace('{aHTTP}', TSMG800.HTTP_GED, Trim(TSMG800.HTTP_SITE)))  to sHttp_GED
+        //
+        Move (Trim(sHttp_GED)) to sHttp_GED
+        Move (Uppercase(sHttp_GED)) to sHttp_GED
+        //
+        Move (Trim(TSMG800.COPY_GED)) to sCopy_GED
+        Move (Uppercase(sCopy_GED)) to sCopy_GED
+        //
+        Move (Replace(sCopy_GED, sPath_Logico, sHttp_GED)) to sPath_Logico
+        Move (Replaces("\",sPath_Logico,"/")) to sPath_Logico
+        Move (Trim(sPath_Logico)) to HGED4001.FILE_PATH_L   
+        
+        
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+        
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+            Clear   CSAG311
+            Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+            Find Eq CSAG311                      by 1
+              If (Found) Begin                   
+                  Send p_RegistraAcessoUsuario "HGED4001.USUARIO_ID_C" CSAG311.USUARIONUMERO
+              End
+    
+    End_Procedure // Creating_PGED4001_01
+
+    Procedure Update_PGED4001_01
+        Forward Send Update
+
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+             Clear   CSAG311
+             Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+             Find Eq CSAG311                      by 1
+               If (Found) Begin
+                   Send p_RegistraAcessoUsuario "HGED4001.USUARIO_ID_A" CSAG311.USUARIONUMERO
+               End
+    
+    End_Procedure // Update_PGED4001_01
+
+    Procedure Deleting_PGED4001_01
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure   // Deleting_PGED4001_01
+
+    Procedure Save_Main_File_PGED4001_01
+        Integer iRECNUM
+        Move HGED4001.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+            Send p_FFOperation 1 
+        End
+                    
+    End_Procedure // Save_Main_File_PGED4001_01
+    
+    Procedure Backout_PGED4001_01
+        Forward Send Backout
+        Send p_FFOperation 0
+    End_Procedure   // Backout_PGED4001_01
+    
+    Function Validate_Save_PGED4001_01 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+            
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_PGED4001_01
+
+    Function Validate_Delete_PGED4001_01 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+            //Move 308003     to iError_Id
+            //Move 'CSAG308'  to sError_Tabela
+            // //--EMPRESA DO PROCESSO NAO PODE SER EXCLUIDO.
+            //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+            //Error iError_Id sError_Ds
+            //Move 1 to iReturnVal 
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_PGED4001_01
+    
+	#Include p_FFOperation.inc  
+
+End_Class

@@ -1,0 +1,19 @@
+DRIVER_NAME  MSSQLDRV
+SERVER_NAME  SERVER=;Trusted_Connection=yes;DATABASE=CROSS
+DATABASE_NAME  FreightFollowUpNotifications
+SCHEMA_NAME  dbo
+ 
+RECNUM_TABLE  NO
+TABLE_CHARACTER_FORMAT  Ansi
+USE_DUMMY_ZERO_DATE  YES
+PRIMARY_INDEX  1
+ 
+INDEX_NUMBER  1
+INDEX_NAME  PK_FreightFollowUpNotifications
+ 
+INDEX_NUMBER  2
+INDEX_NAME  IX_FreightFollowUpNotifications_FreightFollowUpActivityId_FreightFollowUpStatus_NotificationTemplateId
+ 
+INDEX_NUMBER  3
+INDEX_NAME  IX_FreightFollowUpNotifications_NotificationTemplateId
+

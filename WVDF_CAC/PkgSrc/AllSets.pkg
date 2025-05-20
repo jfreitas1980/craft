@@ -1,0 +1,88 @@
+//-2WA
+Property String  pnUsuarioNumero      ""
+Property String  pnUsuarioSenha       ""
+Property Integer piUsuarioIdioma      0
+Property String  psUsuarioModoSeguro  ""
+
+Property String   psUsuarioSessao
+Property String   psPrograma
+Property String   psPARAMETRO
+
+Property String  psASC_PRINCIPAL      ""
+Property String  psADS_DESKTOPSIS     ""
+Property String  psABA_01             ""
+Property String  psABA_02             ""
+Property String  psABA_03             ""
+Property String  psABA_04             ""
+Property String  psABA_05             ""
+Property String  psABA_06             ""
+Property String  psABA_07             ""
+Property String  psABA_08             ""
+Property String  psABA_09             ""
+Property String  psABA_10             ""
+
+Property String  psUSUARIOCLASSE      ""
+Property Date    pdULTIMOACESSO_DATA  ""
+Property String  psULTIMOACESSO_HORA  ""
+
+Property String  psGERAIS_PAG300_00   ""
+Property String  psGERAIS_PAG301_00   ""
+Property String  psGERAIS_PAG305_00   ""
+Property String  psGERAIS_PAG332_00   ""
+Property String  psGERAIS_PAG333_00   ""
+Property String  psGERAIS_PAG334_00   ""
+
+Property String  psEMPRESA_Logo       ""
+Property String  psEMPRESA_LogoCor    ""
+Property String  psEMPRESA_LogoSite   ""
+Property String  psEMPRESA_Fundo      ""
+Property String  psVIRGULAPONTO       ""
+
+{ WebProperty = True }       
+Property String psDecimalSeparator ","    // The decimal separator character to us on the client when formating numeric masks. 
+//(see DF_DECIMAL_SEPARATOR)
+{ WebProperty = True }       
+Property String psThousandsSeparator "."  // The thousands separator character to us on the client when formating numeric masks.
+// (see DF_THOUSANDS_SEPARATOR)
+        
+Use LoadHTML_CSAG344.pkg
+Use LoadHTML_CSAG339.pkg
+Use LOADSQL_CSAG367.pkg
+
+//Object oMensagem is an Edit
+//End_Object // oMensagem
+
+
+//****************************************************************************
+// Description
+//    This function will use the Windows API function to copy the data from
+//    the editor window into a DataFlex string.
+//
+// $Rev History
+//    04/25/00 VO Module header created
+//****************************************************************************
+//Function EditWindowText Returns String
+//   Integer iTextLen iRetval
+//   Handle hWnd
+//   String sFullText
+//   Pointer lpsFullText
+
+//   Get Window_Handle of (oMensagem(Self)) To hWnd
+//   If (hWnd <> 0) Begin
+//      Move (SendMessage (hWnd, WM_GETTEXTLENGTH, 0, 0)) To iTextLen
+//      If (iTextLen <> 0) Begin
+//         Increment iTextLen
+//         ZeroString iTextLen To sFullText
+//         GetAddress Of sFullText To lpsFullText
+//         Move (SendMessage (hWnd, WM_GETTEXT, iTextLen, lpsFullText)) To iRetval
+//      End
+//   End
+
+//   Function_Return sFullText
+//End_Function // EditWindowText
+
+USE      CSAG300.DD
+USE      CSAG304.DD
+USE      CSAG310.DD
+
+

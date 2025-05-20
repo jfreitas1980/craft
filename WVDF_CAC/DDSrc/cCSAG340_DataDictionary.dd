@@ -1,0 +1,322 @@
+//-2WA
+Use CtrlData.PKG
+
+Open CSAG340
+Open HSAG340
+
+Object oYESNO_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "0" "NO"
+        Send Add_Table_Value "1" "YES"
+    End_Procedure
+End_Object
+
+Object oCLASSIFICACAO_VT is a ValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "A"
+        Send Add_Table_Value "B"
+        Send Add_Table_Value "C"
+    End_Procedure
+End_Object
+
+Object oIND_TER_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "I" "INDUSTRIA (Cliente Direto)"
+        Send Add_Table_Value "T" "TERCEIRO (Co-Loader)"
+    End_Procedure
+End_Object
+
+Object oVISAO_MACRO_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "B" "BUDGET"
+        Send Add_Table_Value "A" "ALPHA"
+    End_Procedure
+End_Object
+
+Object oSITUACAO_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "A" "ATIVO"
+        Send Add_Table_Value "M" "MISSING"
+        Send Add_Table_Value "L" "LOST"
+        Send Add_Table_Value "D" "DEAD"
+        Send Add_Table_Value "S" "STAND BY"
+    End_Procedure
+End_Object
+
+Object oFF_NFF_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "F" "FRIENDLY FORWARDER"
+        Send Add_Table_Value "N" "NON FRIENDLY FORWARDER"
+    End_Procedure
+End_Object
+
+Class cCSAG340_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to CSAG340.File_Number
+        
+        Set Add_System_File to TSMG801.File_Number DD_Lock_On_All
+        Set Add_System_File to HSAG340.File_Number DD_Lock_On_Delete
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Field_Option Field CSAG340.CODIGO DD_NOENTER to True
+        Set Field_Label_Long Field CSAG340.CODIGO to "Codigo"
+
+        Set Field_Label_Long Field CSAG340.CSAG320_ID to "Pessoa"
+
+        Set Field_Label_Long Field CSAG340.PESSOA_NRDOCTO to "Nro. Documento"
+
+        Set Field_Label_Long Field CSAG340.INSC_ESTADUAL to "Insc. Estadual"
+        Set Field_Option Field CSAG340.INSC_ESTADUAL DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field CSAG340.INSC_MUNICIPAL to "Insc. Municipal"
+        Set Field_Option Field CSAG340.INSC_MUNICIPAL DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field CSAG340.ATIVO_INATIVO_RF to "ATIVO RECEITA FEDERAL"
+        Set Status_Help Field CSAG340.ATIVO_INATIVO_RF to "Cliente Ativo/Inavito na Receita Federal"
+        Set Field_Checkbox_Values Field CSAG340.ATIVO_INATIVO_RF to "A" "I"
+
+        Set Field_Label_Long Field CSAG340.CLASSIFICACAO to "Classificacao"
+        Set Field_Label_Short Field CSAG340.CLASSIFICACAO to "Class"
+        Set Field_Option Field CSAG340.CLASSIFICACAO DD_CAPSLOCK to True
+        Set Field_Value_Table Field CSAG340.CLASSIFICACAO to oCLASSIFICACAO_VT
+
+        Set Field_Option Field CSAG340.IND_TER DD_CAPSLOCK to True
+        Set Field_Value_Table Field CSAG340.IND_TER to oIND_TER_VT
+
+        Set Field_Value_Table Field CSAG340.VISAO_MACRO to oVISAO_MACRO_VT
+        Set Field_Option Field CSAG340.VISAO_MACRO DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field CSAG340.SITUACAO to "SITUACAO"
+        Set Field_Option Field CSAG340.SITUACAO DD_CAPSLOCK to True
+        Set Field_Label_Short Field CSAG340.SITUACAO to "SIT"
+        Set Field_Value_Table Field CSAG340.SITUACAO to oSITUACAO_VT
+		Set Field_Option Field CSAG340.SITUACAO_DTHR DD_NOENTER to True
+
+        Set Field_Option Field CSAG340.IFF DD_CAPSLOCK to True
+        Set Field_Label_Long Field CSAG340.IFF to "IFF"
+        Set Field_Checkbox_Values Field CSAG340.IFF to "Y" "N"
+
+        Set Field_Label_Long Field CSAG340.KEY_ACCOUNT to "KEY ACCOUNT"
+        Set Field_Option Field CSAG340.KEY_ACCOUNT DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field CSAG340.KEY_ACCOUNT to "Y" "N"
+
+        Set Field_Label_Long Field CSAG340.BLUE_BOOK to "BLUE BOOK"
+        Set Field_Option Field CSAG340.BLUE_BOOK DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field CSAG340.BLUE_BOOK to "Y" "N"
+
+        Set Field_Label_Long Field CSAG340.GRP_CLIENTES to "Pertence Grupo de Clientes"
+        Set Field_Option Field CSAG340.GRP_CLIENTES DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field CSAG340.GRP_CLIENTES to "Y" "N"
+
+        Set Field_Label_Long Field CSAG340.BACKLIST to "BLACKLIST"
+        Set Field_Option Field CSAG340.BACKLIST DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field CSAG340.BACKLIST to "Y" "N"
+
+        Set Field_Label_Long Field CSAG340.OBSERVACAO to "OBSERVACAO"
+
+        Set Field_Label_Long Field CSAG340.SUBJECT_PROPFR to "Proposta de Frete (Assunto email)"
+        Set Status_Help Field CSAG340.SUBJECT_PROPFR to "Assunto Padrao da Proposta de Frete usado no email. Utilize {REFERENCIA_CLIENTE} , {CLIENTE_FINAL} , {PROPOSTA} , {VALIDADE_INICIO}, {VALIDADE_TERMINO} ou defina seu padrao de assunto"
+
+        Set Field_Label_Long Field CSAG340.USUARIO_ID_C to "Criado por"
+        Set Field_Label_Short Field CSAG340.USUARIO_ID_C to "Criado por"
+        Set Field_Option Field CSAG340.USUARIO_ID_C DD_NOENTER to True
+
+        Set Field_Label_Long Field CSAG340.DATE_TIME_C to "Data/Hora Criacao"
+        Set Field_Label_Short Field CSAG340.DATE_TIME_C to "Data/Hora Criacao"
+        Set Field_Option Field CSAG340.DATE_TIME_C DD_NOENTER to True
+
+        Set Field_Label_Long Field CSAG340.USUARIO_ID_A to "Alterado por"
+        Set Field_Label_Short Field CSAG340.USUARIO_ID_A to "Alterado por"
+
+        Set Field_Label_Long Field CSAG340.DATE_TIME_A to "Data/Hora Ultima Alteracao"
+        Set Field_Label_Short Field CSAG340.DATE_TIME_A to "Data/Hora Ultima Alteracao"
+
+    End_Procedure
+    
+    Procedure p_DelHSAG340 Number nPESSOA
+        Boolean bFound
+        Move True to bFound
+        While (bFound)
+            Clear HSAG340
+            Move nPESSOA to HSAG340.CSAG320_ID
+            Smart_Find GE HSAG340 by 1
+            If (Found and HSAG340.CSAG320_ID = nPESSOA) Begin
+                Send p_FFOperationTable 3 HSAG340.File_Number 
+                Delete HSAG340 
+            End
+            Else Begin
+                Move False to bFound
+            End
+        Loop
+    End_Procedure //p_DelHSAG340
+    
+        Procedure Creating_PAG340_01
+            Forward Send Creating
+            DateTime dtCurrentDateTime
+        
+            //------------------------------------------------------------
+            //---Pesquisando Master Geral Codigos
+        
+                 Clear   TSMG801
+                 Smart_Find Ge TSMG801   by 0
+                   If (Found)      Begin
+                      Add 1 to TSMG801.CSAG340_CODIGO
+                      SaveRecord TSMG801
+                   End
+        
+            //------------------------------------------------------------
+            //---Movimentando o Codigo AutoIncrementavel ao TSMG801
+        
+                Move TSMG801.CSAG340_CODIGO to CSAG340.CODIGO
+    
+                Move '' to CSAG340.PESSOA_NRDOCTO
+                Clear CSAG320
+                Move CSAG340.CSAG320_ID to CSAG320.CODIGO
+                Find Eq CSAG320 by 1
+                If (Found) ;
+                    Move (Trim(CSAG320.NRDOCTO)) to CSAG340.PESSOA_NRDOCTO                 
+        
+            //------------------------------------------------------------
+            //---Configurando os dados Usuario Que Esta Cadastrando
+        
+                Clear   CSAG311
+                Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+                Find Eq CSAG311                      by 1
+                  If (Found) Begin                   
+                      Send p_RegistraAcessoUsuario "CSAG340.USUARIO_ID_C" CSAG311.USUARIONUMERO
+                  End
+            
+            
+        
+        End_Procedure // Creating_PAG340_01
+
+        Procedure Update_PAG340_01
+            String  sNRDOCTO
+            Forward Send Update
+            Boolean bCHANGED
+            
+            Get Field_Changed_State Field CSAG340.SITUACAO to bCHANGED
+            If (bCHANGED) Begin
+                Move (CurrentDateTime())       to CSAG340.SITUACAO_DTHR
+            End
+        
+            //------------------------------------------------------------
+            //---Configurando os dados Usuario Que Esta Cadastrando
+        
+                 Clear   CSAG311
+                 Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+                 Find Eq CSAG311                      by 1
+                   If (Found) Begin
+                       Send p_RegistraAcessoUsuario "CSAG340.USUARIO_ID_A" CSAG311.USUARIONUMERO
+                   End
+                   
+            If (CSAG340.BLUE_BOOK = "0" and CSAG340.BLUE_BOOK_CSAG08_ID <> 0) Begin
+               Move 0 to CSAG340.BLUE_BOOK_CSAG08_ID
+            End
+             
+            If (CSAG340.SUBJECT_PROPFR = '') Begin
+                Clear CSAG339
+                Move 'PADRAO SUBJECT PROPOSTA DE FRETE' to CSAG339.PROGRAMAACAO
+                Find Eq CSAG339 by 1
+                If (Found) Begin
+                    Move (Trim(CSAG339.PROGRAMALINK)) to CSAG340.SUBJECT_PROPFR
+                End
+            End
+        
+        End_Procedure // Update_PAG340_01
+
+        Procedure Deleting_PAG340_01
+           Forward Send Deleting
+            Send p_FFOperation 3 
+            Send p_DelHSAG340 CSAG340.CSAG320_ID
+        End_Procedure   // Deleting_PAG340_01
+
+        Procedure Save_Main_File_PAG340_01
+            Integer iRECNUM
+            Move CSAG340.RECNUM to iRECNUM
+            Forward Send Save_Main_File
+            If (iRECNUM=0) Begin
+                //--- NOVO REGISTRO
+                Send p_FFOperation 2
+            End // If (iRECNUM=0) Begin
+            Else Begin
+              //--- REGISTRO ALTERADO
+                Send p_FFOperation 1 
+            End
+                        
+        End_Procedure // Save_Main_File_PAG340_01
+        
+        Procedure Backout_PAG340_01
+            Forward Send Backout
+            Send p_FFOperation 0
+        End_Procedure   // Backout_PAG340_01
+        
+        Function Validate_Save_PAG340_01 Returns Integer
+            Integer iReturnval
+            Integer iError_Id
+            String  sError_Ds
+            String  sError_Tabela
+            Forward Get Validate_Save to iReturnval
+            If (not(iReturnval)) Begin
+                Clear CSAG320
+                Move CSAG340.CSAG320_ID to CSAG320.CODIGO
+                Find Eq CSAG320 by 1
+                If (not(Found)) Begin
+                    Move 320002    to iError_Id
+                    Move 'CSAG320'  to sError_Tabela
+                     //--PESSOA NAO CADASTRADA.
+                    Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+                    Error iError_Id sError_Ds
+                    Move 1 to iReturnVal 
+                End
+            End 
+            Function_Return iReturnval
+        End_Function // Validate_Save_PAG340_01
+
+        Function Validate_Delete_PAG340_01 Returns Integer
+            Integer iReturnVal
+            Integer iError_Id
+            String  sError_Ds
+            String  sError_Tabela
+            
+            Forward Get Validate_Delete to iReturnVal
+            If not (iReturnVal) Begin
+                //Move 308003     to iError_Id
+                //Move 'CSAG308'  to sError_Tabela
+                // //--EMPRESA DO PROCESSO NAO PODE SER EXCLUIDO.
+                //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+                //Error iError_Id sError_Ds
+                //Move 1 to iReturnVal 
+            End    
+            Function_Return iReturnVal
+        End_Function // Validate_Delete_PAG340_01
+        
+		#Include p_FFOperation.inc
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value Field CSAG340.ATIVO_INATIVO_RF to "A"
+        Set Field_Changed_Value Field CSAG340.CLASSIFICACAO to "A"
+        Set Field_Changed_Value Field CSAG340.IND_TER to "I"
+        Set Field_Changed_Value Field CSAG340.VISAO_MACRO to "B"
+        Set Field_Changed_Value Field CSAG340.SITUACAO to "A"
+        Set Field_Changed_Value Field CSAG340.IFF to "N"
+        Set Field_Changed_Value Field CSAG340.KEY_ACCOUNT to "N"
+        Set Field_Changed_Value Field CSAG340.BLUE_BOOK to "N"
+        Set Field_Changed_Value Field CSAG340.GRP_CLIENTES to "N"
+        Set Field_Changed_Value Field CSAG340.BACKLIST to "N"
+    End_Procedure
+
+End_Class

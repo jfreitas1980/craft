@@ -1,0 +1,177 @@
+//-2WA--
+// PAG362_02.wo
+// PAG362_02
+Use cWebBusinessProcess.pkg
+Use cWebReport.pkg
+
+Use cCSAG362_DataDictionary.dd
+
+Object oPAG362_02 Is A cWebBusinessProcess
+    Set psDescription To "PAG362_02"
+
+    #Include VERIFYRECS.INC
+
+    Object oCSAG362_DD is a cCSAG362_DataDictionary
+        Send DefineAllExtendedFields
+        #Include FIELDLABEL.INC        
+                
+        Property Number pnStartSISTEMA
+        Property Number pnStopSISTEMA
+        
+        FILTER_PREPARE
+
+        Procedure OnFilterConstrain 
+            Number nStart nStop
+
+            Get pnStartSISTEMA to nStart
+
+            If (nStart <> 0) Begin
+                Filter_Constrain (sFormat("SISTEMA = %1", toSqlNumber(nStart)))
+            End
+        End_Procedure // OnConstrain
+    End_Object // oCSAG362_DD
+
+    Set Main_DD To oCSAG362_DD
+
+
+    Object oReport is a cWebReport_Filter
+        #Include FIELDLABELRPT.INC        
+                
+        Procedure OnPageTop
+            String sText
+            String sCSAG362SISTEMA
+            String sCSAG362TITULO
+            String sCSAG362PROGRAMA
+            String sCSAG362LOCALIZACAO
+            String sCSAG362STATUS
+            String sCSAG362CLASSE
+
+            Handle         hDD
+            Get Main_DD to hDD
+        
+            Send WriteHtml '<div class="table-responsive">'
+            Send WriteHtmlTableBegin 'class="table table-bordered table-striped table-hover"' 
+                Send WriteHtml '<thead>'
+
+                Send WriteHtmlRowBegin
+                    Get ddValueFieldLabel hDD "CSAG362.SISTEMA" to sCSAG362SISTEMA
+                    Get ddValueFieldLabel hDD "CSAG362.TITULO" to sCSAG362TITULO
+                    Get ddValueFieldLabel hDD "CSAG362.PROGRAMA" to sCSAG362PROGRAMA
+                    Get ddValueFieldLabel hDD "CSAG362.LOCALIZACAO" to sCSAG362LOCALIZACAO
+                    Get ddValueFieldLabel hDD "CSAG362.STATUS" to sCSAG362STATUS
+                    Get ddValueFieldLabel hDD "CSAG362.CLASSE" to sCSAG362CLASSE
+                            
+                    Send WriteHtmlCellHeader sCSAG362SISTEMA       'class="rptL" style="width: 10% ! important;" ' 
+                    Send WriteHtmlCellHeader sCSAG362TITULO        'class="rptL" style="width: 20% ! important;" '  
+                    Send WriteHtmlCellHeader sCSAG362PROGRAMA      'class="rptL" style="width: 10% ! important;" '  
+                    Send WriteHtmlCellHeader sCSAG362LOCALIZACAO   'class="rptC" style="width: 10% ! important;" '  
+                    Send WriteHtmlCellHeader sCSAG362STATUS        'class="rptC" style="width: 5% ! important;" '          
+                    Send WriteHtmlCellHeader sCSAG362CLASSE        'class="rptL" style="width: 10% ! important;" '          
+                Send WriteHtmlRowEnd
+                
+                Send WriteHtml '</thead>'
+                Send WriteHtml '<tbody>'
+        End_Procedure // OnPageTop
+
+        Procedure OnBody 
+            String sText
+            String sCSAG362SISTEMA
+            String sCSAG362TITULO
+            String sCSAG362PROGRAMA
+            String sCSAG362LOCALIZACAO
+            String sCSAG362STATUS
+            String sCSAG362CLASSE
+
+            Get ddValueEncode "CSAG362.SISTEMA" To sCSAG362SISTEMA
+            Get ddValueEncode "CSAG362.TITULO" To sCSAG362TITULO
+            Get ddValueEncode "CSAG362.PROGRAMA" To sCSAG362PROGRAMA
+            Get ddValueEncode "CSAG362.LOCALIZACAO" To sCSAG362LOCALIZACAO
+            Get ddValueEncode "CSAG362.STATUS" To sCSAG362STATUS
+            Get ddValueEncode "CSAG362.CLASSE" To sCSAG362CLASSE
+
+            Get Find_Code_Description of oMSAG362_SISTEMA_FVT Csag362.SISTEMA            to sCSAG362SISTEMA
+            Get Find_Code_Description of Csag362_Localizacao_VT Csag362.LOCALIZACAO    to sCSAG362LOCALIZACAO
+            Get Find_Code_Description of Csag362_Status_VT Csag362.STATUS              to sCSAG362STATUS
+            Get Find_Code_Description of Csag362_Classe_VT Csag362.CLASSE              to sCSAG362CLASSE
+        
+            String  sRowid
+            RowID   rFileNumber
+        
+            Move (GetRowID(CSAG362.File_Number))       to rFileNumber
+            Move (SerializeRowId(rFileNumber))         to sRowid
+        
+                Send WriteHtml '<tr RecId="'
+                Send WriteHtml (Trim(sRowid))
+                Send WriteHtml '"'
+        
+                Send WriteHtml ' style="cursor:pointer"'
+                Send WriteHtml ' onclick="RowClick(this);"'
+                Send WriteHtml '>'
+        
+                Send WriteHtmlCell sCSAG362SISTEMA                    ('class="rptL"')    
+                Send WriteHtmlCell sCSAG362TITULO                     ('class="rptL"')    
+                Send WriteHtmlCell sCSAG362PROGRAMA                   ('class="rptL"')    
+                Send WriteHtmlCell sCSAG362LOCALIZACAO                ('class="rptC"')    
+                Send WriteHtmlCell sCSAG362STATUS                     ('class="rptC"')    
+                Send WriteHtmlCell sCSAG362CLASSE                     ('class="rptL"')    
+            Send WriteHtmlRowEnd
+        End_Procedure // OnBody
+
+        Procedure OnPageBottom
+                Send WriteHtml '</tbody>'
+           Send WriteHtmlTableEnd
+           Send WriteHtml '</div>' 
+        End_Procedure // OnPageBottom
+
+        Function RunPAG362_02 Integer iIndex RowId riStartRowId Integer iMaxCount Returns RowId
+            RowId   riLastRowId
+            Integer eStatus
+
+            Set piOrdering To iIndex
+            Set piMaxCount To iMaxCount
+            Set piMaxCountBreakLevel To 0
+            Set priStartRowId To riStartRowId
+
+            Get DoRunReport To eStatus
+
+            Get priLastRowId To riLastRowId
+
+            Function_Return riLastRowId
+        End_Function // RunPAG362_02
+    End_Object // oReport
+
+    { Published=True }
+    { Description="Name to link for drill down report" }
+    Procedure SetHRefName String sName
+        Set psHRefname of oReport To sName
+    End_Procedure // SetHRefName
+
+    { Published=True }
+    { Description="Sets the reports selection criteria" }
+    Procedure SetCSAG362_SISTEMA String sStart
+        Set pnStartSISTEMA of oCSAG362_DD To sStart
+    End_Procedure // SetCSAG362_SISTEMA
+
+    { Published=True }
+    { Description="Run Report" }
+    Function RunPAG362_02 Integer iIndex String sStartRowId Integer iMaxCount Returns String
+        RowId  riStartRowId riEndRowId
+        String sEndRowId
+        Integer iRecordCount        
+        
+        Move (DeserializeRowId(sStartRowId)) to riStartRowId
+        Get RunPAG362_02 of oReport iIndex riStartRowId iMaxCount To riEndRowId
+        Move (SerializeRowId(riEndRowId)) to sEndRowId
+
+        //-- NOVO CONCEITO:
+        Get piRecordCount of oReport to iRecordCount 
+        If (iRecordCount=0) Send NaoPossuiRegistro "::NENHUM REGISTRO FOI ENCONTRADO." "Vermelho12"
+    
+        Function_Return sEndRowId
+    End_Function // RunPAG362_02
+
+    Set pbAllowSaveNew To False
+    Set pbAllowSaveEdit To False
+    Set pbAllowDelete To False
+
+End_Object // oPAG362_02

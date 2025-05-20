@@ -1,0 +1,211 @@
+//-2WA
+Use ddvaltbl.pkg
+
+Open CSAG329
+Open CSAG379
+Open CSAG331
+Open CCGS204
+Open CCGS206
+Open CCGS221
+Open CCGS223
+Open CCGS224
+Open MSAG362
+Open CCGS225
+Open CCGS226
+Open CSAG367
+Open CSAG325
+Open CCGS247
+
+Register_Object oCLASSES_TAXA_FVT
+Register_Object oTRADES_FVT
+Register_Object oPAISES_FVT
+Register_Object oUF_FVT
+Register_Object oCARAC_EMBARQUE_FVT
+Register_Object oMODAL_PAGTO_FVT
+Register_Object oINCOTERMS_FVT
+Register_Object oTYPESOFDATE_FVT
+Register_Object oFREQUENCIA_FVT
+Register_Object oMSAG362_SISTEMA_FVT
+Register_Object oDESCRICOES_TARIFARIO_FVT
+Register_Object oHCGS3003_STATUS_VT
+Register_Object oCSAG367_FVT
+Register_Object oCSAG325_FVT
+Register_Object oIMO_PKG_FVT
+Register_Object oDensidadeUnit_VT
+Register_Object oIMO_PackingGroup_VT
+Register_Object oVolumeUnit_VT
+Register_Object oGrossUnit_VT
+Register_Object oUOMUnit_VT
+
+Object oCLASSES_TAXA_FVT is a FileValidationTable
+    Set Main_File           to CCGS221.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oCLASSES_TAXA_FVT
+
+Object oCSAG367_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CSAG367.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 4
+    Set Ordering            to 1
+End_Object //oCSAG367_FVT
+
+Object oPAISES_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CSAG329.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oPAISES_FVT
+
+Object oTRADES_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CSAG379.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oTRADES_FVT
+
+//Object oUF_FVT is a FileValidationTable
+//    Set Main_File           to CSAG331.File_Number
+//    Set Code_Field          to 1
+//    Set Description_Field   to 2
+//    Set Ordering            to 2
+//End_Object //oUF_FVT
+
+Object oCARAC_EMBARQUE_FVT is a FileValidationTable
+    Set Main_File           to CCGS204.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oCARAC_EMBARQUE_FVT
+
+Object oMODAL_PAGTO_FVT is a FileValidationTable
+    Set Main_File           to CCGS206.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oMODAL_PAGTO_FVT
+
+Object oINCOTERMS_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CCGS223.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oINCOTERMS_FVT
+
+Object oTYPESOFDATE_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CCGS224.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oTYPESOFDATE_FVT
+
+Object oFREQUENCIA_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CCGS226.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oFREQUENCIA_FVT
+
+Object oMSAG362_SISTEMA_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to MSAG362.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oMSAG362_SISTEMA_FVT
+
+Object oDESCRICOES_TARIFARIO_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CCGS225.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 1
+    Set Ordering            to 1
+End_Object //oDESCRICOES_TARIFARIO_FVT
+
+Object oHCGS3003_STATUS_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "A" "Ativo"
+        Send Add_Table_Value "I" "Inativo"
+    End_Procedure
+End_Object //oHCGS3003_STATUS_VT
+
+Object oCSAG325_FVT is a FileValidationTable
+    Set Validate_State      to False
+    Set Main_File           to CSAG325.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 2
+End_Object //oCSAG325_FVT
+
+Object oIMO_PKG_FVT is a FileValidationTable
+    Set Main_File           to CCGS247.File_Number
+    Set Code_Field          to 1
+    Set Description_Field   to 2
+    Set Ordering            to 1
+End_Object //oIMO_PKG_FVT
+
+Object oDensidadeUnit_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "cbmkg" "CBM/KG"
+        Send Add_Table_Value "cbmlb" "CBM/LB"
+        Send Add_Table_Value "cftkg" "CFT/KG"
+        Send Add_Table_Value "cftlb" "CFT/LB"
+    End_Procedure
+End_Object
+
+Object oIMO_PackingGroup_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "1" "Packing Group I"
+        Send Add_Table_Value "2" "Packing Group II"
+        Send Add_Table_Value "3" "Packing Group III"
+    End_Procedure
+End_Object
+
+Object oVolumeUnit_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "CBM" "CBM"
+        Send Add_Table_Value "CFT" "CFT"
+    End_Procedure
+End_Object
+
+Object oGrossUnit_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "KG" "KG"
+        Send Add_Table_Value "LB" "LB"
+    End_Procedure
+End_Object
+
+Object oUOMUnit_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "CM" "CM"
+        Send Add_Table_Value "Inches" "Inches"
+    End_Procedure
+End_Object
+
+Object oEmbalagemColetaRefrigerada_VT is a DescriptionValidationTable
+    Set Allow_Blank_State to True
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "GELPACK" "GELPACK"
+        Send Add_Table_Value "FRY" "FRY ICE"
+        Send Add_Table_Value "MANTA" "MANTA TERMICA"
+    End_Procedure
+End_Object

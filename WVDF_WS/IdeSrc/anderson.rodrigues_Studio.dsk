@@ -1,0 +1,85 @@
+[Workspace]
+CurrentProject=WebApp.src
+Location=C:\DataFlex Projects\devops\WVDF_WS\IdeSrc\anderson.rodrigues_Studio.dsk
+CreateNew=-1
+[TabWindows]
+GroupCount=1
+HorizontalGroups=1
+[TabGroup0]
+GroupSize=40
+SelectedTab=6
+[Window0]
+Filename=Workspace Dashboard
+ViewType=101
+Top=29
+Left=4
+Bottom=609
+Right=1627
+TabIndex=0
+TabGroup=0
+[Window1]
+Filename=C:\DataFlex Projects\devops\WVDF_WS\AppSrc\ws_HGED4001_01.wo
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=6
+CursorColumn=24
+TabIndex=2
+TabGroup=0
+[Window2]
+Filename=C:\DataFlex Projects\devops\WVDF_CAC_v8r0\DDSrc\cHGED4001_DataDictionary.dd
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=8
+CursorColumn=0
+TabIndex=3
+TabGroup=0
+[Window3]
+Filename=C:\DataFlex Projects\devops\WVDF_WS\AppSrc\ws_HCGS2100.wo
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=0
+CursorColumn=0
+TabIndex=4
+TabGroup=0
+[Window4]
+Filename=C:\DataFlex Projects\devops\WVDF_WS\AppSrc\ws_CSAG320.wo
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=0
+CursorColumn=0
+TabIndex=5
+TabGroup=0
+[Window5]
+Filename=C:\DataFlex Projects\devops\WVDF_WS\AppSrc\WebApp.src
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=237
+CursorColumn=17
+TabIndex=1
+TabGroup=0
+[Window6]
+Filename=C:\DataFlex Projects\devops\WVDF_WS\AppSrc\ws_CCGS212.wo
+ViewType=1
+Top=29
+Left=4
+Bottom=609
+Right=1627
+CursorLine=66
+CursorColumn=32
+TabIndex=6
+TabGroup=0

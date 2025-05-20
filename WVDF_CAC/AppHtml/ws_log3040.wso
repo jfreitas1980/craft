@@ -1,0 +1,7 @@
+[WebService]
+Application=CrossHome
+Object=oWS_LOG3040
+ServicePageGenerator=DefaultWebServiceHomePage.xslt
+TestPageGenerator=DefaultWebServiceMethodPage.xslt
+WSDLGenerator=DefaultWebServiceDescription.xslt
+SoapBodyStyle=document

@@ -1,0 +1,74 @@
+//-2WA
+Use AllWebAppClasses.pkg
+
+Register_Object oApplication
+Register_Object oWebApp
+
+Use WinUser.pkg
+Use func.pkg
+
+Set_Argument_Size 1024000
+Define Week_Length for |CI7
+Define Day_Length  for |CI1440
+Define Hour_Length for |CI60
+
+Use cApplication.pkg
+Use cWebApp.pkg
+Use vWin32fh.pkg
+Use seq_chnl.pkg
+
+Use MSSQLDRV.pkg
+Use MSSQL_2WA.pkg
+
+Use btGlobal.pkg
+
+Object oApplication is a cApplication        
+    Use ..\..\WVDF_CAC\PkgSrc\ApplicationMessages.pkg
+
+    Property tOAuth2Response pOAuth2Response
+    Property tError          pOAuth2Error
+	
+End_Object
+
+Use Dferror.pkg
+
+#IFNDEF giIdUsuario
+    Global_Variable Integer giIdUsuario
+#ENDIF
+
+#IFNDEF gsIPComputer
+    Global_Variable String gsIPComputer
+#ENDIF
+
+Object oWebApp is a cWebApp
+    // Register all objects
+    Register_Object oPAG800_01
+    Open TSMG800
+    Open LOGMAIL
+    Open LOGFILE
+    Open HSAG300
+	Open CSAG336			
+    
+    Use AllSets.pkg
+    Use cszJSONParser.pkg
+    Use cszJSONObject.pkg
+    
+    Use SessionManager.wo
+    Use WebServiceDispatcher.wo
+    Use WebResourceManager.wo
+
+    Use ws_HCGS3001.wo //- Classes da Taxa
+    Use ws_CSAG325.wo  //- Cidades
+					 
+    Procedure StartWebApp //************************** MELHOR LUGAR AQUI
+        Send CreateComObject to oParser
+        If (IsNullComObject(pvComObject(oParser(Self)))) Begin
+            Error 255 "Unable to create Parser"
+        End
+        Forward Send StartWebApp
+        CREATE_MAIN_CONNECTION BYFILE CSAG300
+    End_Procedure // StartWebApp    
+
+End_Object
+
+Send StartWebApp of oWebApp

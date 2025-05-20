@@ -1,0 +1,78 @@
+@import url(reset.css);
+
+body 
+{
+	font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	line-height: normal;
+}
+
+div#page, div.page 
+{
+	margin: auto;
+	width: 100%;
+	height: 842px;
+	text-align:left;
+}
+
+div#header, div.header { height: 50px; padding: 5px 30px; }
+
+div#content, div.content { border: 1px solid #0C4D7C; border-left: none; border-right: none; clear: both; padding: 10px; height: 760px; }
+div#content table, div.content table { width: 100%; }
+div#content table tbody tr th, div.content table tbody tr th { text-transform: uppercase; font-weight: bolder; padding-bottom: 5px; }
+div#content table tbody tr td, div.content table tbody tr td { text-transform: uppercase; padding-bottom: 5px; }
+
+div#content table.tableData, div.content table.tableData { width: 80%; border-collapse: collapse; }
+div#content table.tableData tbody tr th, div.content table.tableData tbody tr th { text-transform: uppercase; border: 1px solid #000; background-color: #CCC; padding-bottom:0; }
+div#content table.tableData tbody tr td, div.content table.tableData tbody tr td { text-transform: uppercase; border: 1px solid #000; padding-bottom:  padding-bottom:0;  }
+div#content table.tableProposta { width: 100%; border-collapse: collapse; font-size: 9px; }
+div#content table.tableProposta tbody tr th { background-color: #263674; color: #FFF; font-size: 9px;}
+div#content table.tableProposta tbody tr th, div#content table.tableProposta tbody tr td{ text-transform: uppercase; border: 1px solid #263674; padding:2px; font-size: 9px; }
+
+div#content p, div.content p  { text-align: justify; }
+div#content p.proceder, div.content p.proceder { padding: 5px; border: 4px double #000; font-style: italic; font-weight: bolder; text-decoration: underline; font-size: 14px; }
+
+div#content h1, div.content h1 { font-size: 16px; font-weight: bolder; text-align: center; }
+div#content h2, div.content h2 { font-size: 14px; font-weight: bolder; text-align: center;
+}
+
+div#footer, div.footer 
+{ 
+	clear: both;
+	color: #0C4D7C;
+	height: 10px;
+	padding: 5px 30px;
+	
+	text-align: right;
+	
+}
+
+div#footer span.footer-date, div.footer span.footer-date { 
+	float: left;
+}
+
+div#footer span.footer-page, div.footer span.footer-page { 
+	float: right;
+}
+
+
+div.nf { 
+	
+	/*background: url(image/bg-nf.jpg) no-repeat;*/
+	padding: 10px;
+}
+
+div.nf table  {
+	
+	width: 100px;
+}
+
+div.nf table tbody tr td table { 
+	width: 100%;
+}
+
+/* ESTILO TERMO */
+
+.tabspace {margin-left: 1.5em;}
+.bgcinza{background-color: background-color: #cccccc;}
+
+/* ESTILO TERMO */

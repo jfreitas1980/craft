@@ -1,0 +1,33 @@
+<div class="modal fade" id="status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg center-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" data-dismiss="modal" aria-label="Close" ng-click="modal.status.save(modal.status.data.status)" class="btn btn-success">
+                        <i class="far fa-save" aria-hidden="true"></i> Salvar
+                    </button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btCloseModal btn btn-danger">
+                        <i class="fa fa-times" aria-hidden="true"></i> Fechar
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label>STATUS:</label>
+                <select class="form-control" ng-model="modal.status.data.status.id">
+                    <option value="3">AGUARDANDO AGENTE</option>
+                    <option value="9">CANCELAR</option>
+                    <option value="4">EM ANALISE PELO PRICING</option>
+                    <option value="2">ENVIADO AO CLIENTE</option>
+                    <option value="10">INFORMACOES FALTANTES</option>
+                    <option value="12">OPERACAO TRUCK (DTA)</option>
+                    <option value="1">PENDENTE</option>
+                    <option value="11">VERIFICACAO OPERACIONAL</option>
+                    <!--<option value="8">APROVADA</option>-->
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

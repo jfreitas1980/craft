@@ -1,0 +1,267 @@
+//-2WA
+Use CtrlData.PKG
+
+Use TabelasdeValidacao.pkg
+
+Open HCGS3000
+Open TSMG801
+
+Class cHCGS3000_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to HCGS3000.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+        
+        
+        Set Field_Label_Long Field HCGS3000.CARRIER_ID to "CARRIER"
+        Set Field_Option Field HCGS3000.CARRIER_ID DD_RETAINALL to True
+
+        Set Field_Label_Long Field HCGS3000.DT_INICIAL to "Data Inicial"
+        Set Field_Label_Long Field HCGS3000.DT_FINAL to "Data Final"
+
+
+        Set Field_Label_Long Field HCGS3000.CSAG325_DESTINO to "DESTINO"
+        Set Field_Option Field HCGS3000.CSAG325_DESTINO DD_RETAINALL to True
+
+        Set Field_Label_Long Field HCGS3000.CSAG325_ORIGEM to "ORIGEM"
+
+        Set Field_Label_Long Field HCGS3000.TAXA_ID to "TAXA"
+
+        Set Field_Option Field HCGS3000.DESCRICAO DD_CAPSLOCK to True
+        Set Field_Value_Table Field HCGS3000.DESCRICAO to oDESCRICOES_TARIFARIO_FVT
+
+        Set Field_Value_Table Field HCGS3000.INCOTERM to oINCOTERMS_FVT
+
+        Set Field_Label_Long Field HCGS3000.VENDA_VALOR to "Valor de Venda"
+
+        Set Field_Label_Long Field HCGS3000.VENDA_TPCALC to "Aplicar Calculo por"
+        Set Field_Label_Long Field HCGS3000.COMPRA_VALOR to "Valor de Compra"
+
+        Set Field_Label_Long Field HCGS3000.COMPRA_TPCALC to "Aplicar Calculo por"
+
+        Set Field_Label_Long Field HCGS3000.COMPRA_VLMIN to "Valor Minimo de Compra"
+        Set Field_Label_Long Field HCGS3000.COMPRA_VLMAX to "Valor Maximo de Compra"
+
+
+        Set Field_Option Field HCGS3000.CONTAINER DD_RETAINALL to True
+        Set Field_Option Field HCGS3000.CONTAINER DD_CAPSLOCK to True
+        Set Field_Label_Long Field HCGS3000.CONTAINER to "TIPO CTNR(S)"
+
+        Set Field_Label_Long Field HCGS3000.ID_DT_APARTIR to "A PARTIR DA DATA DE"
+        Set Field_Value_Table Field HCGS3000.ID_DT_APARTIR to oTYPESOFDATE_FVT
+
+        Set Field_Label_Long Field HCGS3000.CSAG346_ID_ORIGEM to "Terminal Origem"
+
+        Set Field_Label_Long Field HCGS3000.CSAG346_ID_DESTINO to "Terminal Destino"
+
+        Set Field_Label_Long Field HCGS3000.CSAG345_ID_ORIGEM to "Agent"
+
+        Set Field_Label_Long Field HCGS3000.ID_IMO to "IMO"
+        Set Field_Option Field HCGS3000.ID_IMO DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field HCGS3000.ID_IMO to "1" "0"
+        
+        Set Field_Label_Long Field HCGS3000.ID_NOTSTACKBLE to "Stackble"
+        Set Field_Option Field HCGS3000.ID_NOTSTACKBLE DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field HCGS3000.ID_NOTSTACKBLE to "1" "0"
+
+        Set Field_Label_Long Field HCGS3000.ID_PERSONNAL to "Personnal"
+        Set Field_Option Field HCGS3000.ID_PERSONNAL DD_CAPSLOCK to True
+        Set Field_Checkbox_Values Field HCGS3000.ID_PERSONNAL to "1" "0"
+
+        Set Field_Label_Long Field HCGS3000.DIMENSIONS_L to "Length"
+
+        Set Field_Label_Long Field HCGS3000.DIMENSIONS_W to "Width"
+
+        Set Field_Label_Long Field HCGS3000.DIMENSIONS_H to "Heigth"
+
+        Set Field_Label_Long Field HCGS3000.DIMENSIONS_TYPE to "Type"
+
+        Set Field_Label_Long Field HCGS3000.WEIGHT to "Weight"
+
+        Set Field_Label_Long Field HCGS3000.WEIGHT_TYPE to "Type"
+
+        Set Field_Label_Long Field HCGS3000.VOLUME to "Volume"
+
+        Set Field_Label_Long Field HCGS3000.VOLUME_TYPE to "Type"
+
+        Set Field_Value_Table Field HCGS3000.FREQUENCIA to oFREQUENCIA_FVT
+
+        Set Field_Label_Long Field HCGS3000.USUARIO_ID_C to "Registered by"
+
+        Set Field_Label_Long Field HCGS3000.DATE_TIME_C to "Registered at"
+
+        Set Field_Label_Long Field HCGS3000.USUARIO_ID_A to "Updated by"
+
+        Set Field_Label_Long Field HCGS3000.DATE_TIME_A to "Updated at"
+        
+        Property Date pDtValidaHCGS3000_I
+        Property Date pDtValidaHCGS3000_F
+        
+    End_Procedure
+    
+//    Procedure End_Construct_Object
+//        Forward Send End_Construct_Object
+//
+//        //REMOVE EXTERNAL FILE
+//        Send Remove_System_File LOGDATA.FILE_NUMBER
+//        Send Remove_System_File LOGTEXT.FILE_NUMBER
+//    End_Procedure
+    
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value Field HCGS3000.ID_IMO to "0"
+        Set Field_Changed_Value Field HCGS3000.ID_NOTSTACKBLE to "0"
+        Set Field_Changed_Value Field HCGS3000.ID_PERSONNAL to "0"
+        Set Field_Changed_Value Field HCGS3000.ID_TIPO_CLCD to "CD"
+        Set Field_Changed_Value Field HCGS3000.FREQUENCIA to 0
+        Set Field_Changed_Value Field HCGS3000.TRANSIT_TIME to 0
+    End_Procedure    // Field_Defaults
+    
+    Procedure Creating_PCGS3000_01
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+        Clear   CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin                   
+          Send p_RegistraAcessoUsuario "HCGS3000.USUARIO_ID_C" CSAG311.USUARIONUMERO
+        End
+              
+    End_Procedure // Creating_PCGS3000_01
+
+    Procedure Update_PCGS3000_01
+        String  sNRDOCTO
+        Forward Send Update
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+        Clear CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin
+            Send p_RegistraAcessoUsuario "HCGS3000.USUARIO_ID_A" CSAG311.USUARIONUMERO
+        End
+        
+        If (HCGS3000.CONTAINER = '')      Move 'N.S.A.' to HCGS3000.CONTAINER
+        If (HCGS3000.ID_IMO = '')         Move '0' to HCGS3000.ID_IMO
+        If (HCGS3000.ID_NOTSTACKBLE = '') Move '0' to HCGS3000.ID_NOTSTACKBLE
+        If (HCGS3000.ID_PERSONNAL = '')   Move '0' to HCGS3000.ID_PERSONNAL
+      
+        If (HCGS3000.WEIGHT <> 0 or HCGS3000.VOLUME <> 0) Move '1' to HCGS3000.TARA_ID
+        Else Move '0' to HCGS3000.TARA_ID
+        
+    End_Procedure // Update_PCGS3000_01
+
+    Procedure Deleting_PCGS3000_01
+       Forward Send Deleting
+//        Send p_FFOperation 3 LEONARDO 27/04
+    End_Procedure   // Deleting_PCGS3000_01
+
+    Procedure Save_Main_File_PCGS3000_01
+        Integer iRECNUM
+        
+        Date dInicial dFinal dAnterior_I dAnterior_F 
+    
+        Move HCGS3000.RECNUM to iRECNUM
+        
+        Move HCGS3000.DT_INICIAL    to dInicial
+        Move HCGS3000.DT_FINAL      to dFinal
+        
+        Move (pDtValidaHCGS3000_I(Self)) to dAnterior_I
+        Move (pDtValidaHCGS3000_F(Self)) to dAnterior_F
+        
+        Forward Send Save_Main_File
+        
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+//            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+            
+            If (HCGS3000.DT_INICIAL <> dAnterior_I) Begin
+                
+                Move dAnterior_I to HCGS3000.DT_INICIAL
+                Move (dInicial-1) to HCGS3000.DT_FINAL
+                SaveRecord HCGS3000
+                 //--- REGISTRO ALTERADO
+//                Send p_FFOperation 1 
+                
+                Move 0 to HCGS3000.Recnum
+                Move dInicial to HCGS3000.DT_INICIAL
+                Move dFinal to HCGS3000.DT_FINAL
+                SaveRecord HCGS3000
+                
+                //--- NOVO REGISTRO
+//                Send p_FFOperation 2
+                
+            End
+            Else Begin
+                 //--- REGISTRO ALTERADO
+//                Send p_FFOperation 1 
+            End
+            
+        End
+    End_Procedure // Save_Main_File_PCGS3000_01
+    
+    Procedure Save_Main_File_PCGS3000_01_ws
+        Integer iRECNUM
+        
+        Move HCGS3000.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+//            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+            
+//            Send p_FFOperation 1 
+        End
+    End_Procedure // Save_Main_File_PCGS3000_01
+    
+    Procedure Backout_PCGS3000_01
+        Forward Send Backout
+        
+        Set pDtValidaHCGS3000_I to HCGS3000.DT_INICIAL
+        Set pDtValidaHCGS3000_F to HCGS3000.DT_FINAL
+    
+//        Send p_FFOperation 0
+    End_Procedure   // Backout_PCGS3000_01
+    
+    Function Validate_Save_PCGS3000_01 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Boolean bFOUND
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_PCGS3000_01
+
+    Function Validate_Delete_PCGS3000_01 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_PCGS3000_01
+    
+	#Include p_FFOperation.inc
+
+End_Class

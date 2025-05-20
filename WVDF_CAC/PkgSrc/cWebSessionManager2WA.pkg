@@ -1,0 +1,294 @@
+//-2WA
+Use cWebSessionManager.pkg
+Use CSAG300.DD
+Use CSAG311.DD
+
+{ HelpTopic=cWebSessionManager2WA }
+Class cWebSessionManager2WA is a cWebSessionManager
+    
+    Procedure Construct_Object
+        Handle hoUserDD hoSessionDD
+        
+        Forward Send Construct_Object
+        
+        Property Handle phoUserDD 0      // Handle to the WebAppUser DDO
+        Property Handle phoSessionDD 0   // Handle to the WebAppSession DDO        
+        
+        Get Create (RefClass(Csag300_DataDictionary)) to hoUserDD
+        Get Create (RefClass(Csag311_DataDictionary)) to hoSessionDD
+        //Set DDO_Server of hoSessionDD to hoUserDD
+        
+        Set phoUserDD to hoUserDD
+        Set phoSessionDD to hoSessionDD
+        { Visibility=Private }
+        Property Boolean pbCreatingNewSession False
+        Property Integer piSessionTimeout 480        
+        Property String  psLoginName
+        Property String  psUserName ""
+        Property Integer piUserRights 0
+    End_Procedure //Construct_Object
+    
+    Function CreateSession String sRemoteAddress String sFingerPrint Returns String
+        String sSessionKey
+        Integer iErr
+        Boolean bLogWebSession
+        Handle hoSessionDD       
+        Get phoSessionDD to hoSessionDD
+        
+        //  Get session key
+        Forward Get CreateSession sRemoteAddress to sSessionKey
+        
+        Get pbLogWebSession to bLogWebSession
+        If (not(bLogWebSession)) Begin
+            Function_Return sSessionKey        
+        End
+
+        Date dlToday dDtLastRun
+        String slHH slMM sHrLastRun slTime
+        Integer idTime
+        Sysdate dlToday slHH slMM
+    
+        If (Integer(slMM)<10) Move (Insert('0', slMM, 1)) to slMM
+        If (Integer(slHH)<10) Move (Insert('0', slHH, 1)) to slHH
+    
+        Move (slHH + slMM) to slTime
+    
+        Move dlToday           to dDtLastRun
+        Move (slHH +':'+ slMM) to sHrLastRun
+    
+        //- WE NEED AN INTEGER TO REPRESENT THE TIME OF DAY TO ELIMINATE CROSS MIDNIGHT PROBLEMS.
+        //  WE CREATED A SINGLE INTEGER FROM THE DATE, HOUR AND MINUTES THAT DOES NOT HAVE TO GO
+        //  BACK TO 0 AT THE BEGINNING OF THE DAY OR HOUR.
+        Move (Integer(dlToday)*1440 + (Integer(slHH)*60) + Integer(slMM)) to idTime
+
+        //  Store session
+        Send Clear of hoSessionDD
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOSESSAO  to sSessionKey
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOIP      to sRemoteAddress
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOECODIGO to CSAG300.USUARIOECODIGO
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOEMAIL   to CSAG300.USUARIOEMAIL
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOEMPRESA to CSAG300.USUARIOEMPRESA
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIONOME    to CSAG300.USUARIONOME
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.USUARIOSENHA   to CSAG300.USUARIOSENHA
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.ACTIVE         to "Y"
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.FINGERPRINT    to sFingerPrint
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.LASTRUN        to idTime
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.LASTACCESSDATE to dDtLastRun
+        Set Field_Changed_Value of hoSessionDD Field CSAG311.LASTACCESSTIME to sHrLastRun
+        
+        Get Request_Validate of hoSessionDD to iErr
+        If (iErr) Begin
+            // this should not happen. If it does its a programming error
+            Error DFERR_PROGRAM C_$WebAppSesionValidateFailed
+            Function_Return ""
+        End
+        Send Request_Save of hoSessionDD
+       
+        Function_Return sSessionKey        
+    End_Function //CreateSession
+    
+    
+    Function ValidateSession String sSessionKey Returns Boolean
+        DateTime dtLastAccess dtCurrent
+        TimeSpan tsDiff
+        Integer iErr iSessionTimeout iSpanMinutes
+        Boolean bResult bCreatingNewSession
+        Boolean bLogWebSession 
+        Integer eLoginMode
+        String sTime
+        Handle hoSessionDD hoUserDD       
+        
+        Get phoSessionDD to hoSessionDD
+        Get phoUserDD to hoUserDD
+        
+        Get pbLogWebSession to bLogWebSession
+        Get peLoginMode to eLoginMode
+        
+        // for this object, you can only disable logging if login completely is disabled
+        If (not(bLogWebSession) and (eLoginMode<>lmLoginNone)) Begin
+            Error DFERR_PROGRAM C_$WebSessionLoggingMustBeEnabled
+            Function_Return False
+        End
+
+        //  Clear session properties
+        Set psUsername to ""
+        Set psLoginName to ""
+        Set piUserrights to 0
+        
+        If not bLogWebSession Begin
+            Forward Get ValidateSession sSessionKey to bResult
+            Function_Return bResult
+        End        
+        
+        Move False to bResult
+        Get piSessionTimeout to iSessionTimeout 
+        
+        //  Check if session exists
+        Send Clear of hoSessionDD
+        Move sSessionKey to CSAG311.USUARIOSESSAO
+        Send Find of hoSessionDD EQ 1
+        If (Found) Begin
+            //  Calculate timespan between now and last access time
+            Move (CurrentDateTime()) to dtCurrent
+            Move CSAG311.LASTACCESSDATE to dtLastAccess
+            Get StringToTime of hoSessionDD dtLastAccess CSAG311.LASTACCESSTIME to dtLastAccess
+            Move (dtCurrent - dtLastAccess) to tsDiff
+            Move (SpanTotalMinutes(tsDiff)) to iSpanMinutes
+            
+            //  Check if session didn't time out
+            If ((iSessionTimeout <= 0 or (iSpanMinutes < iSessionTimeout)) and CSAG311.ACTIVE = "Y") Begin
+                Forward Get ValidateSession sSessionKey to bResult
+                   
+                If (bResult) Begin
+                    //  Update session record
+                    Get TimeToString of hoSessionDD dtCurrent to sTime 
+                    Set Field_Changed_Value of hoSessionDD Field CSAG311.LASTACCESSDATE to dtCurrent
+                    Set Field_Changed_Value of hoSessionDD Field CSAG311.LASTACCESSTIME to sTime
+                    Set Field_Changed_Value of hoSessionDD Field CSAG311.USECOUNT to (CSAG311.USECOUNT + 1)
+                    Get Request_Validate of hoSessionDD to iErr
+                    If (iErr) Begin
+                        // this should not happen. If it does its a programming error
+                        Error DFERR_PROGRAM C_$WebAppSesionValidateFailed
+                        Function_Return False
+                    End
+                    Send Request_Save of hoSessionDD
+                    
+                    //  Update user properties
+                    If (HasRecord(hoUserDD)) Begin
+                        Set psUsername to (Rtrim(CSAG300.USUARIONOME))
+                        Set psLoginName to (Rtrim(CSAG300.USUARIOEMAIL))
+                        Set piUserRights to (Rtrim(CSAG300.USUARIOCLASSE))
+                    End
+                End
+            End
+            Else Begin
+                // Test the Creating New Session Flag to protect against infinite recursion....
+                Get pbCreatingNewSession to bCreatingNewSession
+                
+                If (not(bCreatingNewSession)) Begin
+                    Set pbCreatingNewSession to True                    
+                    Send RecreateSession to ghoWebApp
+                    Error 950 "Your application session has timed out or is inactive, please login again."
+                    Send NavigateRefresh of ghoWebApp          // refresh the WebApp at the client (triggers a login)
+                    Set pbCreatingNewSession to False
+                End
+            End
+        End
+        Else Begin
+            Error 951 "Session key not known (reload page to recreate session)"
+        End
+        
+        Function_Return bResult
+    End_Function //ValidateSession
+    
+    Function UserLogin String sLoginName String sPassword Returns Boolean
+        String sSessionKey sUserPassword
+        Handle hoSessionDD hoUserDD       
+        DateTime dtCurrentDateTime
+        String sCurrentTime
+        
+        Get phoSessionDD to hoSessionDD
+        Get phoUserDD to hoUserDD
+        Integer iErr eLoginMode
+        
+        // Refind session record
+        Get psSessionKey to sSessionKey
+        Send Clear of hoSessionDD
+        Move sSessionKey to CSAG311.USUARIOSESSAO
+        Send Find of hoSessionDD EQ 1
+        
+        If (Found and CSAG311.USUARIOSESSAO = sSessionKey) Begin
+            Get peLoginMode to eLoginMode
+            
+            // if login is not required, we will allow for a blank name and password, which gives you access to whatever
+            // your have access to with not being logged in. We consider this to be a success, even if you are not logged in.
+            If (eLoginMode <> lmLoginRequired and Trim(sLoginName) = "" and Trim(sPassword) = "") Begin
+                Set psUsername to ""
+                Set psLoginName to ""
+                Set piUserrights to 0
+                Send NotifyChangeRights
+                Function_Return True
+            End
+            
+            //  Find the user
+            Move sLoginName to CSAG300.USUARIOEMAIL
+            Send Find of hoUserDD EQ 7
+            
+            // Check username and password
+            Get Field_Current_Value of hoUserDD Field CSAG300.USUARIOSENHA to sUserPassword
+            
+            If (Found and (Lowercase(sLoginName) = Lowercase(Trim(CSAG300.USUARIOEMAIL))) and Trim(sUserPassword) = Trim(sPassword)) Begin
+                // Store the login
+                Move (CurrentDateTime()) to dtCurrentDateTime
+                Get TimeToString of hoSessionDD dtCurrentDateTime to sCurrentTime
+                Set Field_Changed_Value of hoUserDD Field CSAG300.DTAULTLOGIN to dtCurrentDateTime
+                Set Field_Changed_Value of hoUserDD Field CSAG300.HORULTLOGIN to sCurrentTime
+                Get Request_Validate of hoSessionDD to iErr
+                If (iErr) Begin
+                    // this should not happen. If it does its a programming error
+                    Error DFERR_PROGRAM C_$WebAppSesionValidateFailed
+                    Function_Return False
+                End
+                
+                Set Field_Changed_Value of hoSessionDD Field CSAG311.DATA    to dtCurrentDateTime
+                Set Field_Changed_Value of hoSessionDD Field CSAG311.HORARIO to sCurrentTime
+                Send Request_Save of hoSessionDD
+                
+                // Update session properties
+                Set psUsername to (Rtrim(CSAG300.USUARIONOME))
+                Set psLoginName to (Rtrim(CSAG300.USUARIOEMAIL))
+                Set piUserrights to (Rtrim(CSAG300.USUARIOCLASSE))
+                Send NotifyChangeRights
+                Function_Return True
+            End
+        End
+          
+        Function_Return False
+    End_Function //UserLogin
+    
+    Function IsLoggedIn Returns Boolean
+        String sLoginName
+        Boolean bLogWebSession bLoggedIn
+        
+        Get pbLogWebSession to bLogWebSession
+        If not bLogWebSession Begin
+            Forward Get IsLoggedIn to bLoggedIn
+            Function_Return bLoggedIn
+        End
+        
+        Get psLoginName to sLoginName
+        
+        Function_Return (sLoginName <> "")
+    End_Function //IsLoggedIn
+    
+    
+    Procedure EndSession
+        Integer iErr
+        Boolean bLogWebSession
+        Handle hoSessionDD       
+        
+        Get phoSessionDD to hoSessionDD
+        Get pbLogWebSession to bLogWebSession
+        If not bLogWebSession Begin
+            Forward Send EndSession
+            Procedure_Return
+        End
+            
+        //  Check if session exists
+        Send Clear of hoSessionDD
+        Get psSessionKey to CSAG311.USUARIOSESSAO
+        Send Find of hoSessionDD EQ 1
+        If (Found) Begin
+            Set Field_Changed_Value of hoSessionDD Field CSAG311.ACTIVE to "N"
+            Get Request_Validate of hoSessionDD to iErr
+            If (iErr) Begin
+                // this should not happen. If it does its a programming error
+                Error DFERR_PROGRAM C_$WebAppSesionValidateFailed
+                Procedure_Return
+            End
+            Send Request_Save of hoSessionDD
+        End
+    End_Procedure //EndSession
+
+End_Class //cWebSessionManager2WA
+

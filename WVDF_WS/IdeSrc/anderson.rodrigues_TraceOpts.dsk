@@ -1,0 +1,21 @@
+[aChangeDataBase.src [file not found]]
+0=msg_paint
+[aChangeDataBase.src [file not found]]
+1=msg_notify_application_activation
+[aChangeDataBase.src [file not found]]
+2=set_focus
+[aChangeDataBase.src [file not found]]
+3=msg_onwmpaint
+[aSanitizacaoCSAG378.src [file not found]]
+0=msg_paint
+[aSanitizacaoCSAG378.src [file not found]]
+1=msg_notify_application_activation
+[aSanitizacaoCSAG378.src [file not found]]
+2=set_focus
+[aSanitizacaoCSAG378.src [file not found]]
+3=msg_onwmpaint
+[WebApp.src]
+0=msg_paint
+1=msg_notify_application_activation
+2=set_focus
+3=msg_onwmpaint

@@ -1,0 +1,6 @@
+#REPLACE FILE17 FreightRoadFeeRegionLocations
+#REPLACE FreightRoadFeeRegionLocations.File_Number |CI17
+#REPLACE FreightRoadFeeRegionLocations.Id |FN17,1
+#REPLACE FreightRoadFeeRegionLocations.Name |FS17,2
+#REPLACE FreightRoadFeeRegionLocations.Type |FN17,3
+#REPLACE FreightRoadFeeRegionLocations.FreightRoadFeeRegionId |FN17,4

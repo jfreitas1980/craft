@@ -1,0 +1,298 @@
+<div class="modal fade" id="gerarAcordo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg center-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-success" ng-click="modal.gerarAcordo.gerarAcordo(modal.gerarAcordo.data)">
+                        <i class="far fa-save" aria-hidden="true"></i> Gerar Acordo
+                    </button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btCloseModal btn btn-danger">
+                        <i class="fa fa-times" aria-hidden="true"></i> Fechar
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 form-group">
+                    <label>Titulo</label>
+                    <input type="text" class="form-control" ng-model="modal.gerarAcordo.data.titulo">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 form-group">
+                    <label>Clientes</label>
+                    <tags-input ng-model="modal.gerarAcordo.data.clientes" add-on-paste="true" key-property="sRecnum" display-property="DS">
+                        <auto-complete source="call(WVDF.ws_CSAG340.f_proposta_complete_client($query, Url.aUsuarioSessao))"></auto-complete>
+                    </tags-input>
+                </div>
+                <div class="clearfix"></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Validade</div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <label for="transitTime" class="col-sm-1 col-form-label">Data Inicial</label>
+                            <div class="col-sm-4">
+                                <input type="text" ng-model="modal.gerarAcordo.data.dtInicial"" datepicker class=" form-control">
+                            </div>
+                            <label for="transitTime" class="col-sm-1 col-form-label">Data Final</label>
+                            <div class="col-sm-4">
+                                <input type="text" ng-model="modal.gerarAcordo.data.dtFinal" datepicker class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <label>Selecionar todas as taxas: <input type="checkbox" ng-model="modal.gerarAcordo.data.table._checkAll" ng-change="modal.gerarAcordo.checkAll(modal.gerarAcordo.data.table._checkAll)"></label>
+                <uib-accordion close-others="false">
+                    <div uib-accordion-group class="panel-default" is-open="origem_statusN">
+                        <uib-accordion-heading>Origem<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': origem_statusN, 'glyphicon-chevron-right': !origem_statusN}"></i></uib-accordion-heading>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <td class="td-blue" colspan="13"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <th colspan="7">Venda</th>
+                                        <th colspan="4">Compra</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Aplicar?</th>
+                                        <th>Taxa</th> <!-- INICIO VENDA -->
+                                        <th>Descrição</th>
+                                        <th>Equipamento</th>
+                                        <th>Moeda</th>
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de Pagamaneto</th> <!-- FIM VENDA -->
+                                        <th>Moeda</th><!-- INICIO COMPRA -->
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de pagamento</th> <!-- FIM COMPRA -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in modal.gerarAcordo.data.table.origem">
+                                        <td class="text-center"><input type="checkbox" ng-model="row.aplicar" ng-checked="row.aplicar" ng-change="modal.gerarAcordo.data.table._checkAll = false"></td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.taxa.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.taxa" ng-options="aux as aux.value for aux in combo.taxas.origem track by aux.id"></select></span>
+                                        </td>
+                                        <td>
+                                            <!-- INICIO VENDA -->
+                                            <span ng-if="!row.editable">{{row.venda.descricao.DS}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.descricao" uib-typeahead="aux as aux.DS for aux in call(WVDF.ws_ccgs225.f_CCGS225_busca($viewValue, Url.aUsuarioSessao))" ></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.equipamento.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.equipamento" ng-options="aux as aux.DS for aux in combo.equipamento track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM VENDA -->
+                                        <td>
+                                            <!-- INICIO COMPRA -->
+                                            <span ng-if="!row.editable">{{row.compra.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.compra.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM COMPRA -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" is-open="frete_statusN">
+                        <uib-accordion-heading>Frete<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': frete_statusN, 'glyphicon-chevron-right': !frete_statusN}"></i></uib-accordion-heading>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <td class="td-blue" colspan="13"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <th colspan="7">Venda</th>
+                                        <th colspan="4">Compra</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Aplicar?</th>
+                                        <th>Taxa</th> <!-- INICIO VENDA -->
+                                        <th>Descrição</th>
+                                        <th>Equipamento</th>
+                                        <th>Moeda</th>
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de Pagamaneto</th> <!-- FIM VENDA -->
+                                        <th>Moeda</th><!-- INICIO COMPRA -->
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de pagamento</th> <!-- FIM COMPRA -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in modal.gerarAcordo.data.table.frete">
+                                        <td class="text-center"><input type="checkbox" ng-model="row.aplicar" ng-checked="row.aplicar" ng-change="modal.gerarAcordo.data.table._checkAll = false"></td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.taxa.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.taxa" ng-options="aux as aux.value for aux in combo.taxas.frete track by aux.id"></select></span>
+                                        </td>
+                                        <td>
+                                            <!-- INICIO VENDA -->
+                                            <span ng-if="!row.editable">{{row.venda.descricao.DS}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.descricao" uib-typeahead="aux as aux.DS for aux in call(WVDF.ws_ccgs225.f_CCGS225_busca($viewValue, Url.aUsuarioSessao))" ></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.equipamento.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.equipamento" ng-options="aux as aux.DS for aux in combo.equipamento track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM VENDA -->
+                                        <td>
+                                            <!-- INICIO COMPRA -->
+                                            <span ng-if="!row.editable">{{row.compra.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.compra.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM COMPRA -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" is-open="destino_statusN.open">
+                        <uib-accordion-heading>Destino<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': destino_statusN, 'glyphicon-chevron-right': !destino_statusN}"></i></uib-accordion-heading>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <td class="td-blue" colspan="13"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <th colspan="7">Venda</th>
+                                        <th colspan="4">Compra</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Aplicar?</th>
+                                        <th>Taxa</th> <!-- INICIO VENDA -->
+                                        <th>Descrição</th>
+                                        <th>Equipamento</th>
+                                        <th>Moeda</th>
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de Pagamaneto</th> <!-- FIM VENDA -->
+                                        <th>Moeda</th><!-- INICIO COMPRA -->
+                                        <th>Valor</th>
+                                        <th>Tipo Calculo</th>
+                                        <th>Modo de pagamento</th> <!-- FIM COMPRA -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in modal.gerarAcordo.data.table.destino">
+                                        <td class="text-center"><input type="checkbox" ng-model="row.aplicar" ng-checked="row.aplicar" ng-change="modal.gerarAcordo.data.table._checkAll = false"></td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.taxa.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.taxa" ng-options="aux as aux.value for aux in combo.taxas.destino track by aux.id"></select></span>
+                                        </td>
+                                        <td>
+                                            <!-- INICIO VENDA -->
+                                            <span ng-if="!row.editable">{{row.venda.descricao.DS}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.descricao" uib-typeahead="aux as aux.DS for aux in call(WVDF.ws_ccgs225.f_CCGS225_busca($viewValue, Url.aUsuarioSessao))" ></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.equipamento.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.equipamento" ng-options="aux as aux.DS for aux in combo.equipamento track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.venda.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.venda.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.venda.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM VENDA -->
+                                        <td>
+                                            <!-- INICIO COMPRA -->
+                                            <span ng-if="!row.editable">{{row.compra.moeda.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.moeda" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.valor}}</span>
+                                            <span ng-if="row.editable"><input class="form-control" ng-model="row.compra.valor"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.tpCalculo.DS}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.tpCalculo" ng-options="aux as aux.DS for aux in combo.tpCalculo track by aux.ID"></select></span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="!row.editable">{{row.compra.modPagamento.value}}</span>
+                                            <span ng-if="row.editable"><select class="form-control" ng-model="row.compra.modPagamento" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select></span>
+                                        </td><!-- FIM COMPRA -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </uib-accordion>
+                <pre ng-if="jsonV">{{ modal.gerarAcordo.data | json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+<alert-ok id="alertEditar" label="Ao editar essas informacoes os valores serao recalculados e a proposta estara sujeita a aprovacao do produto." title="Confirmacao" on-ok="info.equipamentos.editable = true" style="z-index: 9000" class="modal fade bs-example-modal-lg"></alert-ok>
+<div class="panel panel-default">
+    <div class="panel-body">
+        </center>
+        <div class="row">
+            <div class="col-md-12"><label>Cliente: </label> {{info.form.cliente}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><label>Proposta: </label> {{info.form.idProposta}}</div>
+            <div class="col-md-3"> <label>Impressao: </label> {{info.form.impressaoProposta}}</div>
+            <div class="col-md-3"><label>Email: </label> {{info.form.emailProposta}}</div>
+            <div class="col-md-3"><label>Data: </label> {{info.form.dataProposta}}</div>
+        </div>
+    </div>
+</div>
+<!-- -->
+<form>
+    <div class="col-md-2 form-group">
+        <label>Marca</label>
+        <select class="form-control" ng-model="info.form.marca" ng-options="aux.ID as aux.DS for aux in combo.marcas"></select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Tipo Operacao</label>
+        <select class="form-control" ng-model="info.form.operacao" ng-options="aux.ID as aux.DS for aux in combo.tpOperacao"></select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Incoterm</label>
+        <select class="form-control" ng-model="info.form.incoterm" ng-options="aux.ID as aux.ID for aux in combo.incoterm"></select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Embarque</label>
+        <select class="form-control" ng-model="info.form.embarque" ng-options="aux.ID as aux.DS for aux in combo.embarque"></select>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-2 form-group">
+        <label>Pais de Origem</label>
+        <select class="form-control" ng-model="info.form.paisPol" ng-options="aux.ID as aux.DS for aux in combo.pais"></select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>POL</label>
+        <input type="text" ng-model="info.form.pol" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag325.propostaCidadeOrigem(info.form.paisPol, $viewValue, info.form.modFrete, Url.idCliente, Url.aUsuarioSessao))" class="form-control">
+    </div>
+    <div class="clearfix"></div>
+    <div ng-if="info.form.embarque == 4 || info.form.embarque == 3">
+        <div class="col-md-2 form-group">
+            <label>Pais de Origem</label>
+            <select class="form-control" ng-model="info.form.paisOrigem" ng-options="aux.ID as aux.DS for aux in combo.pais"></select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Cidade de Origem</label>
+            <input type="text" ng-model="info.form.cidadeOrigem" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag325.propostaCidadeOrigem(info.form.paisOrigem, $viewValue, info.form.modFrete, Url.idCliente, Url.aUsuarioSessao))" class="form-control">
+        </div>
+        <div class="col-md-2 form-group">
+            <label>CEP Origem</label>
+            <input type="text" ng-model="info.form.cepOrigem" class="form-control">
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Endereço Origem</label>
+            <input type="text" ng-model="info.form.enderecoOrigem" class="form-control">
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Pais de Destino</label>
+        <select class="form-control" ng-model="info.form.paisPod" ng-options="aux.ID as aux.DS for aux in combo.pais"></select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>POD</label>
+        <input type="text" ng-model="info.form.pod" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag325.propostaCidadeDestino(info.form.paisPod, $viewValue, info.form.modFrete, Url.idCliente, info.form.pol.id, Url.aUsuarioSessao))" class="form-control">
+    </div>
+    <div class="clearfix"></div>
+    <div ng-if="info.form.embarque == 4 || info.form.embarque == 2">
+        <div class="col-md-2 form-group">
+            <label>Pais de Destino</label>
+            <select class="form-control" ng-model="info.form.paisDestino" ng-options="aux.ID as aux.DS for aux in combo.pais"></select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Cidade de Destino</label>
+            <input type="text" ng-model="info.form.cidadeDestino" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag325.propostaCidadeOrigem(info.form.paisDestino, $viewValue, info.form.modFrete, Url.idCliente, Url.aUsuarioSessao))" class="form-control">
+        </div>
+        <div class="col-md-2 form-group">
+            <label>CEP Destino</label>
+            <input type="text" ng-model="info.form.cepDestino" class="form-control">
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Endereço Destino</label>
+            <input type="text" ng-model="info.form.enderecoDestino" class="form-control">
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-4 form-group">
+        <label>Cliente Final</label>
+        <input type="text" class="form-control" ng-model="info.form.clienteFinal" uib-typeahead="aux as aux.Fantasia for aux in call(WVDF.ws_CSAG340.f_proposta_complete_client($viewValue, Url.aUsuarioSessao))">
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th colspan="3">
+                            <span ng-if="!info.equipamentos.editable">
+                                <button class="btn btn-warning"  data-toggle="modal" data-target="#alertEditar">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                            </span>
+                            <span ng-if="info.equipamentos.editable">
+                                <button class="btn btn-primary" ng-click="info.equipamentos.newEquipamento()">
+                                    <i class="far fa-file"></i> Novo
+                                </button>
+                            </span>
+                        </th>
+                        <th>Qtd.Equipamentos</th>
+                        <th>Equipamento</th>
+                        <th>Gross Weight</th>
+                        <th>UOM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in info.equipamentos.table track by $index">
+                        <!--<td>
+                            <span ng-if="info.equipamentos.editable"><button class="btn btn-success" ng-click="saveEquipamentos(row)"><i class="far fa-save"></i></button></span>
+                              <span  ng-if="info.equipamentos.editable"><button class="btn btn-default" ng-click="info.equipamentos.editable = !info.equipamentos.editable"><i class="fas fa-edit"></i></button></span>
+                            <span  ng-if="!info.equipamentos.editable"><button class="btn btn-warning" ng-click="info.equipamentos.editable = !info.equipamentos.editable"><i class="fas fa-edit"></i></button></span>
+                        </td>-->
+                        <td><button class="btn btn-primary" ng-click="info.equipamentos.clone(row)" ng-disabled="!info.equipamentos.editable"><i class="far fa-clone"></i></button></td>
+                        <td><button class="btn btn-info" ng-click="modal.detalhesAvancados.open(row)" ng-disabled="!info.equipamentos.editable"><i class="fas fa-tag"></i> <span class="badge badge-warning badge-left">{{row.detalhes.mercadorias.length}}</button></td>
+                        <td><button class="btn btn-danger" ng-click="info.equipamentos.deleteEquipamento($index)" ng-disabled="!info.equipamentos.editable"><i class="fas fa-trash-alt"></i></button></td>
+                        <td>
+                            <span ng-if="!info.equipamentos.editable">{{row.qtd}}</span>
+                            <span ng-if="info.equipamentos.editable"><input class="form-control" ng-model="row.qtd"></span>
+                        </td>
+                        <td>
+                            <span ng-if="!info.equipamentos.editable">{{row.equipamento.DS}}</span>
+                            <span ng-if="info.equipamentos.editable"><select class="form-control" ng-model="row.equipamento" ng-options="aux as aux.DS for aux in combo.equipamento track by aux.ID"></select></span>
+                        </td>
+                        <td>
+                            <span ng-if="!info.equipamentos.editable">{{row.grossWeight}}</span>
+                            <span ng-if="info.equipamentos.editable"><input class="form-control" ng-model="row.grossWeight"></span>
+                        </td>
+                        <td>
+                            <span ng-if="!info.equipamentos.editable">{{row.uom}}</span>
+                            <span ng-if="info.equipamentos.editable">
+                                <select class="form-control" ng-model="row.uom">
+                                    <option value="KG">KG</option>
+                                    <option value="LB">LB</option>
+                                </select>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <pre ng-if="jsonV">{{info.equipamentos.table |json}}</pre>
+    <div class="clearfix"></div>
+    <hr>
+    <div class="col-md-3 form-group">
+        <label>Criado Por</label>
+        <input type="text" class="form-control" ng-model="info.form.criadoPor" disabled>
+    </div>
+    <div class="col-md-3 form-group">
+        <label>Criado Em</label>
+        <input type="text" class="form-control" ng-model="info.form.criadoEm" disabled>
+    </div>
+    <div class="col-md-3 form-group">
+        <label>Alterado Por</label>
+        <input type="text" class="form-control" ng-model="info.form.alteradoPor" disabled>
+    </div>
+    <div class="col-md-3 form-group">
+        <label>Alterado Em</label>
+        <input type="text" class="form-control" ng-model="info.form.alteradoEm" disabled>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 form-group text-right">
+        <button class="btn btn-info" ng-click="modal.arquivos.open()"><i class="fas fa-cloud-upload-alt"></i> Arquivos <span class="badge">0</span></button>
+        <button class="btn btn-default" ng-click="common.btnVisualizar()"><i class="far fa-paper-plane"></i> Visualizar</button>
+        <button class="btn btn-success" ng-click="info.save(info.form)"><i class="far fa-save"></i> Salvar</button>
+    </div>
+</form>

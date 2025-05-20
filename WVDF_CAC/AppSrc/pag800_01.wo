@@ -1,0 +1,701 @@
+//-2WA--
+// Register all objects
+Register_Object Csag317_DD
+Register_Object Csag318_DD
+Register_Object Csag321_DD
+Register_Object Csag327_DD
+Register_Object oCSAG327_bpBannersPaginaInicial
+Register_Object oCsag300_DD
+Register_Object oCsag301_DD
+Register_Object oCsag302_DD
+Register_Object oCsag303_DD
+Register_Object oCsag304_DD
+Register_Object oCsag305_DD
+Register_Object oCsag306_DD
+Register_Object oCsag307_DD
+Register_Object oCsag308_DD
+Register_Object oCsag309_DD
+Register_Object oCsag310_DD
+Register_Object oCsag311_DD
+Register_Object oCsag312_DD
+Register_Object oCsag313_DD
+Register_Object oCsag314_DD
+Register_Object oCsag315_DD
+Register_Object oPAG800_01
+Register_Object oTsmg800_DD
+Register_Object oTsmg801_DD
+Register_Object oTsmg802_DD
+Register_Object Tsmg803_DD
+
+Use cWebBusinessProcess.pkg
+Use DataDict.pkg
+
+Use TSMG800.DD
+Use TSMG801.DD
+Use TSMG802.DD
+Use TSMG803.DD
+Use CSAG300.DD
+Use CSAG301.DD
+Use CSAG302.DD
+Use CSAG303.DD
+Use CSAG304.DD
+Use CSAG305.DD
+Use CSAG306.DD
+Use CSAG307.DD
+Use CSAG308.DD
+Use CSAG309.DD
+Use CSAG310.DD
+Use CSAG311.DD
+Use CSAG312.DD
+Use CSAG313.DD
+Use CSAG314.DD
+Use CSAG315.DD
+Use CSAG317.DD
+Use CSAG318.DD
+Use CSAG321.DD
+Use CSAG327.DD
+
+
+Object oPAG800_01 is a cWebBusinessProcess
+    Set psDescription to "PAG800_01"
+
+    Object oTsmg800_DD is a Tsmg800_DataDictionary
+        Send DefineAllExtendedFields
+
+        #INCLUDE FIELDLABEL.INC
+        
+    End_Object    // oTsmg800_DD
+
+    Object oTsmg801_DD is a Tsmg801_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oTsmg801_DD
+
+    Object oTsmg802_DD is a Tsmg802_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oTsmg802_DD
+
+    Object Tsmg803_DD is a Tsmg803_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // Tsmg803_DD
+
+    Object oCsag300_DD is a Csag300_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag300_DD
+
+    Object oCsag301_DD is a Csag301_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag301_DD
+
+    Object oCsag302_DD is a Csag302_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag302_DD
+
+    Object oCsag303_DD is a Csag303_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag303_DD
+
+    Object oCsag304_DD is a Csag304_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag304_DD
+
+    Object oCsag305_DD is a Csag305_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag305_DD
+
+    Object oCsag306_DD is a Csag306_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag306_DD
+
+    Object oCsag307_DD is a Csag307_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag307_DD
+
+    Object oCsag308_DD is a Csag308_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag308_DD
+
+    Object oCsag309_DD is a Csag309_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag309_DD
+
+    Object oCsag310_DD is a Csag310_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag310_DD
+
+    Object oCsag311_DD is a Csag311_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag311_DD
+
+    Object oCsag312_DD is a Csag312_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag312_DD
+
+    Object oCsag313_DD is a Csag313_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag313_DD
+
+    Object oCsag314_DD is a Csag314_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag314_DD
+
+    Object oCsag315_DD is a Csag315_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // oCsag315_DD
+
+    Object Csag317_DD is a Csag317_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // Csag317_DD
+
+    Object Csag318_DD is a Csag318_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // Csag318_DD
+
+    Object Csag321_DD is a Csag321_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // Csag321_DD
+
+    Object Csag327_DD is a Csag327_DataDictionary
+        Send DefineAllExtendedFields
+    End_Object    // Csag327_DD
+
+    Set Main_DD to oTsmg800_DD
+
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function Salvar Returns Integer
+        Integer iOk
+        Get ddSave "Tsmg800" To iOk
+        Function_Return (Not(iOk))
+    End_Function
+    
+    Object oCSAG327_bpBannersPaginaInicial Is A datadictionary
+        Set Main_File  To   CSAG327.File_number
+    
+        Procedure OnConstrain
+            Forward Send OnConstrain
+        End_Procedure // OnConstrain
+    
+    End_Object // oCSAG327_bpBannersPaginaInicial
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_EMPRESA_Fundo Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresafundo))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_Logo Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresalogo))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_LogoCor Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresalogocor))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_Barra Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresabarra))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_BgColorIndex Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresabgindex))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_BgColorDefaut Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresabgdefau))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_BgColorLogo Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresabglogo))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_BgColorHome Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresabghome))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_RazaoSocial Returns String
+    
+//        Clear   TSMG800
+//        Find Gt TSMG800  By 0
+//          If (Found)     Function_Return (Trim(Tsmg800.Razaosocial))
+//          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+
+        Function_Return (Trim("CROSS")) 
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RETORNAR_LogoSite Returns String
+    
+        Clear   TSMG800
+        Find Gt TSMG800  By 0
+          If (Found)     Function_Return (Trim(Tsmg800.Empresalogosite))
+          Else           Function_Return 'Registro NÆo Achado no TSMG800, Contate o Admistrador do Sistema. !!!'
+    
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RetCaminhoSite Returns String
+
+            Clear    TSMG800
+            Find Ge  TSMG800 by 0
+              If not (Found) Function_Return 1
+
+            Function_Return (Trim(Tsmg800.Http_site))
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RetConfiguracaoTamanhoExternoLogo Returns String
+
+            Clear    TSMG800
+            Find Ge  TSMG800 by 0
+              If not (Found) Function_Return 1
+
+            Function_Return (Trim(Tsmg800.CTL_EXTERNO))
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function f_RetConfiguracaoTamanhoInternoLogo Returns String
+
+            Clear    TSMG800
+            Find Ge  TSMG800 by 0
+              If not (Found) Function_Return 1
+
+            Function_Return (Trim(Tsmg800.CTL_INTERNO))
+    End_Function
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function fRETORNAR_Caminho_Fisico_Anexo String aPrograma Returns String
+    
+        Clear   TSMG800
+        Find Ge TSMG800 By 0
+        If (Found) Begin
+            Function_Return (Trim(TSMG800.COPY_TEXTFILES))
+        End
+    
+        Function_Return -1
+    End_Function // fPCRM800_01_RetornaCaminhoFisico
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function fRETORNAR_Caminho_Logico_Anexo String aPrograma Returns String
+    
+        Clear   TSMG800
+        Find Ge TSMG800 By 0
+        If (Found) Begin
+            
+            Move (Trim(Replaces('{aHTTP}',TSMG800.Http_anexos,(Trim(TSMG800.HTTP_SITE))))) to TSMG800.Http_anexos
+            Function_Return (Trim(TSMG800.Http_anexos))
+        End
+    
+        Function_Return -1
+    End_Function // fPCRM800_01_RetornaCaminhoLogico
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function fRETORNAR_Caminho_Fisico_Fotos String aPrograma Returns String
+    
+        Clear   TSMG800
+        Find Ge TSMG800 by 0
+        If (Found) Begin
+            Function_Return (Trim(TSMG800.COPY_FOTOS))
+        End
+    
+        Function_Return -1
+    End_Function // fRETORNAR_Caminho_Fisico_Fotos
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Function fRETORNAR_Caminho_Logico_Fotos String aPrograma Returns String
+    
+        Clear   TSMG800
+        Find Ge TSMG800 by 0
+        If (Found) Begin
+            
+            Move (Trim(Replaces('{aHTTP}',TSMG800.HTTP_FOTOS,(Trim(TSMG800.HTTP_SITE))))) to TSMG800.HTTP_FOTOS
+            Function_Return (Trim(TSMG800.HTTP_FOTOS))
+        End
+    
+        Function_Return -1
+    End_Function // fRETORNAR_Caminho_Logico_Fotos
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+//    #IF (!@ >= 120)
+//    { Published = True }
+//    { Description = "" }
+//    #ENDIF
+//    Function fRETORNAR_IdentificacaoSistema Returns String
+//    
+//        Clear   TSMG800
+//        Find Ge TSMG800 By 0
+//        If (Found) Begin
+//            Function_Return (Trim(TSMG800.Nm_imagesistema))
+//        End
+//    
+//        Function_Return -1
+//    End_Function // fRETORNAR_IdentificacaoSistema
+    
+    
+    // Visual DataFlex 16.1 Migration Utility, added July 28, 2013: 19:16:10
+    #IF (!@ >= 120)
+    { Published = True }
+    { Description = "" }
+    #ENDIF
+    Procedure fRETORNAR_Banners_Pagina_Inicial
+         Integer iObjeto_CSAG327 iCONTADOR
+         Boolean bBANNER
+         String  sBANNERS
+    
+         Move (oCSAG327_bpBannersPaginaInicial(Self))  To iObjeto_CSAG327
+         Send Rebuild_Constraints                      Of iObjeto_CSAG327
+         Move False                                    To bBANNER
+         Move 0                                        To iCONTADOR
+    
+         Send Clear Of iObjeto_CSAG327
+         Send Find  Of iObjeto_CSAG327           Ge 1
+         While (Found)
+            If (Not(bBANNER)) Begin
+               Send WriteHtml (Trim(TSMG801.Banner_header))
+               Move True To bBANNER
+            End
+    
+            Clear   TSMG801
+            Find Ge TSMG801 By 0
+              If (Found)    Begin
+                  Increment iCONTADOR
+                  Move (Trim(Replaces("{aBANNER}",TSMG801.Bentry_body,(Trim(CSAG327.Cl_banner)))))   To TSMG801.Bentry_body
+                  Move (Trim(Replaces("{aCONTADOR}",TSMG801.Bentry_body,iCONTADOR))) To TSMG801.Bentry_body
+                  Send WriteHtml (Trim(TSMG801.Bentry_body))
+              End
+            Send Find of iObjeto_CSAG327         Gt 1
+         Loop
+         If (bBANNER) Begin
+            Send WriteHtml (Trim(TSMG801.Banner_botton))
+         End
+    
+    End_Procedure // fRETORNAR_Banners_Pagina_Inicial
+    
+    { Published = True  }
+    { Description = ""  }
+    Function fRETORNAR_Alerta_Window String sSessao Returns String
+
+        String  sConnect
+        String  sDatabase
+        String  sSQL
+        
+        Integer hoSQL
+        Integer hdbc
+        Integer hstmt
+        Integer iFetchResult
+        
+        String sFuncao
+        
+        String sSQL_Recnum
+        String sSQL_From
+        String sSQL_Image
+        String sSQL_Titulo
+        String sSQL_Link
+
+        Clear   TSMG800
+        Find Ge TSMG800   by 0
+          If (not(Found)) Clear TSMG800
+          
+        Object oEnumDBSQLmanager is a cSQLHandleManager
+            Move Current_Object to hoSQL
+        End_Object // oEnumDBSQLManager
+
+        Clear    CSAG311
+        Move  sSessao    to CSAG311.USUARIOSESSAO
+        Find  Eq CSAG311 by 1
+        If (Found) Begin 
+           If (hoSQL <> 0) Begin
+               Get SQLConnect of hoSQL "MSSQLDRV" (Trim(TSMG800.SIDI_DSN)) to hdbc
+               If (hdbc <> 0) Begin
+                   Get SQLOpen of hdbc to hstmt
+                   If (hstmt <> 0) Begin
+                       Move ''                                                                         to sSQL
+                       Move (sSQL + " SELECT TOP 1                                                 ")  to sSQL
+                       Move (sSQL + "       RECNUM,                                                ")  to sSQL
+                       Move (sSQL + "       CSAG357_DS,                                            ")  to sSQL
+                       Move (sSQL + "       LOGO,                                                  ")  to sSQL
+                       Move (sSQL + "       TITULO,                                                ")  to sSQL
+                       Move (sSQL + "       LINK                                                   ")  to sSQL
+					   Move (sSQL + " FROM  "+(Trim(TSMG800.SIDI_SCHEMA))+"HSAG331                 ")  to sSQL
+					   Move (sSQL + " WHERE USUARIONUMERO = "+String(CSAG311.USUARIONUMERO)+" AND  ")  to sSQL
+					   Move (sSQL + "       VISUALIZADO = 0 AND                                    ")  to sSQL 
+					   Move (sSQL + "       DATA = CONVERT(DATE,GETDATE(),103)                     ")  to sSQL
+					   Move (sSQL + " ORDER BY DATA DESC                                           ")  to sSQL
+ 
+                       Send SQLExecDirect of hstmt sSQL
+                       Repeat
+                          Get SQLFetch of hstmt to iFetchResult
+                          If (iFetchResult <> 0) Begin
+                              
+                              Move (ToOEM(trim(SQLColumnValue(hstmt,1))))    to sSQL_Recnum
+                              Move (ToOEM(trim(SQLColumnValue(hstmt,2))))    to sSQL_From
+                              Move (ToOEM(trim(SQLColumnValue(hstmt,3))))    to sSQL_Image
+                              Move (ToOEM(trim(SQLColumnValue(hstmt,4))))    to sSQL_Titulo
+                              Get  SQLGetData of hstmt 5 2048                to sSQL_Link
+
+                              Move ("$.gritter.add({ title: '{aTITULO}', text:  '<a href="+'"'+"{aLINK}"+'"'+" target="+'"'+"_blank"+'"'+">{aTEXTO}</a>', image: '{aIMAGEM}', sticky: false});") to sFuncao
+                              
+                              Move (Replaces("{aTITULO}"   ,sFuncao, sSQL_From))     to sFuncao
+                              Move (Replaces("{aTEXTO}"    ,sFuncao, sSQL_Titulo))   to sFuncao
+                              Move (Replaces("{aIMAGEM}"   ,sFuncao, sSQL_Image))    to sFuncao
+                              Move (Replaces("{aLINK}"     ,sFuncao, sSQL_Link))     to sFuncao
+
+                          End
+                       Until (iFetchResult = 0)
+           
+                       Send SQLClose to hstmt
+                   End
+
+                   If (sSQL_Recnum <> "") Begin
+                       Get SQLOpen of hdbc to hstmt
+                       If (hstmt <> 0) Begin
+                       
+                           Move ''                                               to sSQL
+                           Move (sSQL + "UPDATE "+TSMG800.SIDI_SCHEMA+"HSAG331") to sSQL
+                           Move (sSQL + "   Set VISUALIZADO = 1               ") to sSQL
+                           Move (sSQL + "WHERE  RECNUM = " + sSQL_Recnum       ) to sSQL
+                       
+                           Send SQLExecDirect of hstmt sSQL
+                       
+                           Send SQLClose to hstmt
+                       End
+                   End
+
+                   Send SQLDisconnect to hdbc
+               End
+           End
+           Send Destroy_Object to hoSQL
+            
+        End
+        
+        Function_Return sFuncao
+        
+    End_Function
+    
+    { Published = True  }
+    { Description = ""  }
+    Function fRETORNAR_USUARIOAVATAR String sUSUARIOSESSAO Returns String
+
+        String  sAVATAR
+        
+        Open TSMG800
+        Open CSAG300
+        Open CSAG311
+        
+
+        Clear   TSMG800
+        Smart_Find Ge TSMG800   by 0
+          If (Found)      Begin 
+            
+            Clear   CSAG311
+            Move sUSUARIOSESSAO to CSAG311.USUARIOSESSAO
+            Find Eq CSAG311     by 1
+              If (Found) Begin 
+                
+                Clear   CSAG300
+                Move CSAG311.USUARIONUMERO to CSAG300.USUARIONUMERO
+                Find Eq CSAG300            by 3
+                  If (Found) Begin
+                    
+                      Case Begin
+                        
+                        Case (CSAG300.USUARIOSEXO='F')
+                           Move 'assets/avatars/avatar3.png'  to sAVATAR
+                        Break 
+                        Case (CSAG300.USUARIOSEXO='M')
+                           Move 'assets/avatars/avatar4.png'  to sAVATAR
+                        Break 
+                        Case (CSAG300.USUARIOSEXO='J')
+                           Move 'assets/avatars/Juridica.png' to sAVATAR
+                        Break 
+                        Case (CSAG300.USUARIOSEXO='I')
+                           Move 'assets/avatars/avatar5.png'  to sAVATAR
+                        Break 
+
+                      Case End
+                    
+                  End
+                  Else Move '' to sAVATAR
+              End
+              Else Move '' to sAVATAR
+          End
+          Else Move '' to sAVATAR
+          
+        
+        Function_Return sAVATAR
+        
+    End_Function //--- fRETORNAR_USUARIOAVATAR
+    
+    
+    
+    //--------------------------------------------------------------------------------------------------
+    //--- Biblioteca das Fun‡äes do Sistema - INICIO
+    
+          #Include bfUsuarios.Inc
+    
+    //--- Biblioteca das Fun‡äes do Sistema - FINAL
+    //--------------------------------------------------------------------------------------------------
+    
+    
+    
+    Send RegisterStandardInterface
+    // Send RegisterDebugInterface
+    // Send RegisterFullErrorInterface
+    // Send RegisterAutoEntryInterface
+
+    { Published=True }
+    { Description="fFormatDateTime" }
+    Function fFormatDateTime DateTime dtCURRENTVAR Returns String
+        #Include FormatarDateTimeConteudo.inc
+    End_Function // fFormatDateTime
+
+End_Object    // oPAG800_01
+

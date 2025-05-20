@@ -1,0 +1,111 @@
+//-2WA
+Use CtrlData.PKG
+
+Open LOG3000
+
+Class cLOG3000_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to LOG3000.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+    End_Procedure
+    
+    Procedure Creating_PLOG3000_01
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+            Clear   CSAG311
+            Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+            Find Eq CSAG311                      by 1
+              If (Found) Begin                   
+                  Send p_RegistraAcessoUsuario "LOG3000.USUARIO_ID_C" CSAG311.USUARIONUMERO
+              End
+    
+    End_Procedure // Creating_PLOG3000_01
+
+    Procedure Update_PLOG3000_01
+        String  sNRDOCTO
+        Forward Send Update
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+             Clear CSAG311
+             Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+             Find Eq CSAG311                      by 1
+               If (Found) Begin
+                   Send p_RegistraAcessoUsuario "LOG3000.USUARIO_ID_A" CSAG311.USUARIONUMERO
+               End
+    
+    End_Procedure // Update_PLOG3000_01
+
+    Procedure Deleting_PLOG3000_01
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure   // Deleting_PLOG3000_01
+
+    Procedure Save_Main_File_PLOG3000_01
+        Integer iRECNUM
+        Move LOG3000.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+            Send p_FFOperation 1 
+        End
+    End_Procedure // Save_Main_File_PLOG3000_01
+    
+    Procedure Backout_PLOG3000_01
+        Forward Send Backout
+        Send p_FFOperation 0
+    End_Procedure   // Backout_PLOG3000_01
+    
+    Function Validate_Save_PLOG3000_01 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Boolean bFOUND
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+            
+//            // MOEDA PARIDADE
+//            Clear CCGS218
+//            Move LOG3000.MOEDA_PARIDADE to CCGS218.CODIGO
+//            Find Eq CCGS218 by 1
+//            If (not(Found)) Begin
+//                Error 902 "ATENCAO: MOEDA PARIDADE NAO FOI ENCONTRADA. PROCESSO CANCELADO."
+//                Move 1 to iReturnVal
+//            End
+            
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_PLOG3000_01
+
+    Function Validate_Delete_PLOG3000_01 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_PLOG3000_01
+    
+	#Include p_FFOperation.inc
+
+End_Class

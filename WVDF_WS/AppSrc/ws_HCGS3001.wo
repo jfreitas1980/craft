@@ -1,0 +1,372 @@
+//-2WA
+Use cWebService.pkg
+Open CCGS223
+Open CSAG311
+Open HCGS3001
+
+Struct st_hcgs3001_classestx
+    String ID
+    String DS
+End_Struct //st_hcgs3001_classestx
+
+Object oWs_HCGS3001 is a cWebService
+    
+    // psDocumentation provides high level documentation of your web service. 
+    // Clients using this service will see and use this documentation. 
+    Set psDocumentation to "2WA - www.2wa.com.br"
+    Set psServiceTitle  to "CLASSES of TAX"
+    Set psServiceName   to "ws_hcgs3001"
+
+    //CLASSES DA TAXA POR JS
+    { Published = True  }
+    { Description = "f_classesSelTaxa"  }
+    Function f_classesSelTaxa String aUsuarioSessao String sTaxaId Returns st_hcgs3001_classestx[]
+        
+        st_hcgs3001_classestx[] arr_classestx
+        
+        String  sQuery
+        Integer iIndex
+        String  sClasseTaxa
+        RowID   rFileNumber
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Begin
+            Function_Return arr_classestx
+        End
+        
+    	Move "" to sQuery
+        CREATE_MAIN_CONNECTION BYFILE HCGS3001
+        
+        Move "SELECT a.CLASSE_TAXA FROM DBO.HCGS3001 a WHERE a.CODIGO = %1" to sQuery
+        Move (SFormat(sQuery, ToSQLNumber(sTaxaId))) to sQuery
+        SQL_FIND_BEGIN hStmt_HCGS3001 sQuery
+                Move (Trim(SqlFindValue(hStmt_HCGS3001,1))) to sClasseTaxa
+        SQL_FIND_END hStmt_HCGS3001 
+        
+    	Move "" to sQuery
+    	Move (ResizeArray(arr_classestx, 0)) to arr_classestx
+    	
+        CREATE_MAIN_CONNECTION BYFILE CCGS221
+        
+        Move "SELECT CODIGO, DESCRICAO FROM DBO.CCGS221 WHERE CODIGO in (%1) ORDER BY DESCRICAO" to sQuery
+        Move (Replaces(',', sClasseTaxa, "','")) to sClasseTaxa
+        Move ("'"+sClasseTaxa+"'") to sClasseTaxa
+        Move (SFormat(sQuery, sClasseTaxa)) to sQuery
+        SQL_FIND_BEGIN hStmt_CCGS221_01 sQuery
+                
+                Move (SizeOfArray(arr_classestx)) to iIndex
+                Move (SqlFindValue(hStmt_CCGS221_01,1)) to arr_classestx[iIndex].ID
+                Move (ToOEM(Trim(SqlFindValue(hStmt_CCGS221_01,2)))) to arr_classestx[iIndex].DS
+                
+        SQL_FIND_END hStmt_CCGS221_01 
+            
+        Function_Return arr_classestx
+
+    End_Function //f_classesSelTaxa 
+    
+    { Published = True  }
+    { Description = "f_classes"  }
+    Function f_classes Returns stIdValueClasse[]
+        
+        stIdValueClasse[] lista
+        
+        Move 'O' to lista[0].id
+        Move 'F' to lista[1].id
+        Move 'D' to lista[2].id
+        
+        Move 'ORIGEM'   to lista[0].value
+        Move 'FRETE'    to lista[1].value
+        Move 'DESTINO'  to lista[2].value
+        
+        Function_Return lista
+        
+    End_Function //f_classes
+    
+    { Published = True  }
+    { Description = "f_lista_HCGS3001"  }
+    Function f_lista_HCGS3001 String aUsuarioSessao Returns stCombo[]
+        
+        stCombo[] arr_tax
+
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return arr_tax
+        
+        Move (ResizeArray(arr_tax,0)) to arr_tax
+        
+        String sQuery
+        Integer iIndex
+        
+        Move 'SELECT CODIGO, NM_TAXA FROM DBO.HCGS3001 ORDER BY NM_TAXA' to sQuery
+        SQL_FIND_BEGIN hStmt_tx sQuery
+            Move (SizeOfArray(arr_tax)) to iIndex
+            Move (Trim(SqlFindValue(hStmt_tx,1))) to arr_tax[iIndex].ID
+            Move (ToOEM(Trim(SqlFindValue(hStmt_tx,2)))) to arr_tax[iIndex].DS
+        SQL_FIND_END hStmt_tx
+        
+        Function_Return arr_tax
+
+    End_Function //f_lista_HCGS3001 
+
+    { Published = True  }
+    { Description = "buscarTaxas"  }
+    Function buscarTaxas String aUsuarioSessao;
+                         Returns stIdValueClasse[]
+                                
+        stIdValueClasse[] arrLista
+        String[][3] arrTaxas
+        String[]    arrClasseTaxa
+        
+        Integer iIndex 
+        Integer idTaxa
+        Integer iX
+        Integer idLista
+
+        String  sQuery
+        String  nomeTaxa
+        String  classeTaxa
+        String  idClasseTaxa
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Begin
+            Function_Return arrLista
+        End
+        
+    	Move (ResizeArray(arrLista, 0)) to arrLista
+    	Move (ResizeArray(arrTaxas, 0)) to arrTaxas
+    	Move (ResizeArray(arrClasseTaxa, 0)) to arrClasseTaxa
+    	
+        CREATE_MAIN_CONNECTION BYFILE HCGS3001
+        Move "SELECT CODIGO, NM_TAXA, CLASSE_TAXA" to sQuery
+        Move (sQuery*"FROM DBO.HCGS3001") to sQuery
+        Move (sQuery*"ORDER BY NM_TAXA") to sQuery
+        SQL_FIND_BEGIN hStmtTaxas sQuery
+            Move (SizeOfArray(arrTaxas)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas,1))   to arrTaxas[iIndex][0] //idTaxa
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas,2)))) to arrTaxas[iIndex][1] //nomeTaxa
+            Move       (Trim(SqlFindValue(hStmtTaxas,3)))  to arrTaxas[iIndex][2] //classeTaxa
+        SQL_FIND_END hStmtTaxas 
+        //preparar a lista de taxas com a respectiva classe
+        Move (ResizeArray(arrLista, 0)) to arrLista
+        If (SizeOfArray(arrTaxas)>0) Begin
+            For iIndex from 0 to (SizeOfArray(arrTaxas)-1)
+                Move arrTaxas[iIndex][0] to idTaxa    
+                Move arrTaxas[iIndex][1] to nomeTaxa  
+                Move arrTaxas[iIndex][2] to classeTaxa
+                If (classeTaxa <> '') Begin
+                    Move (ResizeArray(arrClasseTaxa, 0))    to arrClasseTaxa
+                    Move (StrSplitToArray(classeTaxa, ',')) to arrClasseTaxa
+                    For iX from 0 to (SizeOfArray(arrClasseTaxa)-1)
+                        Move (SizeOfArray(arrLista)) to idLista
+                        Clear CCGS221
+                        Move arrClasseTaxa[iX] to CCGS221.CODIGO
+                        Find Eq CCGS221 by 1
+                        Move (String(idTaxa)+arrClasseTaxa[iX])     to arrLista[idLista].id
+                        Move (nomeTaxa*'-'*Trim(CCGS221.DESCRICAO)) to arrLista[idLista].value
+                        Move arrClasseTaxa[iX]                      to arrLista[idLista].classe
+                    Loop
+                End
+                Else Begin
+                        Move (SizeOfArray(arrLista)) to idLista
+                        Move (String(idTaxa)+'_') to arrLista[idLista].id
+                        Move (nomeTaxa)           to arrLista[idLista].value
+                        
+                        Move (SizeOfArray(arrClasseTaxa)-1) to iX
+                        Move arrClasseTaxa[iX]    to arrLista[idLista].classe
+                End
+            Loop
+        End //(SizeOfArray(arrTaxas)>0)
+        
+        Function_Return arrLista
+        
+    End_Function //buscarTaxas
+    
+    { Published = True  }
+    { Description = "fSerchComboTaxes"  }
+    Function fSerchComboTaxes String aUsuarioSessao String idClasse Returns stIdValueClasse[]
+        
+        stIdValueClasse[] aLista
+        Integer iIndex
+        String sQuery
+        String sWhere
+        
+        Move (ResizeArray(aLista, 0)) to aLista
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find EQ CSAG311 by 1
+        If (not(Found)) Function_Return aLista
+        
+        If (idClasse <> '') Begin
+            Move "WHERE CLASSE_TAXA LIKE ('%1')" to sWhere
+            Move (SFormat(sWhere, '%'+idClasse+'%' )) to sWhere
+        End
+        
+        Move "SELECT CODIGO, NM_TAXA FROM DBO.HCGS3001 %1 ORDER BY NM_TAXA" to sQuery
+        Move (SFormat(sQuery, sWhere)) to sQuery
+        SQL_FIND_BEGIN hStmtTaxas sQuery
+            Move (SizeOfArray(aLista)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas,1))   to aLista[iIndex].id //idTaxa
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas,2)))) to aLista[iIndex].value //nomeTaxa
+        SQL_FIND_END hStmtTaxas 
+        
+        Function_Return aLista
+        
+    End_Function //fSerchComboTaxes
+
+    { Published = True  }
+    { Description = "buscarTaxasPorNome"  }
+    Function buscarTaxasPorNome String aUsuarioSessao;
+                                String inicial;
+                                Returns stTaxas[]
+                                
+        String  sQuery
+        Integer iIndex
+        stTaxas[] arrTaxas
+        
+        Move (Uppercase(inicial)) to inicial
+        Move (Rtrim(inicial))     to inicial
+        Move (Ltrim(inicial))     to inicial
+    	Move ('%'+inicial+'%')	  to inicial
+		
+    	Move (ResizeArray(arrTaxas, 0)) to arrTaxas
+        CREATE_MAIN_CONNECTION BYFILE HCGS3001
+		Get Find_Code_Description of oCSAG367_FVT 'WS_HCGS3001_BUSCAR_TAXAS' to sQuery
+        //Move (fLoadSQL_CSAG367('WS_HCGS3001_BUSCAR_TAXAS', '2')) to sQuery
+    	Move (SFORMAT(sQuery, inicial)) to sQuery
+        SQL_FIND_BEGIN hStmtTaxas sQuery
+            //SqlFindValueByName
+            Move (SizeOfArray(arrTaxas)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas,1))     to arrTaxas[iIndex].id
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas,2))))   to arrTaxas[iIndex].value
+        SQL_FIND_END hStmtTaxas 
+    	
+        Function_Return arrTaxas
+        
+    End_Function // buscarTaxasporNome
+    
+    { Published = True  }
+    { Description = "buscarTaxasPorClasse"  }
+    Function buscarTaxasPorClasse String aClasse Returns stTaxas[]
+                                
+        String  sQuery
+        Integer iIndex
+        stTaxas[] arrTaxas
+        
+        Move (Trim(Uppercase(aClasse))) to aClasse
+        Move ('%'+aClasse+'%') to aClasse
+		
+    	Move (ResizeArray(arrTaxas, 0)) to arrTaxas
+        
+        CREATE_MAIN_CONNECTION BYFILE HCGS3001
+		If (aClasse <> '') Begin
+    		Get Find_Code_Description of oCSAG367_FVT 'WS_HCGS3001_BUSCAR_TAXAS2' to sQuery
+    	    Move (SFORMAT(sQuery, aClasse)) to sQuery
+		End
+		Else Begin
+		    Move "SELECT CODIGO, NM_TAXA,CLASSE_TAXA FROM DBO.HCGS3001" to sQuery
+		    Move (sQuery*"WHERE ID_DESATIVADA = '0' ORDER by NM_TAXA") to sQuery 
+        End
+        SQL_FIND_BEGIN hStmtTaxas2 sQuery
+            Move (SizeOfArray(arrTaxas)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas2,1))     to arrTaxas[iIndex].id
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas2,2))))   to arrTaxas[iIndex].value
+        SQL_FIND_END hStmtTaxas2 
+    	
+        Function_Return arrTaxas
+        
+    End_Function // buscarTaxasPorClasse
+    
+    { Published = True  }
+    { Description = "taxas_tarifarioxproposta"  }
+    Function taxas_tarifarioxproposta String aClasse String aProp Returns stTaxas[]
+                                
+        String  sQuery
+        Integer iIndex
+        stTaxas[] arrTaxas
+		
+		Move (Trim(Uppercase(aClasse))) to aClasse
+		
+		If (aClasse <> '') Begin
+            Move ('%'+aClasse+'%') to aClasse
+            Move "SELECT DISTINCT  T.CODIGO,T.NM_TAXA,P.DESCRICAO FROM DBO.HCGS3001 T INNER JOIN DBO.HCGS3006 P ON" to sQuery
+		    Move (sQuery*"P.TAXA_ID=T.CODIGO WHERE P.PROPOSTA_ID=%1 AND P.TAXA_CLASSES LIKE '%2' ORDER BY T.NM_TAXA") to sQuery 
+    	    Move (SFORMAT(sQuery,aProp,aClasse)) to sQuery
+		End
+		Else Begin
+		    Move "SELECT DISTINCT  T.CODIGO,T.NM_TAXA,P.DESCRICAO FROM DBO.HCGS3001 T INNER JOIN DBO.HCGS3006 P ON" to sQuery
+		    Move (sQuery*"P.TAXA_ID=T.CODIGO WHERE P.PROPOSTA_ID=%1 ORDER BY T.NM_TAXA") to sQuery 
+		    Move (SFormat(sQuery,aProp)) to sQuery
+        End
+        SQL_FIND_BEGIN hStmtTaxas2 sQuery
+            Move (SizeOfArray(arrTaxas)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas2,1))     to arrTaxas[iIndex].id
+            
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas2,2))))   to arrTaxas[iIndex].value
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas2,3))))   to arrTaxas[iIndex].value2
+            
+            If (SqlFindValue(hStmtTaxas2,3) <> '');
+                Move (arrTaxas[iIndex].value*'('+arrTaxas[iIndex].value2+')')   to arrTaxas[iIndex].value
+        
+        SQL_FIND_END hStmtTaxas2 
+    	
+        Function_Return arrTaxas
+        
+    End_Function // taxas_tarifarioxproposta
+
+    { Published = True  }
+    { Description = "fResearchTaxsbyClass"  }
+    Function fResearchTaxsbyClass String aUsuarioSessao;
+                                  String aInicio;
+                                  String aClasse;
+                                  Returns stIdValueClasse[]
+        
+        stIdValueClasse[] aLista
+        Integer iIndex
+        String sQuery
+        String sWhere
+        
+        Move (ResizeArray(aLista, 0)) to aLista
+
+        Move (Uppercase(aInicio))  to aInicio        
+        Move (Trim(aInicio))       to aInicio
+        Move ('%' + aInicio + '%') to aInicio
+        
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find EQ CSAG311 by 1
+        If (not(Found)) Function_Return aLista
+        Move '' to sWhere
+        
+        If (aClasse <> '') Begin
+            Move "WHERE CLASSE_TAXA LIKE ('%1')" to sWhere
+            Move (SFormat(sWhere, '%'+aClasse+'%' )) to sWhere
+        End
+
+        If (aInicio <> '') Begin
+            If (sWhere <> '') Move "WHERE NM_TAXA LIKE ('%1')" to sWhere
+            Else Move (sWhere * "AND NM_TAXA LIKE ('%1')") to sWhere
+            Move (SFormat(sWhere, aInicio)) to sWhere
+        End
+        
+        Move "SELECT CODIGO, NM_TAXA FROM DBO.HCGS3001 %1 ORDER BY NM_TAXA" to sQuery
+        Move (SFormat(sQuery, sWhere)) to sQuery
+        SQL_FIND_BEGIN hStmtTaxas sQuery
+            Move (SizeOfArray(aLista)) to iIndex
+            Move            (SqlFindValue(hStmtTaxas,1))   to aLista[iIndex].id //idTaxa
+            Move (ToOEM(Trim(SqlFindValue(hStmtTaxas,2)))) to aLista[iIndex].value //nomeTaxa
+        SQL_FIND_END hStmtTaxas 
+        
+        Function_Return aLista
+        
+    End_Function //fResearchTaxsbyClass
+    
+End_Object //oWs_HCGS3001
+
+

@@ -1,0 +1,4 @@
+#REPLACE FILE18 FreightRoadFeeRegionLocationSta
+#REPLACE FreightRoadFeeRegionLocationSta.File_Number |CI18
+#REPLACE FreightRoadFeeRegionLocationSta.FreightRoadFeeRegionLocationId |FN18,1
+#REPLACE FreightRoadFeeRegionLocationSta.StateId |FN18,2

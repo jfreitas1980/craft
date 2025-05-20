@@ -1,0 +1,4 @@
+#REPLACE FILE19 FreightRoadFeeRegionModals
+#REPLACE FreightRoadFeeRegionModals.File_Number |CI19
+#REPLACE FreightRoadFeeRegionModals.FreightRoadFeeRegionId |FN19,1
+#REPLACE FreightRoadFeeRegionModals.FreightModalCode |FS19,2

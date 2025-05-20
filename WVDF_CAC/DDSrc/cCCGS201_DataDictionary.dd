@@ -1,0 +1,159 @@
+//-2WA
+Use CtrlData.PKG
+
+Open CCGS201
+Open TSMG801
+Open CCGS210
+
+Class cCCGS201_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to CCGS201.File_Number
+
+        Set Add_System_File to TSMG801.File_Number DD_Lock_On_New_Save
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Field_Label_Long Field CCGS201.CODIGO to "CODIGO"
+        Set Field_Label_Short Field CCGS201.CODIGO to "CODIGO"
+
+        Set Field_Label_Long Field CCGS201.DESCRICAO to "DESCRICAO"
+        Set Field_Label_Short Field CCGS201.DESCRICAO to "DESCRICAO"
+        Set Field_Option Field CCGS201.DESCRICAO DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field CCGS201.SIGLA to "SIGLA"
+        Set Field_Label_Short Field CCGS201.SIGLA to "SIGLA"
+        Set Field_Option Field CCGS201.SIGLA DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field CCGS201.USUARIO_ID_C to "CRIADO POR"
+        Set Field_Label_Short Field CCGS201.USUARIO_ID_C to "CRIADO POR"
+        Set Field_Option Field CCGS201.USUARIO_ID_C DD_NOENTER to True
+
+        Set Field_Label_Long Field CCGS201.DATE_TIME_C to "DATA E HORA DA CRIACAO"
+        Set Field_Label_Short Field CCGS201.DATE_TIME_C to "DATA E HORA DA CRIACAO"
+        Set Field_Option Field CCGS201.DATE_TIME_C DD_NOENTER to True
+
+        Set Field_Label_Long Field CCGS201.USUARIO_ID_A to "ALTERADO POR"
+        Set Field_Label_Short Field CCGS201.USUARIO_ID_A to "ALTERADO POR"
+        Set Field_Option Field CCGS201.USUARIO_ID_A DD_NOENTER to True
+
+        Set Field_Label_Long Field CCGS201.DATE_TIME_A to "DATA E HORA DA ALTERACAO"
+        Set Field_Label_Short Field CCGS201.DATE_TIME_A to "DATA E HORA DA ALTERACAO"
+        Set Field_Option Field CCGS201.DATE_TIME_A DD_NOENTER to True
+
+    End_Procedure
+    
+    Procedure Creating_PCGS201_03
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+    
+        //------------------------------------------------------------
+        //---Pesquisando Master Geral Codigos
+    
+             Clear   TSMG801
+             Smart_Find Ge TSMG801   by 0
+               If (Found)      Begin
+                  Add 1 to TSMG801.CCGS201_CODIGO
+                  SaveRecord TSMG801
+               End
+    
+        //------------------------------------------------------------
+        //---Movimentando o Codigo AutoIncrementavel ao TSMG801
+    
+            Move TSMG801.CCGS201_CODIGO to CCGS201.CODIGO
+
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+            Clear   CSAG311
+            Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+            Find Eq CSAG311                      by 1
+              If (Found) Begin                   
+                  Send p_RegistraAcessoUsuario "CCGS201.USUARIO_ID_C" CSAG311.USUARIONUMERO
+              End
+    
+    End_Procedure // Creating_PCGS201_03
+
+    Procedure Update_PCGS201_03
+        Forward Send Update
+
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+             Clear   CSAG311
+             Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+             Find Eq CSAG311                      by 1
+               If (Found) Begin
+                   Send p_RegistraAcessoUsuario "CCGS201.USUARIO_ID_A" CSAG311.USUARIONUMERO
+               End
+    
+    End_Procedure // Update_PCGS201_03
+
+    Procedure Deleting_PCGS201_03
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure   // Deleting_PCGS201_03
+
+    Procedure Save_Main_File_PCGS201_03
+        Integer iRECNUM
+        Move CCGS201.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+            Send p_FFOperation 1 
+        End
+                    
+    End_Procedure // Save_Main_File_PCGS201_03
+    
+    Procedure Backout_PCGS201_03
+        Forward Send Backout
+        Send p_FFOperation 0
+    End_Procedure   // Backout_PCGS201_03
+    
+    Function Validate_Save_PCGS201_03 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+            //Move 308002     to iError_Id
+            //Move 'CSAG308'  to sError_Tabela
+            // //--EMPRESA DO PROCESSO NAO CADASTRADO.
+            //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+            //Error iError_Id sError_Ds
+            //Move 1 to iReturnVal 
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_PCGS201_03
+
+    Function Validate_Delete_PCGS201_03 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+            //Move 308003     to iError_Id
+            //Move 'CSAG308'  to sError_Tabela
+            // //--EMPRESA DO PROCESSO NAO PODE SER EXCLUIDO.
+            //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+            //Error iError_Id sError_Ds
+            //Move 1 to iReturnVal 
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_PCGS201_03
+    
+	#Include p_FFOperation.inc    
+
+End_Class

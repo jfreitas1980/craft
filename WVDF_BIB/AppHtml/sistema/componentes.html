@@ -1,0 +1,1362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="" name="Keywords">
+	<meta content="" name="Description">
+	<meta name="Author" content="Grupo Factor Business Solutions, www.factorbs.com.br" />
+	<title>Asia Shipping - Componentes</title> 
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/docs.css" rel="stylesheet" type="text/css" />
+    <link href="css/prettify.css" rel="stylesheet" type="text/css" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+	<script src="js/bootstrap.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[placeholder]").each(function(el){
+			if($(this).val()==""){
+			$(this).val($(this).attr("placeholder")).addClass("placeholder");
+			}
+			$(this).focus(function(){
+				if($(this).val()==$(this).attr("placeholder")){
+					$(this).removeClass("placeholder").val("");
+				}
+			});
+			$(this).blur(function(){
+				if($(this).val()==""){
+					$(this).addClass("placeholder").val($(this).attr("placeholder"));
+				}
+			});
+		});
+		$("form").submit(function(){
+			$("input[placeholder]").each(function(n,element){
+				if($(element).val()==$(element).attr("placeholder")){
+					return false;
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">
+		<a href="index.html" title="Asia Shipping" class="branding"><img src="img/branding.jpg" alt="Asia Shipping"/></a>
+		<div class="content_user">
+			<div class="painel">
+				<div class="user">
+					Olá Fulano de Tal
+				</div>
+				<div class="logout">
+					<a href="" title="Logout">Logout</a>
+				</div>
+			</div>
+			<form>
+				<fieldset>
+					<label>
+						<input type="text" name="pesquisa" placeholder="Procurar no site" />
+					</label>
+					<label>
+						<input type="submit" name="" value="" />
+					</label>
+				</fieldset>
+			</form>
+		</div>
+		<ul class="nav">
+       		<li><strong><a href="index.html" title="HOME">HOME</a></strong></li>
+			<li><strong><a href="estruturas.html" title="ESTRUTURAS">ESTRUTURAS</a></strong></li>
+			<li><strong><a href="objetos-basicos.html" title="OBJETOS BÁSICOS">OBJETOS BÁSICOS</a></strong></li>
+			<li><strong><a href="componentes.html" title="COMPONENTES">COMPONENTES</a></strong></li>
+			<li><strong><a href="javascript.html" title="JAVASCRIPT">JAVASCRIPT</a></strong></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Exemplo <b class="caret"></b></a><ul class="dropdown-menu">
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li class="nav-header">Título SubCategoria</li>
+                          <li><a href="#">Separated link</a></li>
+                           <li class="dropdown-submenu">
+    <a tabindex="-1" href="#">More options</a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Something else here</a></li>
+      <li><a href="#">Something else here</a></li>
+    </ul>
+  </li>
+                        </ul></li>
+		</ul>
+	</div>
+	<div class="container-fluid">   
+     <div class="row-fluid">         
+        <div class="span2">
+        <ul class="nav nav-tabs nav-stacked">
+          <li><a href="#dropdowns"><i class="icon-chevron-right"></i> Dropdowns</a></li>
+          <li><a href="#buttonGroups"><i class="icon-chevron-right"></i> Grupos de botões</a></li>
+          <li><a href="#buttonDropdowns"><i class="icon-chevron-right"></i> Botões dropdowns</a></li>
+          <li><a href="#navs"><i class="icon-chevron-right"></i> Navegação</a></li>     
+          <li><a href="#breadcrumbs"><i class="icon-chevron-right"></i> Breadcrumbs</a></li>
+          <li><a href="#pagination"><i class="icon-chevron-right"></i> Paginação</a></li>
+          <li><a href="#labels-badges"><i class="icon-chevron-right"></i>Etiquetas e insígnias</a></li>
+          <li><a href="#typography"><i class="icon-chevron-right"></i> Tipografia</a></li>
+          <li><a href="#thumbnails"><i class="icon-chevron-right"></i> Thumbnails</a></li>
+          <li><a href="#alerts"><i class="icon-chevron-right"></i> Alertas</a></li>
+          <li><a href="#progress"><i class="icon-chevron-right"></i> Barra de progressão</a></li>          
+          <li><a href="#misc"><i class="icon-chevron-right"></i> Misc</a></li>
+        </ul>
+      </div>
+        
+        <!--/span-->
+        
+        <div class="span7">
+
+
+
+        <!-- Dropdowns
+        ================================================== -->
+        <section id="dropdowns">
+          <div class="page-header">
+            <h1>Dropdown menus</h1>
+          </div>
+
+          <h2>Exemplo</h2>
+          <p>Feito com <a href="./javascript.html#dropdowns">dropdown JavaScript plugin</a>.</p>
+          <div class="bs-docs-example">
+            <div class="dropdown clearfix">
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+                <li><a tabindex="-1" href="#">Action</a></li>
+                <li><a tabindex="-1" href="#">Another action</a></li>
+                <li><a tabindex="-1" href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="pln"> </span><span class="atn">role</span><span class="pun">=</span><span class="atv">"menu"</span><span class="pln"> </span><span class="atn">aria-labelledby</span><span class="pun">=</span><span class="atv">"dropdownMenu"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">tabindex</span><span class="pun">=</span><span class="atv">"-1"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Action</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">tabindex</span><span class="pun">=</span><span class="atv">"-1"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Another action</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">tabindex</span><span class="pun">=</span><span class="atv">"-1"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Something else here</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"divider"</span><span class="tag">&gt;&lt;/li&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">tabindex</span><span class="pun">=</span><span class="atv">"-1"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Separated link</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L6"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+        
+
+          <h2>Opções</h2>
+          <p>Saiba como alinhar o menu à direita e adicionar níveis de dropdowns.</p>
+
+          <h3>Alinhando os menus</h3>
+          <p>Adicione <code>.pull-right</code> no <code>.dropdown-menu</code> para alinhar à direita.</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu pull-right"</span><span class="pln"> </span><span class="atn">role</span><span class="pun">=</span><span class="atv">"menu"</span><span class="pln"> </span><span class="atn">aria-labelledby</span><span class="pun">=</span><span class="atv">"dLabel"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+          <h3>Sub menus nos dropdowns</h3>
+          <p>Para adicionar um nível extra aos menus de forma simples, adicione <code>.dropdown-submenu</code> para qualquer <code>li</code>, o estilo será alterado automaticamente.</p>
+          <div class="bs-docs-example bs-docs-example-submenus">
+
+            <div class="pull-left">
+              <p class="muted">Padrão</p>
+              <div class="dropdown clearfix">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                  <li><a tabindex="-1" href="#">Action</a></li>
+                  <li><a tabindex="-1" href="#">Another action</a></li>
+                  <li><a tabindex="-1" href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">More options</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pull-left">
+              <p class="muted">Dropup</p>
+              <div class="dropup">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                  <li><a tabindex="-1" href="#">Action</a></li>
+                  <li><a tabindex="-1" href="#">Another action</a></li>
+                  <li><a tabindex="-1" href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">More options</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pull-left">
+              <p class="muted">Left submenu</p>
+              <div class="dropdown">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                  <li><a tabindex="-1" href="#">Action</a></li>
+                  <li><a tabindex="-1" href="#">Another action</a></li>
+                  <li><a tabindex="-1" href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-submenu pull-left">
+                    <a tabindex="-1" href="#">More options</a>
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                      <li><a tabindex="-1" href="#">Second level link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="pln"> </span><span class="atn">role</span><span class="pun">=</span><span class="atv">"menu"</span><span class="pln"> </span><span class="atn">aria-labelledby</span><span class="pun">=</span><span class="atv">"dLabel"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-submenu"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">tabindex</span><span class="pun">=</span><span class="atv">"-1"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">More options</span><span class="tag">&lt;/a&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">      ...</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;/ul&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L8"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+
+        <!-- Button Groups
+        ================================================== -->
+        <section id="buttonGroups">
+          <div class="page-header">
+            <h1>Grupos de botões</h1>
+          </div>
+
+          <h2>Exemplos</h2>
+          <p>Duas opções básicas, com duas variações.</p>
+
+          <h3>Botão agrupado único</h3>
+          <p>Agrupe os botões <code>.btn</code> dentro de <code>.btn-group</code>.</p>
+          <div class="bs-docs-example">
+            <div class="btn-group" style="margin: 9px 0 5px;">
+              <button class="btn">Left</button>
+              <button class="btn">Middle</button>
+              <button class="btn">Right</button>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">1</span><span class="tag">&lt;/button&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">2</span><span class="tag">&lt;/button&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">3</span><span class="tag">&lt;/button&gt;</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Vários grupos de botões</h3>
+          <p>Combine séries em <code>&lt;div class="btn-group"&gt;</code> dentro de <code>&lt;div class="btn-toolbar"&gt;</code> para grupos mais complexos.</p>
+          <div class="bs-docs-example">
+            <div class="btn-toolbar" style="margin: 0;">
+              <div class="btn-group">
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn">4</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+                <button class="btn">7</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn">8</button>
+              </div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-toolbar"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/div&gt;</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Grupos de botões na vertical</h3>
+          <p>Faça com que os botões apareçam empilhados verticalmente.</p>
+          <div class="bs-docs-example">
+            <div class="btn-group btn-group-vertical">
+              <button type="button" class="btn"><i class="icon-align-left"></i></button>
+              <button type="button" class="btn"><i class="icon-align-center"></i></button>
+              <button type="button" class="btn"><i class="icon-align-right"></i></button>
+              <button type="button" class="btn"><i class="icon-align-justify"></i></button>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group btn-group-vertical"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+
+          <hr class="bs-docs-separator">
+
+          <h4>Dropdowns dentro de botões agrupados</h4>
+          <p><span class="label label-info">Atenção!</span> Botões com dropdowns podem ser agrupados dentro de seus próprios <code>.btn-group</code> within a <code>.btn-toolbar</code> para uma renderização adequada.</p>
+        </section>
+
+
+
+        <!-- Split button dropdowns
+        ================================================== -->
+        <section id="buttonDropdowns">
+          <div class="page-header">
+            <h1>Botões dropdowns</h1>
+          </div>
+
+
+          <h2>Descrições e exemplos</h2>
+          <p>Use qualquer botão para acionar um menu dropdown colocando dentro de um <code>.btn-group</code>.</p>
+          <div class="bs-docs-example">
+            <div class="btn-toolbar" style="margin: 0;">
+              <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Danger <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Warning <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">Success <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">Info <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Inverse <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+            </div><!-- /btn-toolbar -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn dropdown-toggle"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"dropdown"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    Action</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"caret"</span><span class="tag">&gt;&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;/a&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">    </span><span class="com">&lt;!-- dropdown menu links --&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Funciona com todos os tamanhos de botão</h3>
+          <p>Pode ser utilizado com qualquer tamanho:  <code>.btn-large</code>, <code>.btn-small</code>, or <code>.btn-mini</code>.</p>
+          <div class="bs-docs-example">
+            <div class="btn-toolbar" style="margin: 0;">
+              <div class="btn-group">
+                <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Large button <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">Small button <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group">
+                <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Mini button <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+            </div><!-- /btn-toolbar -->
+          </div>
+          <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn btn-mini"</span><span class="tag">&gt;</span><span class="pln">Action</span><span class="tag">&lt;/button&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn btn-mini dropdown-toggle"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"dropdown"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"caret"</span><span class="tag">&gt;&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;/button&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">    </span><span class="com">&lt;!-- dropdown menu links --&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Requer JavaScript</h3>
+          <p>Botão dropdowns necessita do <a href="./javascript.html#dropdowns">Bootstrap dropdown plugin</a> para funcionar.</p>
+          <p>Em alguns casos—como nos celulares— o menu irá ultrapassar o local, você precisará arrumar o alinhamento manualmente ou com  JavaScript.</p>
+
+
+          <hr class="bs-docs-separator">             
+
+          <h3>Dropup menus</h3>
+          <p>Menus suspensos também podem alternar de baixo para cima, adicionando uma única classe ao <code>.dropdown-menu</code>.Ele vai virar a direção do <code>.caret</code> e reposicionar o próprio menu para passar de baixo para cima em vez de cima para baixo. </p>
+          <div class="bs-docs-example">
+            <div class="btn-toolbar" style="margin: 0;">
+              <div class="btn-group dropup">
+                <button class="btn">Dropup</button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <div class="btn-group dropup">
+                <button class="btn primary">Right dropup</button>
+                <button class="btn primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn-group dropup"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="tag">&gt;</span><span class="pln">Dropup</span><span class="tag">&lt;/button&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn dropdown-toggle"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"dropdown"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"caret"</span><span class="tag">&gt;&lt;/span&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;/button&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">    </span><span class="com">&lt;!-- dropdown menu links --&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+        <!-- Nav, Tabs, & Pills
+        ================================================== -->
+        <section id="navs">
+          <div class="page-header">
+            <h1>Navegação: abas e listas</h1>
+          </div>         
+
+          <h3>Abas básicas</h3>
+          <p>Pegue a tag <code>&lt;ul&gt;</code> e adicione a tag <code>.nav-tabs</code>:</p>
+          <div class="bs-docs-example">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Messages</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Home</span><span class="tag">&lt;/a&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">...</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">...</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L6"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+        
+          <h3>Estado desabilitado</h3>
+          <p>Para alguns componentes (tabs, pills, or list), adicione <code>.disabled</code> para deixar os <strong>links em cinza e nenhum efeito ao sobrepor o mouse</strong>. Os links permanecerão clicáveis, a não ser que remova o atributo <code>href</code> . Uma alternativa, é implementar um  JavaScript para prevenir que esses links sejam clicados.</p>
+          <div class="bs-docs-example">
+            <ul class="nav nav-pills">
+              <li><a href="#">Clickable link</a></li>
+              <li><a href="#">Clickable link</a></li>
+              <li class="disabled"><a href="#">Disabled link</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-pills"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"disabled"</span><span class="tag">&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Home</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">  ...</span></li><li class="L4"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+          <h3>Alinhamento dos componentes</h3>
+          <p>Para alinhas os links na navegação,utilize as classes<code>.pull-left</code> ou <code>.pull-right</code> . Ambas irão adicionar uma classe flutuante na direção especificada.</p>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Empilhável</h2>
+          <p>As abas e as pílulas são dispostas  por padrão na horizontal, adicionando essa segunda classe: <code>.nav-stacked</code>, fará com que ela apareça verticalmente.</p>
+
+          <h3>Abas na vertical</h3>
+          <div class="bs-docs-example">
+            <ul class="nav nav-tabs nav-stacked">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Messages</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs nav-stacked"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+        
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Dropdowns</h2>
+          <p>Adicione um menu dropdown utilizando  HTML e o <a href="./javascript.html#dropdowns">dropdowns JavaScript plugin</a>.</p>
+
+          <h3>Abas com dropdowns</h3>
+          <div class="bs-docs-example">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Help</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-toggle"</span></li><li class="L3"><span class="pln">       </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"dropdown"</span></li><li class="L4"><span class="pln">       </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">        Dropdown</span></li><li class="L6"><span class="pln">        </span><span class="tag">&lt;b</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"caret"</span><span class="tag">&gt;&lt;/b&gt;</span></li><li class="L7"><span class="pln">      </span><span class="tag">&lt;/a&gt;</span></li><li class="L8"><span class="pln">    </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dropdown-menu"</span><span class="tag">&gt;</span></li><li class="L9"><span class="pln">      </span><span class="com">&lt;!-- links --&gt;</span></li><li class="L0"><span class="pln">    </span><span class="tag">&lt;/ul&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L2"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+        
+          <hr class="bs-docs-separator">
+          <h2>Listas de Navegação</h2>
+       
+
+          <h3>Menu de navegação</h3>
+          <p>Adicione <code>class="nav nav-list"</code>:</p>
+          <div class="bs-docs-example">
+            <div class="well" style="max-width: 340px; padding: 8px 0;">
+              <ul class="nav nav-list">
+                <li class="nav-header">List header</li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li><a href="#">Applications</a></li>
+                <li class="nav-header">Another list header</li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Help</a></li>
+              </ul>
+            </div> <!-- /well -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-list"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav-header"</span><span class="tag">&gt;</span><span class="pln">List header</span><span class="tag">&lt;/li&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Home</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Library</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">  ...</span></li><li class="L5"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+         
+          <h3>Divisores horizontais</h3>
+          <p>Para adicionar um divisor horizontal, basta criar um item vazio com a class <code>.divider</code>, dessa forma:</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-list"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"divider"</span><span class="tag">&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">  ...</span></li><li class="L4"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+          <hr class="bs-docs-separator">
+          <h2>Abas de navegação</h2>        
+
+          <h3>Exemplo</h3>
+          <p>Para fazer as abas se alternarem, crie um <code>.tab-pane</code> com ID diferente para cada aba e conteudo dentro de <code>.tab-content</code>.</p>
+          <div class="bs-docs-example">
+            <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+                <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                <li><a href="#tab3" data-toggle="tab">Section 3</a></li>
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                <div class="tab-pane active" id="tab1">
+                  <p>I'm in Section 1.</p>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <p>Howdy, I'm in Section 2.</p>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <p>What up girl, this is Section 3.</p>
+                </div>
+              </div>
+            </div> <!-- /tabbable -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tabbable"</span><span class="tag">&gt;</span><span class="pln"> </span><span class="com">&lt;!-- Only required for left/right tabs --&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#tab1"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"tab"</span><span class="tag">&gt;</span><span class="pln">Section 1</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#tab2"</span><span class="pln"> </span><span class="atn">data-toggle</span><span class="pun">=</span><span class="atv">"tab"</span><span class="tag">&gt;</span><span class="pln">Section 2</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-content"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-pane active"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"tab1"</span><span class="tag">&gt;</span></li><li class="L7"><span class="pln">      </span><span class="tag">&lt;p&gt;</span><span class="pln">I'm in Section 1.</span><span class="tag">&lt;/p&gt;</span></li><li class="L8"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L9"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-pane"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"tab2"</span><span class="tag">&gt;</span></li><li class="L0"><span class="pln">      </span><span class="tag">&lt;p&gt;</span><span class="pln">Howdy, I'm in Section 2.</span><span class="tag">&lt;/p&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;/div&gt;</span></li><li class="L3"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h4>Abas com efeito de fade</h4>
+          <p>Adicione a classe <code>.fade</code>à cada<code>.tab-pane</code>.</p>
+
+          <h4>Necessita de  jQuery</h4>
+          <p>Todas as abas foram feitas com lightweight jQuery plugin. Leia mais em <a href="./javascript.html#tabs">on the JavaScript docs page</a>.</p>
+
+          <h3>Abas em qualquer direção</h3>
+
+          <h4>Abas na parte inferior</h4>          
+          <div class="bs-docs-example">
+            <div class="tabbable tabs-below">
+              <div class="tab-content">
+                <div class="tab-pane active" id="A">
+                  <p>I'm in Section A.</p>
+                </div>
+                <div class="tab-pane" id="B">
+                  <p>Howdy, I'm in Section B.</p>
+                </div>
+                <div class="tab-pane" id="C">
+                  <p>What up girl, this is Section C.</p>
+                </div>
+              </div>
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#A" data-toggle="tab">Section 1</a></li>
+                <li><a href="#B" data-toggle="tab">Section 2</a></li>
+                <li><a href="#C" data-toggle="tab">Section 3</a></li>
+              </ul>
+            </div> <!-- /tabbable -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tabbable tabs-below"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-content"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/div&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    ...</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L7"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h4>Abas à esquerda</h4>
+          <div class="bs-docs-example">
+            <div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#lA" data-toggle="tab">Section 1</a></li>
+                <li><a href="#lB" data-toggle="tab">Section 2</a></li>
+                <li><a href="#lC" data-toggle="tab">Section 3</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="lA">
+                  <p>I'm in Section A.</p>
+                </div>
+                <div class="tab-pane" id="lB">
+                  <p>Howdy, I'm in Section B.</p>
+                </div>
+                <div class="tab-pane" id="lC">
+                  <p>What up girl, this is Section C.</p>
+                </div>
+              </div>
+            </div> <!-- /tabbable -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tabbable tabs-left"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-content"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    ...</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/div&gt;</span></li><li class="L7"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h4>Abas à direita</h4>
+          <div class="bs-docs-example">
+            <div class="tabbable tabs-right">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#rA" data-toggle="tab">Section 1</a></li>
+                <li><a href="#rB" data-toggle="tab">Section 2</a></li>
+                <li><a href="#rC" data-toggle="tab">Section 3</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="rA">
+                  <p>I'm in Section A.</p>
+                </div>
+                <div class="tab-pane" id="rB">
+                  <p>Howdy, I'm in Section B.</p>
+                </div>
+                <div class="tab-pane" id="rC">
+                  <p>What up girl, this is Section C.</p>
+                </div>
+              </div>
+            </div> <!-- /tabbable -->
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tabbable tabs-right"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"nav nav-tabs"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"tab-content"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    ...</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/div&gt;</span></li><li class="L7"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+        </section>
+
+      <!-- Breadcrumbs
+        ================================================== -->
+        <section id="breadcrumbs">
+          <div class="page-header">
+            <h1>Breadcrumbs <small></small></h1>
+          </div>
+
+          <h2>Exemplos</h2>
+          <p>Um único exemplo mostra como poderia ser exibido em várias páginas.</p>
+          <div class="bs-docs-example">
+            <ul class="breadcrumb">
+              <li class="active">Home</li>
+            </ul>
+            <ul class="breadcrumb">
+              <li><a href="#">Home</a> <span class="divider">/</span></li>
+              <li class="active">Library</li>
+            </ul>
+            <ul class="breadcrumb" style="margin-bottom: 5px;">
+              <li><a href="#">Home</a> <span class="divider">/</span></li>
+              <li><a href="#">Library</a> <span class="divider">/</span></li>
+              <li class="active">Data</li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"breadcrumb"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Home</span><span class="tag">&lt;/a&gt;</span><span class="pln"> </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"divider"</span><span class="tag">&gt;</span><span class="pln">/</span><span class="tag">&lt;/span&gt;&lt;/li&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Library</span><span class="tag">&lt;/a&gt;</span><span class="pln"> </span><span class="tag">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"divider"</span><span class="tag">&gt;</span><span class="pln">/</span><span class="tag">&lt;/span&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;</span><span class="pln">Data</span><span class="tag">&lt;/li&gt;</span></li><li class="L4"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+        <!-- Pagination
+        ================================================== -->
+        <section id="pagination">
+          <div class="page-header">
+            <h1>Paginação </h1>
+          </div>
+
+          <h2>Paginação padrão</h2>          
+          <div class="bs-docs-example">
+            <div class="pagination">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Prev</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">1</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">2</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">3</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">4</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L7"><span class="pln">    </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Next</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L8"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L9"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Opções</h2>
+
+          <h3>Estado desativado e ativo</h3>
+          <p>Utilizar <code>.disabled</code> para os links desabilitados e  <code>.active</code> para indicar a página atual.</p>
+          <div class="bs-docs-example">
+            <div class="pagination pagination-centered">
+              <ul>
+                <li class="disabled"><a href="#">«</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+             </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"disabled"</span><span class="tag">&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Prev</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">1</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">    ...</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L6"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+          <p>You can optionally swap out active or disabled anchors for spans to remove click functionality while retaining intended styles.</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"disabled"</span><span class="tag">&gt;&lt;span&gt;</span><span class="pln">Prev</span><span class="tag">&lt;/span&gt;&lt;/li&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"active"</span><span class="tag">&gt;&lt;span&gt;</span><span class="pln">1</span><span class="tag">&lt;/span&gt;&lt;/li&gt;</span></li><li class="L4"><span class="pln">    ...</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L6"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Tamanhos</h3>
+          <p>Acidione as classes <code>.pagination-large</code>, <code>.pagination-small</code>, ou <code>.pagination-mini</code> .</p>
+          <div class="bs-docs-example">
+            <div class="pagination pagination-large">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+            <div class="pagination">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+             </ul>
+            </div>
+            <div class="pagination pagination-small">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+            <div class="pagination pagination-mini">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination pagination-large"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li><li class="L5"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L7"><span class="pln">    ...</span></li><li class="L8"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L9"><span class="tag">&lt;/div&gt;</span></li><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination pagination-small"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L2"><span class="pln">    ...</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li><li class="L5"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination pagination-mini"</span><span class="tag">&gt;</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;ul&gt;</span></li><li class="L7"><span class="pln">    ...</span></li><li class="L8"><span class="pln">  </span><span class="tag">&lt;/ul&gt;</span></li><li class="L9"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Alinhamento</h3>
+          <p>Para mudar o alinhamento utilize <code>.pagination-centered</code> ou <code>.pagination-right</code>.</p>
+          <div class="bs-docs-example">
+            <div class="pagination pagination-centered">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+             </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination pagination-centered"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+          <div class="bs-docs-example">
+            <div class="pagination pagination-right">
+              <ul>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pagination pagination-right"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Próximo e anterior</h2>
+          <p>Para adicionar próximo e anterior</p>
+
+          <h3>Exemplo padrão</h3>
+          <p>Por padrão eles encontram-se centralizados</p>
+          <div class="bs-docs-example">
+            <ul class="pager">
+              <li><a href="#">Previous</a></li>
+              <li><a href="#">Next</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pager"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Previous</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;li&gt;&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Next</span><span class="tag">&lt;/a&gt;&lt;/li&gt;</span></li><li class="L3"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+          <h3>Opostos</h3>
+          <p>Pode deixar em lagos opostos:</p>
+          <div class="bs-docs-example">
+            <ul class="pager">
+              <li class="previous"><a href="#">← Older</a></li>
+              <li class="next"><a href="#">Newer →</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pager"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"previous"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">&amp;larr; Older</span><span class="tag">&lt;/a&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"next"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">Newer &amp;rarr;</span><span class="tag">&lt;/a&gt;</span></li><li class="L6"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L7"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+          <h3>Desabilitados</h3>
+          <p>Adicione a classe <code>.disabled</code> </p>
+          <div class="bs-docs-example">
+            <ul class="pager">
+              <li class="previous disabled"><a href="#">← Older</a></li>
+              <li class="next"><a href="#">Newer →</a></li>
+            </ul>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"pager"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"previous disabled"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="tag">&gt;</span><span class="pln">&amp;larr; Older</span><span class="tag">&lt;/a&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L4"><span class="pln">  ...</span></li><li class="L5"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+        <!-- Labels and badges
+        ================================================== -->
+        <section id="labels-badges">
+          <div class="page-header">
+            <h1>Etiquetas e insígnias</h1>
+          </div>
+          <h3>Etiquetas</h3>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Etiqueta</th>
+                <th>Código</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="label">Default</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label"&gt;Default&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="label label-success">Success</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label label-success"&gt;Success&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="label label-warning">Warning</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label label-warning"&gt;Warning&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="label label-important">Important</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label label-important"&gt;Important&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="label label-info">Info</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label label-info"&gt;Info&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="label label-inverse">Inverse</span>
+                </td>
+                <td>
+                  <code>&lt;span class="label label-inverse"&gt;Inverse&lt;/span&gt;</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Insígnias</h3>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Exemplo</th>
+                <th>Código</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Default
+                </td>
+                <td>
+                  <span class="badge">1</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge"&gt;1&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Success
+                </td>
+                <td>
+                  <span class="badge badge-success">2</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge badge-success"&gt;2&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Warning
+                </td>
+                <td>
+                  <span class="badge badge-warning">4</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge badge-warning"&gt;4&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Important
+                </td>
+                <td>
+                  <span class="badge badge-important">6</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge badge-important"&gt;6&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Info
+                </td>
+                <td>
+                  <span class="badge badge-info">8</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge badge-info"&gt;8&lt;/span&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Inverse
+                </td>
+                <td>
+                  <span class="badge badge-inverse">10</span>
+                </td>
+                <td>
+                  <code>&lt;span class="badge badge-inverse"&gt;10&lt;/span&gt;</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+
+
+        <!-- Typographic components
+        ================================================== -->
+        <section id="typography">
+          <div class="page-header">
+            <h1>Typographic components</h1>
+          </div>
+
+          <h2>Hero unit</h2>
+          <p>Um componente leve e flexível para mostrar conteúdos destacados.</p>
+          <div class="bs-docs-example">
+            <div class="hero-unit">
+              <h1>Hello, world!</h1>
+              <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+              <p><a class="btn btn-primary btn-large">Learn more</a></p>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"hero-unit"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;h1&gt;</span><span class="pln">Heading</span><span class="tag">&lt;/h1&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;p&gt;</span><span class="pln">Tagline</span><span class="tag">&lt;/p&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;p&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn btn-primary btn-large"</span><span class="tag">&gt;</span></li><li class="L5"><span class="pln">      Learn more</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;/a&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/p&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h2>Título da Página</h2>
+          <div class="bs-docs-example">
+            <div class="page-header">
+              <h1>Exemplo de título de página <small>Subtexto para o título</small></h1>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"page-header"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;h1&gt;</span><span class="pln">Example page header </span><span class="tag">&lt;small&gt;</span><span class="pln">Subtext for header</span><span class="tag">&lt;/small&gt;&lt;/h1&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+        <!-- Thumbnails
+        ================================================== -->
+        <section id="thumbnails">
+          <div class="page-header">
+            <h1>Thumbnails <small>Grade com imagens, vídeos, textos...</small></h1>
+          </div>
+
+          <h2>Thumbnail padrão</h2>
+          <p>Por padrão foram feitos para mostrar apenas as imagens linkadas com um mínimo de informações.</p>
+          <div class="row-fluid">
+            <ul class="thumbnails">
+              <li class="span3">
+                <a href="#" class="thumbnail">
+                  <img data-src="holder.js/260x180" alt="260x180" style="width: 260px; height: 180px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC0CAYAAABytVLLAAAIhUlEQVR4Xu3avYsUWxMH4N7AL9DARM1EDNVQBP99IxMxUoxFMJBFEBHBj/ftgbO07cxsrXW99K16TMT1TM2pp7p/0907J6enpz8nfwgQIPB/gROB4DggQGAICATHAgECZwICwcFAgIBAcAwQIPC7gCsERwUBAq4QHAMECLhCcAwQIHBEwC2Dw4MAAbcMjgECBNwyOAYIEHDL4BggQCAi4BlCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgbHDQr1+/nt69e3e2sxs3bkxPnjz5Zaenp6fTy5cvpx8/fux+vm/N27dvpzdv3py97t69e9P9+/f/uOMXL15M8/vevn17evTo0S91xv+NH+5b80/v548b8cKDAgJhYwfH+sQa21ue8Osw2HcSrk++seZPQ2FZb32yrwPs39jPxsZWZjsCYUOj/Pbt2/Ts2bPp+/fv0zhxlyfiw4cPp1u3bk3Pnz+fPn/+/Nuak5OT6enTp9OVK1fO1oyTd5y0V69e3V1tXLp0Kdz5sU//5Z7X7/W39hPeuIUXFhAIFyb7ey8YJ/84ka5duzatQ+Lu3bu70JhvFeaTf16z/rO8gphD5M6dO7tL/fkW4+fPn7vXffny5eyWY4TP+nXL8JnfYw6ar1+//nLLsNxf5L0OrdnXx9+TVvmQgEDY+LGxPkkvX768O5Hnv+dP+48fP+46WF7Gr0/+dbCMk3J88s91Hj9+PM3/nq88Rq05dOarkevXr08PHjz47apjft+xZvm69dXIp0+ffgmjQ/vZ+ChabE8gbHjMy5NtPEM49GxgbmO95tiVxvxwcfnpPl9FvH//flq+Zkmz78Qf/7+sM362rBO58sk87NzwCP9zWxMIGx3Z8gTcd3LN214/ZxjrPnz4sPvtwnmBMNeIPvk/FgjnPcAUCBs9yPZsSyBscFaHwmDeauR2YNxWjOcFxy7Rl5/uh64ODt0azD8/9iB01BvPKyL72eA4Wm1JIGxs3MfC4KKBMNc67yHe+leG+74/cCwQIp/+N2/ePHuAed5+NjaOdtsRCBsb+XjQd5F7+fVJGf214/JqY35o+OrVq91DwnHSRp4hLB96Rn5V+k/8GnRjIyu1HYGwoXEe+sLR2OK+E265/eWn+3n39ZHfDiy/q3DoGcLy52vK5ZepztvPhsbQeisCYUPjP/SNv3UgLG8dxleXL/pV4fFehx48rusde6g472f95aV/46vUGxpdma0IhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvMD/ANbXEGO2tfHZAAAAAElFTkSuQmCC">
+                </a>
+              </li>
+              <li class="span3">
+                <a href="#" class="thumbnail">
+                  <img data-src="holder.js/260x180" alt="260x180" style="width: 260px; height: 180px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC0CAYAAABytVLLAAAIhUlEQVR4Xu3avYsUWxMH4N7AL9DARM1EDNVQBP99IxMxUoxFMJBFEBHBj/ftgbO07cxsrXW99K16TMT1TM2pp7p/0907J6enpz8nfwgQIPB/gROB4DggQGAICATHAgECZwICwcFAgIBAcAwQIPC7gCsERwUBAq4QHAMECLhCcAwQIHBEwC2Dw4MAAbcMjgECBNwyOAYIEHDL4BggQCAi4BlCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgbHDQr1+/nt69e3e2sxs3bkxPnjz5Zaenp6fTy5cvpx8/fux+vm/N27dvpzdv3py97t69e9P9+/f/uOMXL15M8/vevn17evTo0S91xv+NH+5b80/v548b8cKDAgJhYwfH+sQa21ue8Osw2HcSrk++seZPQ2FZb32yrwPs39jPxsZWZjsCYUOj/Pbt2/Ts2bPp+/fv0zhxlyfiw4cPp1u3bk3Pnz+fPn/+/Nuak5OT6enTp9OVK1fO1oyTd5y0V69e3V1tXLp0Kdz5sU//5Z7X7/W39hPeuIUXFhAIFyb7ey8YJ/84ka5duzatQ+Lu3bu70JhvFeaTf16z/rO8gphD5M6dO7tL/fkW4+fPn7vXffny5eyWY4TP+nXL8JnfYw6ar1+//nLLsNxf5L0OrdnXx9+TVvmQgEDY+LGxPkkvX768O5Hnv+dP+48fP+46WF7Gr0/+dbCMk3J88s91Hj9+PM3/nq88Rq05dOarkevXr08PHjz47apjft+xZvm69dXIp0+ffgmjQ/vZ+ChabE8gbHjMy5NtPEM49GxgbmO95tiVxvxwcfnpPl9FvH//flq+Zkmz78Qf/7+sM362rBO58sk87NzwCP9zWxMIGx3Z8gTcd3LN214/ZxjrPnz4sPvtwnmBMNeIPvk/FgjnPcAUCBs9yPZsSyBscFaHwmDeauR2YNxWjOcFxy7Rl5/uh64ODt0azD8/9iB01BvPKyL72eA4Wm1JIGxs3MfC4KKBMNc67yHe+leG+74/cCwQIp/+N2/ePHuAed5+NjaOdtsRCBsb+XjQd5F7+fVJGf214/JqY35o+OrVq91DwnHSRp4hLB96Rn5V+k/8GnRjIyu1HYGwoXEe+sLR2OK+E265/eWn+3n39ZHfDiy/q3DoGcLy52vK5ZepztvPhsbQeisCYUPjP/SNv3UgLG8dxleXL/pV4fFehx48rusde6g472f95aV/46vUGxpdma0IhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvMD/ANbXEGO2tfHZAAAAAElFTkSuQmCC">
+                </a>
+              </li>
+              <li class="span3">
+                <a href="#" class="thumbnail">
+                  <img data-src="holder.js/260x180" alt="260x180" style="width: 260px; height: 180px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC0CAYAAABytVLLAAAIhUlEQVR4Xu3avYsUWxMH4N7AL9DARM1EDNVQBP99IxMxUoxFMJBFEBHBj/ftgbO07cxsrXW99K16TMT1TM2pp7p/0907J6enpz8nfwgQIPB/gROB4DggQGAICATHAgECZwICwcFAgIBAcAwQIPC7gCsERwUBAq4QHAMECLhCcAwQIHBEwC2Dw4MAAbcMjgECBNwyOAYIEHDL4BggQCAi4BlCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgbHDQr1+/nt69e3e2sxs3bkxPnjz5Zaenp6fTy5cvpx8/fux+vm/N27dvpzdv3py97t69e9P9+/f/uOMXL15M8/vevn17evTo0S91xv+NH+5b80/v548b8cKDAgJhYwfH+sQa21ue8Osw2HcSrk++seZPQ2FZb32yrwPs39jPxsZWZjsCYUOj/Pbt2/Ts2bPp+/fv0zhxlyfiw4cPp1u3bk3Pnz+fPn/+/Nuak5OT6enTp9OVK1fO1oyTd5y0V69e3V1tXLp0Kdz5sU//5Z7X7/W39hPeuIUXFhAIFyb7ey8YJ/84ka5duzatQ+Lu3bu70JhvFeaTf16z/rO8gphD5M6dO7tL/fkW4+fPn7vXffny5eyWY4TP+nXL8JnfYw6ar1+//nLLsNxf5L0OrdnXx9+TVvmQgEDY+LGxPkkvX768O5Hnv+dP+48fP+46WF7Gr0/+dbCMk3J88s91Hj9+PM3/nq88Rq05dOarkevXr08PHjz47apjft+xZvm69dXIp0+ffgmjQ/vZ+ChabE8gbHjMy5NtPEM49GxgbmO95tiVxvxwcfnpPl9FvH//flq+Zkmz78Qf/7+sM362rBO58sk87NzwCP9zWxMIGx3Z8gTcd3LN214/ZxjrPnz4sPvtwnmBMNeIPvk/FgjnPcAUCBs9yPZsSyBscFaHwmDeauR2YNxWjOcFxy7Rl5/uh64ODt0azD8/9iB01BvPKyL72eA4Wm1JIGxs3MfC4KKBMNc67yHe+leG+74/cCwQIp/+N2/ePHuAed5+NjaOdtsRCBsb+XjQd5F7+fVJGf214/JqY35o+OrVq91DwnHSRp4hLB96Rn5V+k/8GnRjIyu1HYGwoXEe+sLR2OK+E265/eWn+3n39ZHfDiy/q3DoGcLy52vK5ZepztvPhsbQeisCYUPjP/SNv3UgLG8dxleXL/pV4fFehx48rusde6g472f95aV/46vUGxpdma0IhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvMD/ANbXEGO2tfHZAAAAAElFTkSuQmCC">
+                </a>
+              </li>
+              <li class="span3">
+                <a href="#" class="thumbnail">
+                  <img data-src="holder.js/260x180" alt="260x180" style="width: 260px; height: 180px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC0CAYAAABytVLLAAAIhUlEQVR4Xu3avYsUWxMH4N7AL9DARM1EDNVQBP99IxMxUoxFMJBFEBHBj/ftgbO07cxsrXW99K16TMT1TM2pp7p/0907J6enpz8nfwgQIPB/gROB4DggQGAICATHAgECZwICwcFAgIBAcAwQIPC7gCsERwUBAq4QHAMECLhCcAwQIHBEwC2Dw4MAAbcMjgECBNwyOAYIEHDL4BggQCAi4BlCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgNBm0NglEBARCRMkaAk0EBEKTQWuTQERAIESUrCHQREAgbHDQr1+/nt69e3e2sxs3bkxPnjz5Zaenp6fTy5cvpx8/fux+vm/N27dvpzdv3py97t69e9P9+/f/uOMXL15M8/vevn17evTo0S91xv+NH+5b80/v548b8cKDAgJhYwfH+sQa21ue8Osw2HcSrk++seZPQ2FZb32yrwPs39jPxsZWZjsCYUOj/Pbt2/Ts2bPp+/fv0zhxlyfiw4cPp1u3bk3Pnz+fPn/+/Nuak5OT6enTp9OVK1fO1oyTd5y0V69e3V1tXLp0Kdz5sU//5Z7X7/W39hPeuIUXFhAIFyb7ey8YJ/84ka5duzatQ+Lu3bu70JhvFeaTf16z/rO8gphD5M6dO7tL/fkW4+fPn7vXffny5eyWY4TP+nXL8JnfYw6ar1+//nLLsNxf5L0OrdnXx9+TVvmQgEDY+LGxPkkvX768O5Hnv+dP+48fP+46WF7Gr0/+dbCMk3J88s91Hj9+PM3/nq88Rq05dOarkevXr08PHjz47apjft+xZvm69dXIp0+ffgmjQ/vZ+ChabE8gbHjMy5NtPEM49GxgbmO95tiVxvxwcfnpPl9FvH//flq+Zkmz78Qf/7+sM362rBO58sk87NzwCP9zWxMIGx3Z8gTcd3LN214/ZxjrPnz4sPvtwnmBMNeIPvk/FgjnPcAUCBs9yPZsSyBscFaHwmDeauR2YNxWjOcFxy7Rl5/uh64ODt0azD8/9iB01BvPKyL72eA4Wm1JIGxs3MfC4KKBMNc67yHe+leG+74/cCwQIp/+N2/ePHuAed5+NjaOdtsRCBsb+XjQd5F7+fVJGf214/JqY35o+OrVq91DwnHSRp4hLB96Rn5V+k/8GnRjIyu1HYGwoXEe+sLR2OK+E265/eWn+3n39ZHfDiy/q3DoGcLy52vK5ZepztvPhsbQeisCYUPjP/SNv3UgLG8dxleXL/pV4fFehx48rusde6g472f95aV/46vUGxpdma0IhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvIBAyBuqQKCMgEAoM0qNEMgLCIS8oQoEyggIhDKj1AiBvMD/ANbXEGO2tfHZAAAAAElFTkSuQmCC">
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <h2>Altamente customizável</h2>
+          <p>Com um pouco de customização, é possível adicionar qualquer tipo de conteúdo HTML como cabeçalhos, parágrafos, ou botões em miniaturas</p>
+          <div class="row-fluid">
+            <ul class="thumbnails">
+              <li class="span4">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" src="data:image/png;base64,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">
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>
+              </li>
+              <li class="span4">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" src="data:image/png;base64,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">
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>
+              </li>
+              <li class="span4">
+                <div class="thumbnail">
+                  <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" src="data:image/png;base64,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">
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+       
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"thumbnails"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"span4"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"thumbnail"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">data-src</span><span class="pun">=</span><span class="atv">"holder.js/300x200"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">""</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;/a&gt;</span></li><li class="L5"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L6"><span class="pln">  ...</span></li><li class="L7"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+          <p>For custom HTML content in thumbnails, the markup changes slightly. To allow block level content anywhere, we swap the <code>&lt;a&gt;</code> for a <code>&lt;div&gt;</code> like so:</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"thumbnails"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"span4"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"thumbnail"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">      </span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">data-src</span><span class="pun">=</span><span class="atv">"holder.js/300x200"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">""</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">      </span><span class="tag">&lt;h3&gt;</span><span class="pln">Thumbnail label</span><span class="tag">&lt;/h3&gt;</span></li><li class="L5"><span class="pln">      </span><span class="tag">&lt;p&gt;</span><span class="pln">Thumbnail caption...</span><span class="tag">&lt;/p&gt;</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;/li&gt;</span></li><li class="L8"><span class="pln">  ...</span></li><li class="L9"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+
+          <h2>Mais exemplos</h2>
+          <ul class="thumbnails">
+            <li class="span4">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/360x270" alt="360x270" style="width: 360px; height: 270px;" src="data:image/png;base64,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">
+              </a>
+            </li>
+            <li class="span3">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/260x120" alt="260x120" style="width: 260px; height: 120px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAB4CAYAAAAUn4wEAAAGQElEQVR4Xu3aPUsdWxQG4LEwKiSFTbQTsUwsRfDvp7KRVBFrEVIEsREJ+HHvHJjDODrH96ghQ9aT5nLD8rjXs/Z+3TNx5fLy8qHxhwABAv8LrAgE+4AAgU5AINgLBAjMBQSCzUCAgECwBwgQeCrghmBXECDghmAPECDghmAPECCwQMAjg+1BgIBHBnuAAAGPDPYAAQIeGewBAgQSAe8QEiU1BIoICIQig9YmgURAICRKaggUERAIRQatTQKJgEBIlNQQKCIgEIoMWpsEEgGBkCipIVBEQCAUGbQ2CSQCAiFRUkOgiIBAKDJobRJIBARCoqSGQBEBgVBk0NokkAgIhERJDYEiAgKhyKC1SSAREAiJkhoCRQQEQpFBa5NAIiAQEiU1BIoICIQig9YmgURAICRKaggUERAIRQatTQKJgEBIlNQQKCIgEIoMWpsEEgGBkCipIVBEQCAUGbQ2CSQCAiFRUkOgiIBAKDJobRJIBARCoqSGQBEBgVBk0NokkAgIhERJDYEiAgKhyKC1SSAREAiJkhoCRQQEQpFBa5NAIiAQEiU1BIoICIQig9YmgURAICRKaggUERAIRQatTQKJgEBIlNQQKCIgEIoMWpsEEgGBkCipIVBEQCAUGbQ2CSQCAiFRUkOgiIBAmOCgT09Pm4uLi/nKPn361BweHj5a6eXlZfP9+/fm/v5+9vfP1ZyfnzdnZ2fzr9vd3W329vZe3fHJyUnTft+tra1mf3//0ecka37v9by6EV84KiAQJrY5ukM3XFb/wA/DoKvtH9Th4etqXhsK/c8bBkKy5vdez8TG9s8sRyBMaJS3t7fNt2/fmru7u6Y7uP2D9PXr1+bz58/N8fFxc319/aRmZWWlOTo6atbW1uY13eHtfoKvr6/Pbhurq6tx58MD3w+EZdf8HuuJF65waQGBsDTZn/uC7vB3B3tjY6MZHridnZ1ZaLSPCu3hb2uGf/o3iDZEtre3Z1f99hHj4eFh9nU3NzfzR44ufIZf1w+f9nu0QfP79+9HjwzJmjc3N+ffa2w9z/Xx56R98piAQJj43hge0g8fPswOV/vf9qf91dXVrIP+T+3h4R8GS3cou5/87eccHBw07f+3N4/us9rQaW8jHz9+bL58+fLk1jFGN7bmLozG1jPxUZRYnkCY8Ji7A9ke0u4dwtizeNvGsGbRTaN9udi/fbS3iJ8/fzb9r+nT9Nfy3EvFrnbRml9az4RHUWZpAmGio+4frP5B6gfC8D1DV/fr16/Zvy4kBzB9858EwktrTtYz0XGUWZZAmOCoxw5Wu9TkcaB7rEiu6P1bwtjtoP2+LwXCW9fc3lD8+fsCAuHvz+DRChYdrGUDof2sl17iDX9/YOxxYFEgpGtO1jOxcZRbjkCY2Mi7F33LPMsP3/Sn/+zYv220Lw1//Pgxuwl0IZK+Q3jNmt/yz6ATG9k/tRyBMKFxjv3CUbfE5343ob/8ZX4x6bmf+IsO6dgN4a1rfu0vSk1obP/UUgTChMY5vL4Pl9Y/PMOD+NxVf9ELw+57jb3oG37eWCAss+b0BeaERlJuKQKh3Mg1TGBcQCDYHQQIzAUEgs1AgIBAsAcIEHgq4IZgVxAg4IZgDxAg4IZgDxAgsEDAI4PtQYCARwZ7gAABjwz2AAECHhnsAQIEEgHvEBIlNQSKCAiEIoPWJoFEQCAkSmoIFBEQCEUGrU0CiYBASJTUECgiIBCKDFqbBBIBgZAoqSFQREAgFBm0NgkkAgIhUVJDoIiAQCgyaG0SSAQEQqKkhkARAYFQZNDaJJAICIRESQ2BIgICocigtUkgERAIiZIaAkUEBEKRQWuTQCIgEBIlNQSKCAiEIoPWJoFEQCAkSmoIFBEQCEUGrU0CiYBASJTUECgiIBCKDFqbBBIBgZAoqSFQREAgFBm0NgkkAgIhUVJDoIiAQCgyaG0SSAQEQqKkhkARAYFQZNDaJJAICIRESQ2BIgICocigtUkgERAIiZIaAkUEBEKRQWuTQCIgEBIlNQSKCAiEIoPWJoFEQCAkSmoIFBEQCEUGrU0CiYBASJTUECgiIBCKDFqbBBIBgZAoqSFQREAgFBm0NgkkAgIhUVJDoIiAQCgyaG0SSAQEQqKkhkARAYFQZNDaJJAI/AcghRH8/bWtmwAAAABJRU5ErkJggg==">
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAAB4CAYAAAB1ovlvAAAELklEQVR4Xu3YzUtiUQCG8WNiUdGusF1I29wEYfTvtyoh2kXrcKurgrCP4Rw4cubOvY4zCo90n1kVk77y3B/3w850Ov0O/rMAVKAjQKi8s6mAAIWAFhAgmt9xAWoALSBANL/jAtQAWkCAaH7HBagBtIAA0fyOC1ADaAEBovkdF6AG0AICRPM7LkANoAUEiOZ3XIAaQAsIEM3vuAA1gBYQIJrfcQFqAC0gQDS/4wLUAFpAgGh+xwWoAbSAANH8jgtQA2gBAaL5HRegBtACAkTzOy5ADaAFBIjmd1yAGkALCBDN77gANYAWECCa33EBagAtIEA0v+MC1ABaQIBofscFqAG0gADR/I4LUANoAQGi+R0XoAbQAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFhAgmt9xAWoALSBANL/jAtQAWqA1AL++vsLd3V14e3sLNzc3YX9/P4X/+PgIt7e34fPzM/3e7/fDcDhMP0+n0/D4+Bjia+O/i4uLcHp6utIBa9p7eXkJz8/Pi/cYDAbh/Px87b2VPtQW/lErAJbIOp3OAmBGsrOzE0ajUXh4eEjoIrTj4+ME8+DgYPF/EW/8u16vt/RQNu1l0CcnJwn509NTmEwma+9toauVP9KPB1g9w5UAM4izs7PFWSiXy2eqfIbKv0ecu7u76cx4eHiYQNZBymfUcq96VMqN+J7xzFi3t+pZd+WjvkV/2AqA4/E4XF5epjNceQnOAPb29sL7+3s6LFUATb/H95rNZuH6+jrc398vzpQRfNNe9biXcOfzeS3A8hK9RW429lF+PMBcqu6eLAPI933lJTjiipfHJoBNl9lle+VRy/iPjo5+O4s27W3siG/ZG7UaYNNlNiJouiSWZ6QMtnxwWQVgvvTHjXxPueyz5IeULbOzkY/TaoDVe8B/uSfLr40PJPHyXX1C/ttTd3xd+UCz7J7Te8CNWGffpA5E3VNwvPTGr2kikKan4G63m77SiQ8aV1dX6d4y/lyCWrb3+vr6B9h8Sf+fp2627HrrrT4DxnTVp+TyTNb0PWC+d6zer5WX4jqA1e8A86HL77PO947rMeBe3RqAXGKXlxUQoD7QAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFhAgmt9xAWoALSBANL/jAtQAWkCAaH7HBagBtIAA0fyOC1ADaAEBovkdF6AG0AICRPM7LkANoAUEiOZ3XIAaQAsIEM3vuAA1gBYQIJrfcQFqAC0gQDS/4wLUAFpAgGh+xwWoAbSAANH8jgtQA2gBAaL5HRegBtACAkTzOy5ADaAFBIjmd1yAGkALCBDN77gANYAWECCa33EBagAtIEA0v+MC1ABaQIBofscFqAG0gADR/I4LUANoAQGi+R0XoAbQAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFvgFNNYD7Zg81vEAAAAASUVORK5CYII=">
+              </a>
+            </li>
+            <li class="span3">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/260x120" alt="260x120" style="width: 260px; height: 120px;" src="data:image/png;base64,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">
+              </a>
+            </li>
+            <li class="span2">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/160x120" alt="160x120" style="width: 160px; height: 120px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAAB4CAYAAAB1ovlvAAAELklEQVR4Xu3YzUtiUQCG8WNiUdGusF1I29wEYfTvtyoh2kXrcKurgrCP4Rw4cubOvY4zCo90n1kVk77y3B/3w850Ov0O/rMAVKAjQKi8s6mAAIWAFhAgmt9xAWoALSBANL/jAtQAWkCAaH7HBagBtIAA0fyOC1ADaAEBovkdF6AG0AICRPM7LkANoAUEiOZ3XIAaQAsIEM3vuAA1gBYQIJrfcQFqAC0gQDS/4wLUAFpAgGh+xwWoAbSAANH8jgtQA2gBAaL5HRegBtACAkTzOy5ADaAFBIjmd1yAGkALCBDN77gANYAWECCa33EBagAtIEA0v+MC1ABaQIBofscFqAG0gADR/I4LUANoAQGi+R0XoAbQAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFhAgmt9xAWoALSBANL/jAtQAWqA1AL++vsLd3V14e3sLNzc3YX9/P4X/+PgIt7e34fPzM/3e7/fDcDhMP0+n0/D4+Bjia+O/i4uLcHp6utIBa9p7eXkJz8/Pi/cYDAbh/Px87b2VPtQW/lErAJbIOp3OAmBGsrOzE0ajUXh4eEjoIrTj4+ME8+DgYPF/EW/8u16vt/RQNu1l0CcnJwn509NTmEwma+9toauVP9KPB1g9w5UAM4izs7PFWSiXy2eqfIbKv0ecu7u76cx4eHiYQNZBymfUcq96VMqN+J7xzFi3t+pZd+WjvkV/2AqA4/E4XF5epjNceQnOAPb29sL7+3s6LFUATb/H95rNZuH6+jrc398vzpQRfNNe9biXcOfzeS3A8hK9RW429lF+PMBcqu6eLAPI933lJTjiipfHJoBNl9lle+VRy/iPjo5+O4s27W3siG/ZG7UaYNNlNiJouiSWZ6QMtnxwWQVgvvTHjXxPueyz5IeULbOzkY/TaoDVe8B/uSfLr40PJPHyXX1C/ttTd3xd+UCz7J7Te8CNWGffpA5E3VNwvPTGr2kikKan4G63m77SiQ8aV1dX6d4y/lyCWrb3+vr6B9h8Sf+fp2627HrrrT4DxnTVp+TyTNb0PWC+d6zer5WX4jqA1e8A86HL77PO947rMeBe3RqAXGKXlxUQoD7QAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFhAgmt9xAWoALSBANL/jAtQAWkCAaH7HBagBtIAA0fyOC1ADaAEBovkdF6AG0AICRPM7LkANoAUEiOZ3XIAaQAsIEM3vuAA1gBYQIJrfcQFqAC0gQDS/4wLUAFpAgGh+xwWoAbSAANH8jgtQA2gBAaL5HRegBtACAkTzOy5ADaAFBIjmd1yAGkALCBDN77gANYAWECCa33EBagAtIEA0v+MC1ABaQIBofscFqAG0gADR/I4LUANoAQGi+R0XoAbQAgJE8zsuQA2gBQSI5ndcgBpACwgQze+4ADWAFvgFNNYD7Zg81vEAAAAASUVORK5CYII=">
+              </a>
+            </li>
+          </ul>
+
+        </section>
+
+
+
+
+        <!-- Alerts
+        ================================================== -->
+        <section id="alerts">
+          <div class="page-header">
+            <h1>Alertas <small>Sucesso, aviso e mensagens de erro.</small></h1>
+          </div>
+
+          <h2>Alertas Padrões</h2>
+          <div class="bs-docs-example">
+            <div class="alert">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Warning!</strong> Best check yo self, you're not looking too good.
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"alert"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"button"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"close"</span><span class="pln"> </span><span class="atn">data-dismiss</span><span class="pun">=</span><span class="atv">"alert"</span><span class="tag">&gt;</span><span class="pln">&amp;times;</span><span class="tag">&lt;/button&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;strong&gt;</span><span class="pln">Warning!</span><span class="tag">&lt;/strong&gt;</span><span class="pln"> Best check yo self, you're not looking too good.</span></li><li class="L3"><span class="tag">&lt;/div&gt;</span></li></ol></pre>      
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Opções</h2>
+          <p>Para mensagens longas, incluir a classe <code>.alert-block</code>.</p>
+          <div class="bs-docs-example">
+            <div class="alert alert-block">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <h4>Warning!</h4>
+              <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"alert alert-block"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"button"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"close"</span><span class="pln"> </span><span class="atn">data-dismiss</span><span class="pun">=</span><span class="atv">"alert"</span><span class="tag">&gt;</span><span class="pln">&amp;times;</span><span class="tag">&lt;/button&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;h4&gt;</span><span class="pln">Warning!</span><span class="tag">&lt;/h4&gt;</span></li><li class="L3"><span class="pln">  Best check yo self, you're not...</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Outros tipos de alertas</h2>
+
+          <h3>Erro ou perigo</h3>
+          <div class="bs-docs-example">
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Oh snap!</strong> Change a few things up and try submitting again.
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"alert alert-error"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Sucesso</h3>
+          <div class="bs-docs-example">
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Well done!</strong> You successfully read this important alert message.
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"alert alert-success"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Informação</h3>
+          <div class="bs-docs-example">
+            <div class="alert alert-info">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"alert alert-info"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  ...</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+        </section>
+
+
+
+
+        <!-- Progress bars
+        ================================================== -->
+        <section id="progress">
+          <div class="page-header">
+            <h1>Barra de progressão<small> Para carregar, redirecionar ou para ser utilizado durante uma ação</small></h1>
+          </div>
+
+          <h2>Exemplos</h2>
+
+          <h3>Básico</h3>
+          <p>Apenas com um gradiente vertical.</p>
+          <div class="bs-docs-example">
+            <div class="progress">
+              <div class="bar" style="width: 60%;"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">60</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Listrada</h3>
+          <p>Utiliza gradiente e um efeito com listra. Não pode ser visualizado no  IE7-8.</p>
+          <div class="bs-docs-example">
+            <div class="progress progress-striped">
+              <div class="bar" style="width: 20%;"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-striped"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Animada</h3>
+          <p>Adicione a classe <code>.active</code> ao ja existente <code>.progress-striped</code> para animar as listras da direita para a esquerda. Não funciona no IE.</p>
+          <div class="bs-docs-example">
+            <div class="progress progress-striped active">
+              <div class="bar" style="width: 45%"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-striped active"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">40</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <h3>Múltiplas</h3>
+          <p>Adicione a classe <code>.progress</code>.</p>
+          <div class="bs-docs-example">
+            <div class="progress">
+              <div class="bar bar-success" style="width: 35%"></div>
+              <div class="bar bar-warning" style="width: 20%"></div>
+              <div class="bar bar-danger" style="width: 10%"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar bar-success"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">35</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar bar-warning"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L3"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar bar-danger"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">10</span><span class="pun">%;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L4"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+          <hr class="bs-docs-separator">
+          <h2>Opções</h2>
+
+          <h3>Cores adicionais</h3>
+
+          <div class="bs-docs-example">
+            <div class="progress progress-info" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 20%"></div>
+            </div>
+            <div class="progress progress-success" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 40%"></div>
+            </div>
+            <div class="progress progress-warning" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 60%"></div>
+            </div>
+            <div class="progress progress-danger">
+              <div class="bar" style="width: 80%"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-info"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li><li class="L3"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-success"</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">40</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L5"><span class="tag">&lt;/div&gt;</span></li><li class="L6"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-warning"</span><span class="tag">&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">60</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li><li class="L9"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-danger"</span><span class="tag">&gt;</span></li><li class="L0"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">80</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L1"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+          <div class="bs-docs-example">
+            <div class="progress progress-info progress-striped" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 20%"></div>
+            </div>
+            <div class="progress progress-success progress-striped" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 40%"></div>
+            </div>
+            <div class="progress progress-warning progress-striped" style="margin-bottom: 9px;">
+              <div class="bar" style="width: 60%"></div>
+            </div>
+            <div class="progress progress-danger progress-striped">
+              <div class="bar" style="width: 80%"></div>
+            </div>
+          </div>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-info progress-striped"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li><li class="L3"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-success progress-striped"</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">40</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L5"><span class="tag">&lt;/div&gt;</span></li><li class="L6"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-warning progress-striped"</span><span class="tag">&gt;</span></li><li class="L7"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">60</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L8"><span class="tag">&lt;/div&gt;</span></li><li class="L9"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"progress progress-danger progress-striped"</span><span class="tag">&gt;</span></li><li class="L0"><span class="pln">  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"bar"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">80</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L1"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>Suporte à browsers</h2>
+          <p>A barra de progressão utiliza grandientes com CSS3, transições e animações que não são suportados no IE7-9 ou versões antigas do Firefox.</p>
+          <p>Versões anteriores ao Internet Explorer 10 e o Opera 12 não suportam animações.</p>
+
+        </section>
+
+
+
+
+        <!-- Media object
+        ================================================== -->
+       
+
+
+
+
+
+        <!-- Miscellaneous
+        ================================================== -->
+        <section id="misc">
+          <div class="page-header">
+            <h1>Miscellaneous <small>Lightweight utility components</small></h1>
+          </div>
+
+          <h4>.pull-left</h4>
+          <p>Alinhar um elemento com float left</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="kwd">class</span><span class="pun">=</span><span class="str">"pull-left"</span></li></ol></pre>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="pun">.</span><span class="pln">pull</span><span class="pun">-</span><span class="pln">left </span><span class="pun">{</span></li><li class="L1"><span class="pln">  </span><span class="kwd">float</span><span class="pun">:</span><span class="pln"> left</span><span class="pun">;</span></li><li class="L2"><span class="pun">}</span></li></ol></pre>
+
+          <h4>.pull-right</h4>
+          <p>Alinhar um elemento com float right</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="kwd">class</span><span class="pun">=</span><span class="str">"pull-right"</span></li></ol></pre>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="pun">.</span><span class="pln">pull</span><span class="pun">-</span><span class="pln">right </span><span class="pun">{</span></li><li class="L1"><span class="pln">  </span><span class="kwd">float</span><span class="pun">:</span><span class="pln"> right</span><span class="pun">;</span></li><li class="L2"><span class="pun">}</span></li></ol></pre>
+
+          <h4>.muted</h4>
+          <p>Mudar a cor de um elemento para cinza<code>#999</code></p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="kwd">class</span><span class="pun">=</span><span class="str">"muted"</span></li></ol></pre>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="pun">.</span><span class="pln">muted </span><span class="pun">{</span></li><li class="L1"><span class="pln">  color</span><span class="pun">:</span><span class="pln"> </span><span class="com">#999;</span></li><li class="L2"><span class="pun">}</span></li></ol></pre>
+
+          <h4>.clearfix</h4>
+          <p>Eliminar o <code>float</code> de qualquer elemento</p>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="kwd">class</span><span class="pun">=</span><span class="str">"clearfix"</span></li></ol></pre>
+<pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="pun">.</span><span class="pln">clearfix </span><span class="pun">{</span></li><li class="L1"><span class="pln">  </span><span class="pun">*</span><span class="pln">zoom</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span></li><li class="L2"><span class="pln">  </span><span class="pun">&amp;:</span><span class="pln">before</span><span class="pun">,</span></li><li class="L3"><span class="pln">  </span><span class="pun">&amp;:</span><span class="pln">after </span><span class="pun">{</span></li><li class="L4"><span class="pln">    display</span><span class="pun">:</span><span class="pln"> table</span><span class="pun">;</span></li><li class="L5"><span class="pln">    content</span><span class="pun">:</span><span class="pln"> </span><span class="str">""</span><span class="pun">;</span></li><li class="L6"><span class="pln">  </span><span class="pun">}</span></li><li class="L7"><span class="pln">  </span><span class="pun">&amp;:</span><span class="pln">after </span><span class="pun">{</span></li><li class="L8"><span class="pln">    clear</span><span class="pun">:</span><span class="pln"> both</span><span class="pun">;</span></li><li class="L9"><span class="pln">  </span><span class="pun">}</span></li><li class="L0"><span class="pun">}</span></li></ol></pre>
+
+        </section>
+
+
+
+      </div>
+</div>
+</div>
+</div>
+</body>
+</html>
+<script>
+    $('#myTab a').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+    });
+</script>

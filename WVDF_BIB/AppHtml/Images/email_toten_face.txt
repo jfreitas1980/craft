@@ -1,0 +1,248 @@
+face book
+
+
+
+<html>
+    <head>
+	
+		<title>Facebook</title>
+
+		<style>
+		
+			a:link, a:visited, a:hover, a:active {
+				font-family:Arial, Helvetica, sans-serif;
+				color:#134267;
+				font-weight:bold;
+				font-size:12px;
+			}
+
+			.texto-azul-gd {
+				font-family:Arial, Helvetica, sans-serif;
+				text-align: left;
+				color:#0a375e;
+				font-weight:bold;
+				font-size:18px;
+				margin: 10px 0px 5px 5px;
+				font-style: italic;
+				padding-left: 30px;
+			}
+
+			.texto-azul{
+				font-family:Arial, Helvetica, sans-serif;
+				color:#3b6585;
+				font-size:11px;
+				padding-right: 35px;
+				padding-left: 40px;
+			}
+			
+			.fundo{
+				background-image: url("{aHTTPFUNDO}wvdf_cac_8/Images/carta.png");
+				background-repeat: no-repeat;
+				background-position: top center;
+			}
+			.margem{
+				margin-top: 5px;
+				margin-left: 25px;
+			}
+	
+		</style>	
+	  
+    </head>
+    <body>  
+	
+	<table class="fundo" width="700" height="408" align="center" border="0">
+		<tr>
+			<td align="left" height="100px">  <img class="margem" src="{aLOGOIMAGEM}" width="140px" height="40px"></td>	
+		</tr>
+		<tr>
+			<td valign="top">
+				<span class="texto-azul-gd">Gerar Link Facebook</span>
+				
+				<p>&nbsp;</p>
+				
+				<p class="texto-azul">Olá Usuário,</p>
+				
+				<p class="texto-azul">Esse e-mail contém todas as informações necessárias para postar o link no facebook. Para visualizar essas informações, clique no link abaixo para visualizar essas informações.</p>
+				
+				
+			</td>
+		</tr>
+		<tr>
+			<td height="100px"><p align="center"><a href="http://www.opinafacil.com.br/facebook.asp?aHTTPLINK={aHTTPLINK}WVDF_CAC_8/&aPROGRAMA=PCRM2001_91.asp&aUSUARIOSESSAO={aUSUARIOSESSAO}&aPESSOA={aPESSOA}&aCLIENTE={aCLIENTE}&aPESQUISA={aPESQUISA}&aLOCAL={aLOCAL}">Instruções para Facebook</a></td>
+		</tr>
+
+    </body>
+ </html>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ toten
+ 
+ 
+ 
+ <html>
+     <head>
+ 
+ 		<title>Facebook</title>
+ 
+ 		<style>
+ 
+ 			a:link, a:visited, a:hover, a:active {
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				color:#134267;
+ 				font-weight:bold;
+ 				font-size:12px;
+ 			}
+ 
+ 			.texto-azul-gd {
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				text-align: left;
+ 				color:#0a375e;
+ 				font-weight:bold;
+ 				font-size:18px;
+ 				margin: 10px 0px 5px 5px;
+ 				font-style: italic;
+ 				padding-left: 30px;
+ 			}
+ 
+ 			.texto-azul{
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				color:#3b6585;
+ 				font-size:11px;
+ 				padding-right: 35px;
+ 				padding-left: 40px;
+ 			}
+ 
+ 			.fundo{
+ 				background-image: url("{aHTTPFUNDO}wvdf_cac_8/Images/carta.png");
+ 				background-repeat: no-repeat;
+ 				background-position: top center;
+ 			}
+ 			.margem{
+ 				margin-top: 5px;
+ 				margin-left: 25px;
+ 			}
+ 
+ 		</style>
+ 
+     </head>
+     <body>
+ 
+ 	<table class="fundo" width="700" height="408" align="center" border="0">
+ 		<tr>
+ 			<td align="left" height="100px">  <img class="margem" src="{aLOGOIMAGEM}" width="140px" height="40px"></td>
+ 		</tr>
+ 		<tr>
+ 			<td valign="top">
+ 				<span class="texto-azul-gd">Clique no Link Abaixo para responder a pesquisa</span>
+ 
+ 				<p>&nbsp;</p>
+ 
+ 				<p class="texto-azul">Olá Usuário,</p>
+ 
+ 				<p class="texto-azul">Esse e-mail contém todas as informações necessárias para postar o link no facebook. Para visualizar essas informações, clique no link abaixo para visualizar essas informações.</p>
+ 
+ 
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td> <input size="200" align="center" type="text" align="center" value="{aHTTP}WVDF_CAC_8/PCRM2001_91.asp?aUSUARIOSESSAO={aUSUARIOSESSAO}&aPESSOA={aPESSOA}&aCLIENTE={aCLIENTE}&aPESQUISA={aPESQUISA}&aLOCAL={aLOCAL}" >Clique para pesquisa</td>
+ 		</tr>
+ 
+     </body>
+ </html>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ email
+ 
+ 
+ 
+ <html>
+     <head>
+ 
+ 		<title>Facebook</title>
+ 
+ 		<style>
+ 
+ 			a:link, a:visited, a:hover, a:active {
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				color:#134267;
+ 				font-weight:bold;
+ 				font-size:12px;
+ 			}
+ 
+ 			.texto-azul-gd {
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				text-align: left;
+ 				color:#0a375e;
+ 				font-weight:bold;
+ 				font-size:18px;
+ 				margin: 10px 0px 5px 5px;
+ 				font-style: italic;
+ 				padding-left: 30px;
+ 			}
+ 
+ 			.texto-azul{
+ 				font-family:Arial, Helvetica, sans-serif;
+ 				color:#3b6585;
+ 				font-size:11px;
+ 				padding-right: 35px;
+ 				padding-left: 40px;
+ 			}
+ 
+ 			.fundo{
+ 				background-image: url("{aHTTPFUNDO}wvdf_cac_8/Images/carta.png");
+ 				background-repeat: no-repeat;
+ 				background-position: top center;
+ 			}
+ 			.margem{
+ 				margin-top: 5px;
+ 				margin-left: 25px;
+ 			}
+ 
+ 		</style>
+ 
+     </head>
+     <body>
+ 
+ 	<table class="fundo" width="700" height="408" align="center" border="0">
+ 		<tr>
+ 			<td align="left" height="100px">  <img class="margem" src="{aLOGOIMAGEM}" width="140px" height="40px"></td>
+ 		</tr>
+ 		<tr>
+ 			<td valign="top">
+ 				<span class="texto-azul-gd">Clique no Link Abaixo para responder a pesquisa</span>
+ 
+ 				<p>&nbsp;</p>
+ 
+ 				<p class="texto-azul">Olá Usuário,</p>
+ 
+ 				<p class="texto-azul">Esse e-mail contém todas as informações necessárias para postar o link no facebook. Para visualizar essas informações, clique no link abaixo para visualizar essas informações.</p>
+ 
+ 
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td height="100px"><p align="center"><a href="{aHTTP}WVDF_CAC_8/PCRM2001_91.asp?aUSUARIOSESSAO={aUSUARIOSESSAO}&aPESSOA={aPESSOA}&aCLIENTE={aCLIENTE}&aPESQUISA={aPESQUISA}&aLOCAL={aLOCAL}">Clique para pesquisa</a></td>
+ 		</tr>
+ 
+     </body>
+ </html>

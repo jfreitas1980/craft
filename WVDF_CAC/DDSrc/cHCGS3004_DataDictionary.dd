@@ -1,0 +1,391 @@
+//-2WA
+Use CtrlData.PKG
+
+Open HCGS3004
+Open HCGS3005
+Open HCGS3006
+Open TSMG801
+Open CCGS229
+Open CSAG374
+Open CSAG378
+Open CCGS212
+Open TMEN1004
+
+Open TSMG801
+Open CCGS229
+
+Object oSTATUS_PROP_VT is a DescriptionValidationTable
+    Set Validate_State    to False //ANDERSON RODRIGUES - 04/08/2021 21:08
+    Set Allow_Blank_State to True  //ANDERSON RODRIGUES - 04/08/2021 21:08
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "1" "PENDENTE DO COMERCIAL" 
+        Send Add_Table_Value "2" "ENVIADA AO CLIENTE"
+        Send Add_Table_Value "3" "AGUARDANDO O AGENTE"
+        Send Add_Table_Value "4" "EM ANALISE PELO PRICING"
+        Send Add_Table_Value "5" "EXPIRADA"
+        Send Add_Table_Value "6" "PERDIDA"
+        Send Add_Table_Value "8" "APROVADA"
+        Send Add_Table_Value "9" "CANCELADA"
+        Send Add_Table_Value "10" "INFORMACOES FALTANTES"
+        Send Add_Table_Value "11" "VERIFICACAO OPERACIONAL"
+        Send Add_Table_Value "12" "OPERACAO TRUCK (DTA)"
+        Send Add_Table_Value "13" "ON BOOKING"
+        Send Add_Table_Value "14" "PRE BOOKING"
+        Send Add_Table_Value "15" "BOOKING DESK"
+        Send Add_Table_Value "16" "EM COORDENACAO"
+        Send Add_Table_Value "30" "AGUARDANDO AGENTE - OPERACIONAL"
+    End_Procedure
+End_Object //oSTATUS_PROP_VT
+
+Class cHCGS3004_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Property Boolean pbDoThis
+        Property String psStatus
+        Forward Send Construct_Object
+        Set Main_file to HCGS3004.File_Number
+
+        Set Add_System_File to TSMG801.File_Number DD_Lock_On_All
+        Set Add_System_File to CCGS229.File_Number DD_Lock_On_All
+        Set Add_System_File to TMEN1004.File_Number DD_Lock_On_All
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Field_Label_Long Field HCGS3004.PROPOSTA to "Proposta"
+        Set Field_Option Field HCGS3004.PROPOSTA DD_REQUIRED to True
+
+        Set Field_Label_Long Field HCGS3004.PROPOSTA_DATA to "Data"
+
+        Set Field_Label_Long Field HCGS3004.CSAG320_ID to "Cliente"
+
+        Set Field_Label_Long Field HCGS3004.CSAG320_FANTASIA to "Fantasia"
+
+        Set Field_Label_Long Field HCGS3004.CSAG341_ID to "Vendedor"
+
+        Set Field_Label_Long Field HCGS3004.CSAG308_ID to "Marca"
+
+        Set Field_Value_Table Field HCGS3004.STATUS to oSTATUS_PROP_VT
+
+        Set Field_Option Field HCGS3004.CLIENTE_FINAL DD_CAPSLOCK to True
+        
+        Property Integer piNewRecord
+        
+    End_Procedure
+
+    Procedure End_Construct_Object
+        Forward Send End_Construct_Object
+
+        //REMOVE EXTERNAL FILE
+        Send Remove_System_File LOGDATA.FILE_NUMBER
+        Send Remove_System_File LOGTEXT.FILE_NUMBER
+    End_Procedure
+    
+    Procedure Creating_PCGS3004_01
+        Forward Send Creating
+        DateTime dtVar
+        Integer  iYear
+        Move (CurrentDateTime()) to dtVar
+        
+        Set piNewRecord to 1
+        
+        Clear TSMG801
+        Smart_Find Ge TSMG801 by 0
+        
+        If (TSMG801.HCGS3004_PROPOSTA = 0) Begin
+            Move (String(DateGetYear(dtVar))+'000000') to TSMG801.HCGS3004_PROPOSTA
+        End
+        Else Begin
+            Move (Mid(TSMG801.HCGS3004_PROPOSTA, 4, 1)) to iYear
+            If (iYear <> DateGetYear(dtVar)) Begin
+                Move (String(DateGetYear(dtVar))+'000000') to TSMG801.HCGS3004_PROPOSTA
+            End
+        End
+        
+        Add 1 to TSMG801.HCGS3004_PROPOSTA
+        SaveRecord TSMG801
+        
+        Move TSMG801.HCGS3004_PROPOSTA to HCGS3004.PROPOSTA
+        
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+        Clear   CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin                   
+            Send p_RegistraAcessoUsuario "HCGS3004.USUARIO_ID_C" CSAG311.USUARIONUMERO
+        End
+        
+        If (HCGS3004.STATUS = '' or HCGS3004.STATUS = '0') Move '1' to HCGS3004.STATUS
+        If (HCGS3004.FREETIME_ARMADOR = '') Move 0 to HCGS3004.FREETIME_ARMADOR
+        If (HCGS3004.TAXAS_ARMADOR = '') Move '0' to HCGS3004.TAXAS_ARMADOR
+        
+    End_Procedure // Creating_PCGS3004_01
+    
+
+    Procedure Update_PCGS3004_01
+        String  sNRDOCTO
+        String  sSubject
+        String  sContatos
+        String  sContato
+        String  sQuery
+        Integer iNew
+        
+        Forward Send Update
+        
+        If (HCGS3004.CCGS202_ID contains 'LCL') Move 'N.S.A.' to HCGS3004.CONTAINERS
+
+        If (HCGS3004.CCGS202_ID contains 'AIR') Begin
+            If (not(HCGS3004.CONTAINERS contains TSMG800.NAOSEAPLICA_CNTR));
+                Move (Rtrim(HCGS3004.CONTAINERS)+If(HCGS3004.CONTAINERS<>'',',','')+Rtrim(TSMG800.NAOSEAPLICA_CNTR)) to HCGS3004.CONTAINERS
+        End
+        
+        //--- PRODUTOS
+        If (HCGS3004.CCGS202_ID <> '' and HCGS3004.CCGS200_ID <> 0) Begin
+
+            Move "SELECT CODIGO FROM DBO.CCGS210 WHERE OPERACAO = '%1' AND CCGS215_ID = '%2'" to sQuery
+            Move (SFormat(sQuery,HCGS3004.CCGS200_ID,HCGS3004.CCGS202_ID)) to sQuery
+            SQL_FIND_BEGIN hStmt_search sQuery
+                Move (Trim(SqlFindValue(hStmt_search,1))) to HCGS3004.CCGS210_ID
+            SQL_FIND_END hStmt_search 
+
+        End
+        
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+        Clear CSAG311
+        Move (psUsuarioSessao(Self)) to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (Found) Begin
+            Send p_RegistraAcessoUsuario "HCGS3004.USUARIO_ID_A" CSAG311.USUARIONUMERO
+        End
+        
+        If (HCGS3004.STATUS = '17') Begin
+            Send p_RegistraAcessoUsuario "HCGS3004.USUARIO_ID_N" CSAG311.USUARIONUMERO
+        End
+        
+        //-- Configurar Contatos como To
+        Move (Trim(HCGS3004.EMAILS_ENVIO)) to sContatos
+		Get Find_Code_Description of oCSAG367_FVT 'WS_HCGS3004_CONTATOS_PROPOSTA_DE_FRETE' to sQuery
+        Move (SFormat(sQuery, HCGS3004.CSAG320_ID)) to sQuery
+        SQL_FIND_BEGIN hStmt_CSAG378 sQuery
+            Move (Trim(SqlFindValue(hStmt_CSAG378,1))) to sContato
+            If (not(sContatos contains sContato));
+                Move (sContatos+If(sContatos<>'',';', '')+sContato) to sContatos
+        SQL_FIND_END hStmt_CSAG378
+        Move sContatos to HCGS3004.EMAILS_ENVIO
+
+        Send pVerifyRemarks
+        
+    End_Procedure // Update_PCGS3004_01
+
+    Procedure Deleting_PCGS3004_01
+       Forward Send Deleting
+//        Send p_FFOperation 3 //ANDERSON RODRIGUES - 04/08/2021 21:08
+    End_Procedure   // Deleting_PCGS3004_01
+
+    Procedure Save_Main_File_PCGS3004_01
+        Integer iRECNUM
+        Move HCGS3004.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+//ANDERSON RODRIGUES - 04/08/2021 21:08
+//        If (iRECNUM=0) Begin
+//            //--- NOVO REGISTRO
+//            Send p_FFOperation 2
+//        End // If (iRECNUM=0) Begin
+//        Else Begin
+//          //--- REGISTRO ALTERADO
+//            Send p_FFOperation 1 
+//        End
+        
+    End_Procedure // Save_Main_File_PCGS3004_01
+    
+    Procedure Backout_PCGS3004_01
+        
+        Set psStatus to HCGS3004.STATUS
+        
+        Forward Send Backout
+//        Send p_FFOperation 0 //ANDERSON RODRIGUES - 04/08/2021 21:08
+    End_Procedure   // Backout_PCGS3004_01
+    
+    Function Validate_Save_PCGS3004_01 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_HCGS3004
+        Boolean bFOUND
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_PCGS3004_01
+
+    Function Validate_Delete_PCGS3004_01 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_HCGS3004
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_PCGS3004_01
+
+    Procedure pVerifyRemarks 
+        Boolean bSelect
+        Boolean bDone
+        Boolean bFound
+        String  sValue
+        String  sValueThis
+        String  sRemarks
+      String[]  arrValue
+      Integer   iCount
+      Integer   iX
+      String    sQuery sQuery_aux
+      String sQueryDetalhes sImo sCA sCH sB sNE
+        
+        Move ''    to sRemarks
+        Move False to bDone
+        Move True  to bSelect
+        
+        Move "SELECT IMO,CONSUMO_ANIMAL,CONSUMO_HUMANO,N_EMPILHAVEL,BAGAGEM" to sQueryDetalhes
+        Move (sQueryDetalhes*"FROM DBO.HCGS3005 WHERE PROPOSTA_ID=%1") to sQueryDetalhes
+        Move (SFormat(sQueryDetalhes,HCGS3004.PROPOSTA)) to sQueryDetalhes
+        SQL_FIND_BEGIN hStmt_search sQueryDetalhes
+            If (SqlFindValue(hStmt_search,1) = 1) Move ("OR CCGS203_IDS LIKE '%1%'") to sImo
+            If (SqlFindValue(hStmt_search,2) = 1) Move ("OR CCGS203_IDS LIKE '%2%'") to sCA
+            If (SqlFindValue(hStmt_search,3) = 1) Move ("OR CCGS203_IDS LIKE '%3%'") to sCH
+            If (SqlFindValue(hStmt_search,4) = 1) Move ("OR CCGS203_IDS LIKE '%4%'") to sB
+            If (SqlFindValue(hStmt_search,5) = 1) Move ("OR CCGS203_IDS LIKE '%5%'") to sNE
+        SQL_FIND_END hStmt_search 
+        
+        Move "SELECT CODIGO FROM DBO.HCGS3003" to sQuery
+        
+        Move ("WHERE (CSAG308_IDS LIKE '%1' OR CSAG308_IDS = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG308_ID)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CCGS210_IDS LIKE '%1' OR CCGS210_IDS = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.CCGS210_ID)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+
+        Move ("AND (CCGS223_IDS LIKE '%1' OR CCGS223_IDS = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.CCGS223_ID)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        If (HCGS3004.CCGS202_ID = 'AIR') Begin
+            Move ("AND (CCGS248_IDS LIKE '%1' OR CCGS248_IDS = '')") to sQuery_aux
+            Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.SALES_CONDITION)+'%'))) to sQuery_aux
+            Move (Trim(sQuery*sQuery_aux)) to sQuery
+        End
+
+        Move ("AND (CARRIER_IDS LIKE '%1' OR CARRIER_IDS = '')") to sQuery_aux
+        If (HCGS3004.CARRIER_ID <> 0) Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CARRIER_ID)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+
+        Move ("AND (CSAG329_IDS_ORIGEM LIKE '%1' OR CSAG329_IDS_ORIGEM = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.CSAG329_POL)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG329_IDS_DESTINO LIKE '%1' OR CSAG329_IDS_DESTINO = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.CSAG329_POD)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG325_POL_IDS LIKE '%1' OR CSAG325_POL_IDS = '')") to sQuery_aux
+        If (HCGS3004.CSAG325_POL <> 0) Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG325_POL)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG325_POD_IDS LIKE '%1' OR CSAG325_POD_IDS = '')") to sQuery_aux
+        If (HCGS3004.CSAG325_POD <> 0) Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG325_POD)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        //--- terminal
+        Move ("AND (CSAG346_ORIG_IDS LIKE '%1' OR CSAG346_ORIG_IDS = '')") to sQuery_aux
+        If (HCGS3004.CSAG346_TERMINAL_ORIGEM <> 0);
+            Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG346_TERMINAL_ORIGEM)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG346_DEST_IDS LIKE '%1' OR CSAG346_DEST_IDS = '')") to sQuery_aux
+        If (HCGS3004.CSAG346_TERMINAL_DESTINO <> 0);
+            Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG346_TERMINAL_DESTINO)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        //--- agente
+        Move ("AND (CSAG345_IDS_ORIGEM LIKE '%1' OR CSAG345_IDS_ORIGEM = '')") to sQuery_aux
+        If (HCGS3004.CSAG345_AGENTE_ORIGEM <> 0);
+            Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG345_AGENTE_ORIGEM)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG345_IDS_DESTINO LIKE '%1' OR CSAG345_IDS_DESTINO = '')") to sQuery_aux
+        If (HCGS3004.CSAG345_AGENTE_DESTINO <> 0);
+            Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG345_AGENTE_DESTINO)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CSAG325_VIA_IDS LIKE '%1' OR CSAG325_VIA_IDS = '')") to sQuery_aux
+        If (HCGS3004.CSAG325_VIA <> 0);
+            Move (SFormat(sQuery_aux,('%'+String(HCGS3004.CSAG325_VIA)+'%'))) to sQuery_aux
+        Else Move (SFormat(sQuery_aux, '')) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        Move ("AND (CCGS217_IDS LIKE '%1' OR CCGS217_IDS = '')") to sQuery_aux
+        Move (SFormat(sQuery_aux,('%'+Trim(HCGS3004.CONTAINERS)+'%'))) to sQuery_aux
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        //novo
+        Move '' to sQueryDetalhes
+        If (sImo <> '') Move sImo to sQueryDetalhes
+        If (sNE <> '') Begin
+            If (sQueryDetalhes <> '') Move (sQueryDetalhes*sNE) to sQueryDetalhes
+            Else Move sNE to sQueryDetalhes
+        End
+        If (sB <> '') Begin
+            If (sQueryDetalhes <> '') Move (sQueryDetalhes*sB) to sQueryDetalhes
+            Else Move sB to sQueryDetalhes
+        End
+        If (sCH <> '') Begin
+            If (sQueryDetalhes <> '') Move (sQueryDetalhes*sCH) to sQueryDetalhes
+            Else Move sCH to sQueryDetalhes
+        End
+        If (sCA <> '') Begin
+            If (sQueryDetalhes <> '') Move (sQueryDetalhes*sCA) to sQueryDetalhes
+            Else Move sCA to sQueryDetalhes
+        End
+        
+        Move ("AND (CCGS203_IDS = '' %1)") to sQuery_aux
+        Move (SFormat(sQuery_aux,sQueryDetalhes)) to sQuery_aux
+        
+        Move (Trim(sQuery*sQuery_aux)) to sQuery
+        
+        SQL_FIND_BEGIN hStmt_remarks sQuery
+            Move (SqlFindValue(hStmt_remarks,1) + If(sValueThis<>'', ',', '') + sValueThis) to sValueThis
+        SQL_FIND_END hStmt_remarks 
+        
+        Move sValueThis to HCGS3004.REMARKS
+        
+        SaveRecord HCGS3004
+        Send p_FFOperation 1 HCGS3004.File_Number
+        
+    End_Procedure
+    
+	#Include p_FFOperation.inc
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value Field HCGS3004.STATUS       to "1"
+        Set Field_Changed_Value Field HCGS3004.CCGS203_ID   to "0"
+        Set Field_Changed_Value Field HCGS3004.STATUS_N     to "0"
+        Set Field_Changed_Value Field HCGS3004.CCGS229_ID   to "0"
+        
+    End_Procedure
+
+End_Class

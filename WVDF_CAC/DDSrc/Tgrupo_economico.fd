@@ -1,0 +1,12 @@
+#REPLACE FILE3035 Tgrupo_economico
+#REPLACE Tgrupo_economico.File_Number |CI3035
+#REPLACE Tgrupo_economico.id_grupo_economico |FN3035,1
+#REPLACE Tgrupo_economico.no_grupo_economico |FS3035,2
+#REPLACE Tgrupo_economico.id_representante |FN3035,3
+#REPLACE Tgrupo_economico.in_ativo |FN3035,4
+#REPLACE Tgrupo_economico.user_criacao |FN3035,5
+#REPLACE Tgrupo_economico.dt_criacao |FM3035,6
+#REPLACE Tgrupo_economico.user_alteracao |FN3035,7
+#REPLACE Tgrupo_economico.dt_alteracao |FM3035,8
+#REPLACE Tgrupo_economico.in_check_validacao |FN3035,9
+#REPLACE Tgrupo_economico.user_validacao |FN3035,10

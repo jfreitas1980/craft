@@ -1,0 +1,317 @@
+/* definição geral da página */
+body {
+	font: 100% Arial, Helvetica, sans-serif;
+	color: #353535;
+	text-align: center;
+	background: #E5E5E5;
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	font-size: 60%;
+	color: #303030;
+	margin: 15px 0;
+	text-align: left;
+}
+
+
+
+/* definição geral dos links */
+a:link, a:visited, a:active {
+	color: #303030;
+	text-decoration: none;
+}
+a:hover {
+	color: #FFFFFF;
+	background: #036;
+}
+
+
+
+/* box-linl: css=01 */
+#link {
+	width: 600px;
+	margin: 15px auto 30px;
+}
+#link p {
+	font-size: 60%;
+	color: #303030;
+	text-align: left;
+	margin: 0;
+	padding: 5px;
+	border: 1px solid #666;
+}
+#link p a {
+	color: #036;
+}
+#link p a:hover {
+	color: #fff;
+}
+
+
+
+/* box-pai: css=02 */
+#wrapper {
+	width: 600px;
+	margin: 0 auto;
+	padding: 0;
+	text-align: left;
+}
+
+
+
+/* box-filho: css=03 */
+#head {
+	width: 600px;
+	text-align: center;
+	margin: 0 0 20px;
+	padding: 0;
+	float: left;
+}
+#head h1 {
+	background: url(../eUpdate/arquivos/newLogo_eUpdate.png) no-repeat;
+	height: 103px;
+	margin: 0 0 10px;
+}
+#head span {
+	display: none;
+}
+#head p {
+	font-size: 70%;
+	color: #369;
+	text-align: center;
+	margin: 0;
+	padding: 5px;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+
+
+/* box-filho: css=04 */
+#box1 {
+	width: 600px;
+	margin-bottom: 20px;
+	float: left;
+}
+#box1_top {
+	height: 16px;
+	background: #E18700 url(../eUpdate/arquivos/bordaTabela_sup_tl.gif) no-repeat;
+	margin-bottom: -1px;
+}
+#box1_middle {
+	background: #F0F0F0 url(../eUpdate/arquivos/bordaTabela_lateral_tl.gif) repeat-y;
+	padding: 10px 15px;
+}
+#box1_bottom {
+	width: 600px;
+	height: 18px;
+	background: #FFB03C url(../eUpdate/arquivos/bordaTabela_inf_tl.gif) no-repeat;
+}
+#box1_middle h2 {
+	font-size: 115%;
+	color: #036;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+#box1_middle h3 {
+	font-size: 75%;
+	color: #303030;
+	background-image:url(../"eupdate/arquivos/line_shadow.gif");
+	background-repeat:repeat-X;
+	background-position:bottom;
+	margin: 20px 0 5px;	
+	padding: 0 0 3px;
+}
+/* definições não utilizadas
+#box1_middle h3 {
+	font-size: 75%;
+	margin: 30px 0 0;
+	padding: 2px;
+}
+#box1_middle h3 a {
+	color: #369;
+	padding: 2px;
+}
+#box1_middle h3 a:hover {
+	color: #fff;
+	background-color:#036;
+	padding: 2px;
+}
+#box1_middle p {
+	font-size: 75%;
+	color: #303030;
+	margin: 0;
+	padding: 5px 0;
+}
+*/
+#box1_middle ul {
+	color: #303030;
+	margin: 0 0 0 20px;
+	padding: 0;
+}
+#box1_middle ul li {
+	font-size: 75%;
+	color: #303030;
+	list-style: url(../eUpdate/arquivos/icon_arrow_right_blue.gif);
+	margin: 3px 0;
+	padding: 2px 0;
+}
+#box1_middle ul li.extra {
+	list-style: url(../eUpdate/arquivos/icon_excl_blue.gif);
+	font-weight: bold;
+}
+#box1_middle ul li.goto {
+	list-style: url(../eUpdate/arquivos/icon_excl_blue.gif);
+	margin: 30px 0 0;
+}
+#box1_middle ul li.goto a {
+	color: #036;
+}
+#box1_middle ul li.goto a:hover {
+	color: #fff;
+}
+
+
+
+/* box-filho: css=05 */
+#box_pesquisa {
+	width: 600px;
+	height: 100%;
+	text-align: left;
+	margin-bottom: 20px;
+	float: left;
+	padding: 0;
+	margin-top: 0;
+	margin-right: 0;
+	margin-left: 0;
+}
+#box_pesquisa p {
+	font-size: 70%;
+	color: #303030;
+	margin: 10px 0 0;
+	padding: 0;
+}
+#box_pesquisa h3 {
+	font-size: 75%;
+	color: #303030;
+	margin: 0 0 5px;
+	padding: 0 0 3px;
+}
+#box_pesquisa ul {
+	color: #303030;
+	margin: 0 0 0 20px;
+	padding: 0;
+}
+#box_pesquisa ul li {
+	font-size: 70%;
+	color: #303030;
+	list-style: url(../eUpdate/arquivos/icon_arrow_right_blue.gif);
+	margin: 3px 0;
+	padding: 2px 0;
+}
+#box_pesquisa ul li a:hover {
+	color: #fff;
+	background-color: #353535;
+}
+#box_pesquisa ul li.anterior {
+	list-style: url(../eUpdate/arquivos/icon_arrow_left.gif);
+}
+#box_pesquisa ul li.alterar {
+	list-style: url(../eUpdate/arquivos/icon_pencil.gif);
+}
+#box_pesquisa ul li.cancelar {
+	list-style: url(../eUpdate/arquivos/icon_x.gif);
+}
+
+
+
+/* classe que define as características internas de qualquer box */
+.box_top {
+	height: 16px;
+	background: #999 url(../eUpdate/arquivos/bordaTabela_sup_tl.gif) no-repeat;
+	float: left;
+	padding: 0;
+	width: 600px;
+	margin: 0 0 -1px;
+}
+.box_middle {
+	background: #F0F0F0 url(../eUpdate/arquivos/bordaTabela_lateral_tl.gif) repeat-y;
+	padding: 10px 15px;
+	width: 570px;
+	clear: both;
+	float: left;
+	margin-bottom: -3px;
+}
+.box_bottom {
+	width: 600px;
+	height: 18px;
+	background: #CCC url(../eUpdate/arquivos/bordaTabela_inf_tl.gif) no-repeat;
+	float: left;
+	margin: 0;
+	padding: 0;
+	clear: both;
+}
+
+
+
+/* box-filho: css=06 */
+#box_creditos {
+	width: 600px;
+	height: 200px;
+	text-align: left;
+	background-image:url(../"eupdate/arquivos/bordaTabela_inf_02_tl.gif");
+	background-repeat:  no-repeat;
+	background-position: bottom;
+	margin: 0 0 20px;
+	padding: 0;
+	float: left;
+}
+#box_creditos h4 {
+	width: 160px;
+	height: 24px;
+	background: url(../eUpdate/arquivos/dawLogo_eUpdate.png) no-repeat;
+	margin: 15px 10px 20px;
+	padding: 0;
+}
+#box_creditos p {
+	font-size: 60%;
+	color: #303030;
+	text-align: left;
+	margin: 10px 10px 15px 95px;
+	padding: 0;
+}
+#box_creditos p a {
+	color: #036;
+}
+#box_creditos p a:hover {
+	color: #fff;
+	background-color: #303030;
+}
+
+
+
+/* box-filho: css=07 */
+#rodape {
+	width: 600px;
+	margin: 30px auto 0;
+	padding: 0;
+}
+
+
+
+/* devinições de alinhamento */
+.left {
+	float: left;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+.right {
+	float: right;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}

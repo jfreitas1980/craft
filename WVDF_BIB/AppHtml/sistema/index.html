@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="" name="Keywords">
+	<meta content="" name="Description">
+	<meta name="Author" content="Grupo Factor Business Solutions, www.factorbs.com.br" />
+	<title>Asia Shipping - Inicial</title> 
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+	<script src="js/bootstrap.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[placeholder]").each(function(el){
+			if($(this).val()==""){
+			$(this).val($(this).attr("placeholder")).addClass("placeholder");
+			}
+			$(this).focus(function(){
+				if($(this).val()==$(this).attr("placeholder")){
+					$(this).removeClass("placeholder").val("");
+				}
+			});
+			$(this).blur(function(){
+				if($(this).val()==""){
+					$(this).addClass("placeholder").val($(this).attr("placeholder"));
+				}
+			});
+		});
+		$("form").submit(function(){
+			$("input[placeholder]").each(function(n,element){
+				if($(element).val()==$(element).attr("placeholder")){
+					return false;
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">
+		<a href="index.html" title="Asia Shipping" class="branding"><img src="img/branding.jpg" alt="Asia Shipping"/></a>
+		<div class="content_user">
+			<div class="painel">
+				<div class="user">
+					Olá Fulano de Tal
+				</div>
+				<div class="logout">
+					<a href="" title="Logout">Logout</a>
+				</div>
+			</div>
+			<form>
+				<fieldset>
+					<label>
+						<input type="text" name="pesquisa" placeholder="Procurar no site" />
+					</label>
+					<label>
+						<input type="submit" name="" value="" />
+					</label>
+				</fieldset>
+			</form>
+		</div>
+		<ul class="nav">
+       		<li><strong><a href="index.html" title="HOME">HOME</a></strong></li>
+			<li><strong><a href="estruturas.html" title="ESTRUTURAS">ESTRUTURAS</a></strong></li>
+			<li><strong><a href="objetos-basicos.html" title="OBJETOS BÁSICOS">OBJETOS BÁSICOS</a></strong></li>
+			<li><strong><a href="componentes.html" title="COMPONENTES">COMPONENTES</a></strong></li>
+			<li><strong><a href="javascript.html" title="JAVASCRIPT">JAVASCRIPT</a></strong></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Exemplo <b class="caret"></b></a><ul class="dropdown-menu">
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li class="nav-header">Título SubCategoria</li>
+                          <li><a href="#">Separated link</a></li>
+                           <li class="dropdown-submenu">
+    <a tabindex="-1" href="#">More options</a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Something else here</a></li>
+      <li><a href="#">Something else here</a></li>
+    </ul>
+  </li>
+                        </ul></li>
+		</ul>     
+
+        
+	</div>
+	<div id="main">
+		<div class="aside">
+			<div class="moeda">
+				<span>Cotações  - Moeda</span>
+				<div class="conteudo">
+					<table class="table" align="center">
+						<tbody>
+							<tr>
+								<td></td>
+								<th>IMP</th>
+								<th>EXP</th>
+								<th>AIR</th>
+								<th>DO</th>
+							</tr>
+							<tr>
+								<th>USD</th>
+								<td>2,13</td>
+								<td>2,15</td>
+								<td>2,09</td>
+								<td>2,19</td>
+							</tr>
+							<tr>
+								<th>EUR</th>
+								<td>2,77</td>
+								<td>2,79</td>
+								<td>-</td>
+								<td>2,85</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="agenda">
+				<span>Agenda</span>
+				<div class="conteudo">
+					<form class="form-search">
+						<fieldset>
+							<div class="input-append">
+								<input class="span2 search-query" type="text" name="pesquisa-aside" />
+								<button class="btn" type="submit"><i class="icon-search"></i></button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="noticias">
+				<span>Notícias</span>
+				<div class="conteudo">
+					<ul>
+						<li>Boas práticas de informática na empresa</li>
+						<li>Lorem ipsum dolor sit amet</li>
+						<li>Consectetur adipiscing elit</li>
+					</ul>
+				</div>
+			</div>
+			<div class="webmail">
+				<span>Webmail</span>
+				<div class="conteudo">
+					<ul>
+						<li>SAO - São Paulo</li>
+						<li>SSZ - Santos</li>
+						<li>CWB - Curitiba</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content span8">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active"><a href="#pendencias">Pendências</a></li>
+				<li><a href="#outra">Outra</a></li>
+			</ul>
+			 
+			<div class="tab-content">
+				<div class="tab-pane active" id="pendencias">
+					<p>Pendências de <strong>Fulano de Tal</strong></p>
+					<div class="content_pesquisa">
+						<form>
+							<fieldset>
+								<label>
+									<span>Registros por página</span>
+									<input type="text" name="registros" class="span1" />
+								</label>
+								<label>
+									<span>Ordenar por</span>
+									<select>
+										<option value="">-- Selecione --</option>
+										<option>Usuário</option>
+										<option>Ordem Alfabética</option>
+									</select>
+								</label>
+								<label>
+									<span>Pendência</span>
+									<input type="text" name="pendencia" class="span5" />
+								</label>
+								<label>
+									<input type="submit" class="btn btn-primary" value="Seguir"/>
+								</label>
+								<label>
+									<input type="reset" class="btn" value="Limpar"/>
+								</label>
+							</fieldset>
+						</form>
+					</div>
+                    <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Lista de pendências</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lorem ipsum dolor sit amet</td>
+                </tr>
+                <tr>
+                  <td>Consectetur adipiscing elit</td>
+                 </tr>
+                <tr>
+                  <td>Sed diam nonummy nibh</td>
+                </tr>
+
+              </tbody>
+            </table>
+		
+							<a class="btn btn-primary" href="#"><i class="icon-ok icon-white"></i> Finalizar</a>
+							<a class="btn" href="#"><i class="icon-refresh"></i> Atualizar</a>
+	
+				</div>
+				<div class="tab-pane" id="outra">
+					<p>Outras Pendências de <strong>Fulano de Tal</strong></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script>
+    $('#myTab a').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+    });
+</script>

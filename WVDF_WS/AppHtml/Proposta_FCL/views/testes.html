@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <center>
+            <h4 style="color:red"><u>Proposta Cancelada</u></h4>
+        </center>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Cliente:</label> {{ proposta.dsCliente}}
+            </div>
+        </div>
+        <div class="row" ng-hide="proposta.idProposta=='0'">
+            <div class="col-md-12">
+                <div class="row" ng-hide="proposta.idProposta=='0'">
+                    <div class="col-md-3">
+                        <label> {{L.LITERAL_02}}:</label> {{ proposta.idProposta}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Impressao:</label> {{ proposta.impressaoProposta}}
+                    </div>
+                    <div class="col-md-3">
+                        <label> Email:</label> {{ proposta.emailProposta}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Data:</label> {{ proposta.dataProposta}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

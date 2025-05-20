@@ -1,0 +1,78 @@
+<div class="modal fade" id="editarTaxa" tabindex="-1" role="dialog">
+    <div class="modal-dialog center-modal" role="document" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Agente Origem</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.agenteOri" class="form-control" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag345.f_agentes_descricao($viewValue, Url.aUsuarioSessao))" />
+                    </div>
+                    <label class="col-sm-2 col-form-label text-right">Agente Destino</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.agenteDest" class="form-control" uib-typeahead="aux as aux.value for aux in call(WVDF.ws_csag345.f_agentes_descricao($viewValue, Url.aUsuarioSessao))" />
+                    </div>
+                </div>
+                <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Concorrentes</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.concorrentes" class="form-control" uib-typeahead="aux as aux.DS for aux in call(WVDF.ws_CSAG340.f_fup_concorrente($viewValue, Url.aUsuarioSessao))" />
+                    </div>
+                </div> -->
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Armador</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.armador" class="form-control" uib-typeahead="aux as aux.value for aux in call(WVDF.WS_csag320.f_bCSAG342_armador($viewValue, Url.aUsuarioSessao))" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="via" class="col-sm-2 control-label text-right">Transit Time</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.transitTime" class="form-control" id="txtTransitTime">
+                    </div>
+                    <label for="via" class="col-sm-2 control-label text-right">Free Time Equipamento Origem</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.freeTime" class="form-control" id="txtFreeTime">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="transitTime" class="col-sm-2 col-form-label text-right">Frequencia</label>
+                    <div class="col-sm-4">
+                        <select ng-options="aux as aux.DS for aux in combo.frequencia" ng-model="modal.editarTaxa.data.frequencia" class="form-control" alert-null-empty>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <label for="via" class="col-sm-2 control-label text-right">Free Time Equipamento Destino</label>
+                    <div class="col-sm-4">
+                        <input type="text" ng-model="modal.editarTaxa.data.ftarmador" class="form-control">
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Validade</div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                            <label for="transitTime" class="col-sm-2 col-form-label text-right">Data Inicial</label>
+                            <div class="col-sm-4">
+                                <input type="text" ng-model="modal.editarTaxa.data.validadeDe" datepicker value="{{dtInicioFormated}}" class="form-control" id="dtinicial">
+                            </div>
+                            <label for="transitTime" class="col-sm-2 col-form-label text-right">Data Final</label>
+                            <div class="col-sm-4">
+                                <input type="text" ng-model="modal.editarTaxa.data.validadeAte" datepicker value="{{dtfimFormated}}" class="form-control" id="dtFinal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="modal.editarTaxa.save(modal.editarTaxa.data)">Salvar</button>
+            </div>
+            <!-- <pre>{{modal.detalhesAvancados.editarTaxa.data | json}}</pre> -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

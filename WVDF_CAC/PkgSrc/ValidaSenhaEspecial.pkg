@@ -1,0 +1,62 @@
+// NF-NFeEnviar.pkg
+//
+// CRIADO POR ACRONSOFT GEST«O DA INFORMAÄ«O SOB ENCOMENDA PARA JOSê CARLOS VASCONCELLOS
+//
+// Vers∆o..........: 1.0
+// 
+// Èltima alteraá∆o: 03/06/2009
+// Autor...........: Ivan Kaupa (ivankaupa@gmail.com) - Acronsoft Gest∆o da Informaá∆o
+//
+// Funá∆o ValidaSenhaEspecial: Recebe a string da senha, uma lista de caracteres especiais e retorna True se a senha
+//                             obedecer as seguintes regras:
+//                             1) Deve ter ao menos um caractere "a" a "z"
+//                             2) Deve ter ao menos um n£mero "0" a "9"
+//                             3) Deve ter ao menos um dos caracteres especiais
+//
+// Exemplo:
+//
+// If (Not(ValidaSenhaEspecial(Usuario.Senha,"@#$"))) Begin
+//     Error Dferr_Operator "Senha inv†lida! Para ser v†lida, a senha deve ter letras, n£meros e ao menos um caractere especial que pode ser '@', '$' ou '$'."
+//     :
+//     :
+// End
+//
+// Hist¢rico de alteraá‰es
+// ##/##/#### - v1.0 - (@@) Nenhuma alteraá∆o posterior
+Function ValidaSenhaEspecial Global String sSenha String sEspeciais Returns Boolean
+    Boolean bValido   // Indica se Ç v†lido ou n∆o
+    Integer iContador // Vari†vel contadora
+    
+    Move (Lowercase(sSenha))     to sSenha
+    Move (Lowercase(sEspeciais)) to sEspeciais
+    
+    // Verificando se h† ao menos um caractere especial
+    Move False to bValido
+    Move 1 to iContador
+    While (iContador <= Length(sEspeciais) and not(bValido))
+        Move (sSenha Contains Mid(sEspeciais,1,iContador)) to bValido
+        Increment iContador
+    Loop
+    
+    If (not(bValido)) Function_Return False
+    
+    // Verificando se h† ao menos uma letra
+    Move False to bValido
+    Move (ASCII("a")) to iContador
+    While (iContador <= ASCII("z") and not(bValido))
+        Move (sSenha Contains Character(iContador)) to bValido
+        Increment iContador        
+    Loop
+    
+    If (not(bValido)) Function_Return False
+    
+    // Verificando se h† ao menos um n£mero
+    Move (ASCII("0")) to iContador
+    While (iContador <= ASCII("9"))
+        If (sSenha Contains Character(iContador)) Function_Return True
+        Increment iContador        
+    Loop    
+    
+    // Se chegou aqui, a £ltima validaá∆o falhou
+    Function_Return False
+End_Function // ValidaSenhaEspecial

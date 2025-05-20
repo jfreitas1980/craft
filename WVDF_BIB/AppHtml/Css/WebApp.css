@@ -1,0 +1,1625 @@
+body 
+{
+    color:#000;
+    margin:5px 0 0 5px;
+    font-family:Arial, Verdana, Tahoma, sans-serif;
+    font-size:13px;
+    overflow-y:scroll;
+    SCROLLBAR-FACE-COLOR:#f2f2f2;
+    SCROLLBAR-HIGHLIGHT-COLOR:#FFF;
+    SCROLLBAR-3DLIGHT-COLOR:#f2f2f2;
+    SCROLLBAR-ARROW-COLOR:#000;
+    SCROLLBAR-TRACK-COLOR:#FFF;
+    SCROLLBAR-DARKSHADOW-COLOR:#FFF;
+}
+body.login 
+{
+    background-image:url(/wvdf_bib/Images/bg.jpg);
+	background-repeat:repeat-x;
+	background-color:#FFF;
+}
+table                
+{
+    font-size:13px;
+}
+input, select   
+{
+    padding:3px; 
+    font-size:13px;
+} 
+textarea           
+{
+font-size:13px;
+}
+a:link, a:visited  
+{
+    color:#42426F; 
+    font-family:Arial; 
+    font-size:13px; 
+    text-decoration:none; 
+}
+a:active, a:hover  
+{
+    color:#FF6600; 
+    font-family:Arial; 
+    font-size:13px; 
+    text-decoration:none; 
+}
+h1, h2, h3, h4, h5, h6 
+{
+    padding:1px; 
+}
+h1
+{ 
+    font-size:16px;   
+    color:#317b9e;   
+}
+h3
+{
+    font-size:14px;   
+    font-weight:bold; 
+    color:#FFF;
+}
+h4
+{ 
+    font-size:16px;   
+    border:1px solid #317b9e;    
+    color:#317b9e;    
+    background-color:#f2f2f2;
+}
+h5
+{ 
+    font-size:14px;   
+    color:#317b9e;   
+}
+h6
+{ 
+    font-size:12px;   
+    border:1px solid #ccc;    
+    color:#317b9e;    
+    background-color:#f9f9f9;
+}
+h7
+{ 
+    font-size:20px;   
+    border:1px solid #ccc;    
+    color:#317b9e;    
+    background-color:#f9f9f9;
+}
+hr
+{
+    height:1px; 
+    color:#f2f2f2;
+}
+
+.navbar {
+	margin-left: 0;
+	margin-right: 0;
+	border: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border-radius: 0;
+	margin: 0;
+	padding-left: 0;
+	padding-right: 0;
+	min-height: 45px;
+	position: relative;
+	background: #438eb9;
+}
+
+#topo h1 
+{ 
+    padding:15px 0 0 0; 
+}
+#space 
+{ 
+height:2px;
+}
+#Topo 
+{
+    text-align:center;
+    height:80px;
+    background:url(/wvdf_bib/images/bg-top.jpg) repeat-x top;
+    margin:5px 0 0 0;
+}
+#main_popup
+{
+    visibility:hidden; 
+    width:100%; 
+    height:50%; 
+    position:absolute; 
+    left:10px; 
+    top:10px; 
+    z-index:999; 
+}
+#header_popup
+{
+    visibility:hidden; 
+}
+#body_popup
+{
+    visibility:hidden; 
+    background-color:#6666FF; 
+    border-top:none; 
+    border:solid #CCC 1px; 
+}
+#Totais 
+{
+	font-weight:bold;
+	font-style:italic; 
+	font-size:13px;
+	padding:1px 0 5px 0; 
+}
+#Conta 
+{
+	font-weight:bold;
+	font-style:italic; 
+	padding:5px 0 5px 0; 
+}
+#LinhaForte 
+{
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+#Letra9 
+{
+    color:#317b9e;
+    font-size:9px;
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+#Fundo 
+{
+	background-color:#fff8dc; 
+}
+#Mensagem 
+{
+	font-size:13px;
+	padding:10px 0 5px 0; 
+}
+#Linha_01 
+{
+	font-weight:bold;
+	font-style:italic; 
+	font-size:13px;
+	padding:5px 0 5px 0; 
+}
+/*Pesquisa*/
+#divTitle 
+{
+    position:relative;
+    width:100%; 
+    font-family:Verdana !important;
+    font-size:20px !important;
+    font-weight:bold;
+    font-style:italic; 
+    text-align:center;
+    color:#fff;
+    background:#104E8B;
+}
+#divCenter 
+{
+    position:relative;
+    width:100%; 
+    text-align:center;
+    padding-left:2px;
+}
+#divLogo 
+{
+    position:relative;
+    width:100%; 
+    text-align:center;
+}
+.timep 
+{
+    display:none;
+}
+.input-focus 
+{ 
+	background-color:#FE4; 
+}
+.input-btn 
+{
+	font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-weight:normal;
+	cursor:pointer;
+	padding:0;
+	border:1px solid #999;
+}
+.ddEntryCombo
+{ 
+	font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-weight:normal;
+    padding:1px;    
+    border:1px solid #e9e9e9;   
+    color:#317b9e; 
+}
+.ddEntryForm       
+{ 
+
+	font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-weight:normal;
+    padding:3px;
+    border:1px solid #e9e9e9;
+    color:#00000;
+    background-color:#ffffff;
+}
+.ddEntryForm1 {
+	font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-weight:normal;
+    padding:3px;
+    border-top:0px;
+    border-right:0px;
+    border-bottom:1px solid #e9e9e9;
+    border-left:0px;
+    color:#000000;
+}
+.ddEntryAbas         
+{
+    font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+    font-weight:bold;    
+    padding:1px;    
+    border:1px solid #f2f2f2;    
+    color:#317b9e;    
+    cursor:pointer;    
+    background-color:#FDFDFD; 
+    text-align:center; 
+    height:25px;
+}
+.ddEntryFormDisable  
+{
+    font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+    font-weight:bold;    
+    padding:0;    
+    border:1px solid #cccccc;    
+    color:#000000;                       
+    background-color:#FFCCCC;
+}
+.ddEntryText         
+{
+	font-size:13px; 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+    font-weight:bold;   
+    padding:1px;    
+    border:1px solid #cccccc;    
+    color:#000000;                       
+    background-color:#FFFFFF;
+}
+.btn_toolbar         
+{
+    cursor:pointer; 
+    width:25px; 
+    height:25px; 
+    vertical-align:middle; 
+}
+.btn_toolbar_1       
+{
+    cursor:pointer; 
+    width:40px; 
+    height:40px; 
+    vertical-align:middle;
+}
+.btn_toolbar_2       
+{
+    cursor:pointer; 
+    vertical-align:middle; 
+}
+.ActionButton        
+{
+    background-color:#FFFFFF; 
+    Border:#000000 1px solid; 
+    cursor:pointer; 
+    font-size:13px;
+}
+.Cabecalho 
+{
+    font-size:13px;
+    color:#000000;
+    /*float:left;*/
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+.Titulo              
+{
+    font-size:14px; 
+    font-weight:bold; 
+    font-style:italic;
+    padding:3px;            
+    border:0px solid #4682B4;   
+    color:#317b9e;
+}
+.TituloBranco              
+{
+    font-size:14px; 
+    font-weight:bold; 
+    font-style:italic;
+    padding:3px;            
+    border:0px solid #4682B4;   
+    color:#ffffff;
+}
+.Contorno 
+{
+    position:relative; 
+    width:99%; 
+    height:93%;
+    border:solid 3px #F2F2F2; 
+    border-top:solid 10px #F2F2F2; 
+}
+.ContornoBranco 
+{
+    position:relative; 
+    width:99%; 
+    height:93%;
+    border:solid 3px #fff; 
+    border-top:solid 10px #fff; 
+}
+.Rodape   
+{
+    padding:3px; 
+    color:#104E8B; 
+    font-size:11px; 
+    text-align:center;
+}
+.cabecalho a:link, .cabecalho a:visited, .cabecalho a:active 
+{ 
+    font-weight:bold; 
+    color:#efc040; 
+    font-size:13px; 
+}
+.cabecalho a:hover 
+{ 
+    font-size:13px; 
+    color:#ffde86; 
+}
+.Titulo_01 
+{
+    font-size:14px;
+    color:#000;
+    float:left;
+    padding:0 2px 0 2px;
+}
+.Titulo_11 
+{
+    font-size:13px;
+    color:#ffffff;
+    float:center;
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+.Titulo_12 
+{
+    font-size:13px;
+    color:#ffffff;
+    float:left;
+    padding:0 2px 0 2px;
+}
+
+.Titulo_13 
+{
+    font-size:13px;
+    color:#000;
+    float:right;
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+
+.Titulo_13Center 
+{
+    font-size:13px;
+    color:#FFF;
+	font-weight:bold;
+	font-style:italic; 
+	padding:1px; 
+}
+.Titulo_Legenda 
+{
+    font-size:14px;
+    color:#777;
+    float:left;
+    padding:0 2px 0 2px;
+}
+.Titulo_MenuCliente 
+{
+    font-size:16px;
+    color:#999;
+	font-weight:bold;
+	@font-face:impact; 
+	padding:1px; 
+}
+
+.Titulo_Direita 
+{
+    font-size:14px;
+    color:#000;
+    float:right;
+    padding:0 2px 0 2px;
+}
+.Menu 
+{
+    font-weight:bold;
+	font-size:13px;
+	color:#CCC;
+    width:100%; 
+    height:50px; 
+    text-align:center;
+    padding:5px;  
+}
+.Camada01 
+{ 
+	overflow:visible;
+	width:99%;
+}
+.Camada02 
+{ 
+	overflow:auto;
+	height:85%;
+}
+.Camada03 
+{ 
+	overflow:auto;
+	height:80%;
+}
+.Camada04 
+{ 
+	overflow:auto;
+	height:40%;
+}
+.Camada05 { 
+	overflow:auto;
+	height:65%;
+}
+.Camada06 
+{ 
+	overflow:auto;
+	height:95%;
+	width:99%;
+}
+.fieldset    
+{
+    margin:0px; 
+    padding:10px; 
+    border:1px dashed #d3d3d3; 
+}
+.Footer      
+{
+    font-size:13px; 
+    Margin:2px;
+}
+.Label       
+{
+    font-size:13px; 
+    color:#000; 
+    Margin:0px;
+    text-align:right;
+    text-transform: uppercase;
+}
+.LabelBold
+{
+    font-size:13px; 
+    color:#000; 
+    Margin:0px;
+    text-align:right;
+    text-transform: uppercase;
+    font-weight:bold;
+}
+.ErrorReport 
+{
+    font-size:13px; 
+    color:Red; 
+    Margin:0px;
+}
+.PageBreak   
+{
+    page-break-before:always; 
+}
+.EntryBlock
+{
+    align:left;
+}
+.EntryTable
+{
+    padding:10px;
+}
+
+.EntryTable.LabelLeft  
+{
+    font-size:13px; 
+}
+.EntryTable .Data      
+{
+    font-size:13px;                  
+}
+.EntryTable .Error     
+{
+    font-size:13px;  
+    color:#FF0000;  
+}
+.EntryTable .Label     
+{
+    font-size:13px;  
+    text-align:right;
+}
+.EntryTable .Azul      
+{
+    font-size:13px;  
+    color:#317b9e; 
+    text-align:justify;  
+}
+.EntryTable .Azul13      
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#317b9e;
+}
+.EntryTable .Vermelho13  
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.EntryTable .Preto13     
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000000;
+}
+.EntryTable .Verde13     
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.EntryTable .Laranja13   
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.EntryTable .Amarelo13   
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.EntryTable .RosyBrown13 
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.EntryTable .LightGray13 
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.EntryTable .Branco13    
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.EntryTable .Azul16      
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#317b9e;
+}
+.EntryTable .Vermelho16  
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.EntryTable .Preto16     
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.EntryTable .Verde16     
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.EntryTable .Laranja16   
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.EntryTable .Amarelo16   
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.EntryTable .RosyBrown16 
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.EntryTable .LightGray16 
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.EntryTable .Branco16    
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable
+{
+}
+.ReportTable .Data 
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border-bottom:1px solid #f2f2f2; 
+}
+.ReportTable .Azul               
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border-bottom:1px solid #f2f2f2;    
+    color:#317b9e;
+}
+.ReportTable .Vermelho           
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Preto              
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Verde              
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.ReportTable .Laranja            
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.ReportTable .Amarelo            
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.ReportTable .RosyBrown          
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.ReportTable .LightGray          
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable .Branco             
+{
+    font-size:13px; 
+    font-weight:bold;     
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF; 
+}
+.ReportTable .Fundo_Azul11       
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#fff; 
+    background-color:#42426F; 
+    font-weight:bold; 
+    font-style:italic; 
+}
+.ReportTable .Fundo_Vermelho11   
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Fundo_Preto11      
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Fundo_Verde11      
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Fundo_Laranja11    
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Fundo_Amarelo11    
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Fundo_RosyBrown11 
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+    
+}
+.ReportTable .Fundo_LightGray11  
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#42426F; 
+}
+.ReportTable .Azul11             
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#317b9e;
+}
+.ReportTable .Vermelho11         
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Preto11            
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Verde11            
+{   
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.ReportTable .Laranja11          
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.ReportTable .Amarelo11          
+{   
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.ReportTable .RosyBrown11        
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.ReportTable .LightGray11        
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable .Branco11           
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF; 
+}
+.ReportTable .Azul12             
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#317b9e;
+}
+.ReportTable .Vermelho12         
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Preto12            
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Verde12            
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.ReportTable .Laranja12          
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.ReportTable .Amarelo12          
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.ReportTable .RosyBrown12        
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.ReportTable .LightGray12        
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable .Branco12           
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF; 
+}
+.ReportTable .Azul13             
+{
+    font-size:13px; 
+    padding:1px;    
+    border-bottom:1px solid #f2f2f2;    
+    color:#317b9e;
+}
+.ReportTable .Vermelho13         
+{
+    font-size:13px; 
+    padding:1px;    
+    border-bottom:1px solid #f2f2f2;    
+    color:#FF0000;
+}
+.ReportTable .Preto13            
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Verde13            
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.ReportTable .Laranja13          
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.ReportTable .Amarelo13          
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.ReportTable .RosyBrown13        
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.ReportTable .LightGray13        
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable .Branco13           
+{
+    font-size:13px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF; 
+}
+.ReportTable .Azul16             
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #f2f2f2;    
+    color:#317b9e;
+}
+.ReportTable .Vermelho16         
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Preto16            
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Verde16            
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#008000;
+}
+.ReportTable .Laranja16                                                
+{                                              
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF6600; 
+}
+.ReportTable .Amarelo16                                                
+{                                              
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFFF00; 
+}
+.ReportTable .RosyBrown16                                            
+{                                              
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#BC8F8F; 
+}
+.ReportTable .LightGray16                                            
+{                                              
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#D3D3D3; 
+}
+.ReportTable .Branco16                                                  
+{                                              
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF; 
+}
+.ReportTable .Azul2     
+{
+    font-size:12px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Azul3     
+{
+    font-size:16px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Azul4     
+{
+    font-size:10px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#fff; 
+    background-color:#317b9e; 
+}
+.ReportTable .Azul5     
+{
+    font-size:10px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Azul6     
+{
+    font-size:11px; 
+    padding:1px;    
+    border:1px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Azul7     
+{
+    font-family:"Trebuchet MS", Arial, Tahoma; 
+    font-size:11px; 
+    padding:0 1px 0 1px; 
+    color:#317b9e; 
+}
+.ReportTable .Azul8     
+{
+    font-size:10px; 
+    padding:1px;                                 
+    color:#317b9e; 
+}
+.ReportTable .Azul9     
+{
+    font-size:10px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Azul10    
+{
+    font-size:11px; 
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#317b9e; 
+}
+.ReportTable .Vermelho2 
+{
+    font-size:12px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Vermelho3 
+{
+    font-size:16px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Vermelho4 
+{
+    font-size:10px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF;   
+    background-color:#FF0000; 
+}
+.ReportTable .Vermelho5 
+{
+    font-size:10px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Vermelho6 
+{
+    font-size:12px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FFF;   
+    background-color:#FF0000; 
+}
+.ReportTable .Vermelho7 
+{
+    font-size:11px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#FF0000;
+}
+.ReportTable .Vermelho8 
+{
+    font-size:10px;    
+    padding:1px;                                 
+    color:#FF0000;
+}
+.ReportTable .Verde2 
+{
+    font-size:12px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#008000;
+}
+.ReportTable .Verde3 
+{
+    font-size:16px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#008000;
+}
+.ReportTable .Verde4 
+{   
+    font-size:10px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#008000;
+}
+.ReportTable .Verde5 
+{
+    font-size:10px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#008000;
+}
+.ReportTable .Verde6 
+{
+    font-size:12px; 
+    Border-top-width:0px; 
+    Border-right-width:0px; 
+    Border-bottom-width:1px; 
+    Border-left-width:1px; 
+    Border-top-style:solid; 
+    Border-right-style:solid; 
+    Border-bottom-style:solid; 
+    Border-left-style:solid; 
+    Border-top-color:#000; 
+    Border-right-color:#000; 
+    Border-bottom-color:#000; 
+    Border-left-color:#000; 
+    padding:1px; 
+}
+.ReportTable .Laranja2 
+{
+    font-size:12px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#FF6600; 
+}
+.ReportTable .Laranja3 
+{
+    font-size:16px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#FF6600; 
+}
+.ReportTable .Laranja4 
+{
+    font-size:16px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#000; 
+    background-color:#FF6600; 
+}
+.ReportTable .Preto1    
+{
+    font-size:16px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Preto2    
+{
+    font-size:11px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Preto3    
+{
+    font-size:10px;    
+    padding:0 1px 0 1px;    
+    border:0px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Preto4    
+{
+    font-size:12px;    
+    padding:0 1px 0 1px;    
+    border:1px solid #ccc;    
+    color:#000;   
+    background-color:#f2f2f2; 
+}
+.ReportTable .Preto5    
+{
+    font-size:10px;    
+    padding:1px;    
+    border:1px solid #ccc;    
+    color:#000;
+}
+.ReportTable .Preto6    
+{
+    font-size:10px;    
+    padding:1px 10px 0 0;   
+}
+.ReportTable .Preto7    
+{
+    font-size:10px;    
+    padding:1px;                                 
+    color:#000;
+}
+.ReportTable .Cinza     
+{
+    font-size:12px;    
+    padding:1px;    
+    border:0px solid #ccc;    
+    color:#ccc;
+}
+.ReportTable .Cinza1    
+{
+    font-size:11px;    
+    padding:15px 5px 0 5px;   
+    border:0px solid #ccc;    
+    color:#ccc;
+}
+.ReportTable .Cinza4    
+{
+    font-size:16px;    
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#000; 
+    Font-Weight:bold; 
+    background-color:#F2F2F2; 
+}
+.ReportTable .Amarelo4 
+{
+    font-size:14px; 
+    padding-Left:3px; 
+    padding-Right:3px; 
+    color:#000; 
+    Font-Weight:bold; 
+    background-color:#FFFFE8; 
+}
+.ReportTable .branco 
+{
+    padding:0 3px 0 3px; 
+    color:#FFF; 
+}
+.ReportTable .PretoBorda 
+{
+    font-size:9px; 
+    Border-top-width:1px; 
+    Border-right-width:3px; 
+    Border-bottom-width:1px; 
+    Border-left-width:2px; 
+    Border-top-style:solid; 
+    Border-right-style:solid; 
+    Border-bottom-style:solid; 
+    Border-left-style:solid; 
+    Border-top-color:#FFF; 
+    Border-right-color:#FFF; 
+    Border-bottom-color:#FFF; 
+    Border-left-color:#FFF; 
+    padding:1px; 
+}
+.ReportTable .Header_1010_07 
+{
+	font-size:13px;
+	padding:0 2px 0 2px;
+	color:#a0a0a0;
+	background-color:#eee;
+	border:1px #ccc dashed;
+	width:250px;
+}
+.ReportTable .Header   
+{
+    font-size:13px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #ccc;    
+    color:#00508F;    
+    background-color:#f2f2f2; 
+    height:45px;
+}
+.ReportTable .Header2  
+{
+    font-size:12px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#000;    
+    background-color:#EEDD82; 
+    height:3px;
+}
+.ReportTable .Header4  
+{
+    font-size:10px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#fff;    
+    background-color:#00508F; 
+    height:3px;
+}
+.ReportTable .Header5  
+{
+    font-size:10px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#fff;    
+    background-color:#00508F; 
+    height:3px;
+}
+.ReportTable .Header6  
+{
+    font-size:12px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#fff;    
+    background-color:#42426F; 
+    height:3px;
+}
+.ReportTable .Cor      
+{
+    font-size:12px; 
+    font-weight:bold;    
+    font-style:italic; 
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#fff;    
+    background-color:#4682b4; 
+    height:3px;
+}
+.ReportTable .Caption  
+{
+    font-size:13px; 
+    font-weight:bold;                        
+    padding:1px;    
+    border:1px solid #fff;    
+    color:#fff;    
+    background-color:#42426F; 
+    height:45px; 
+    text-align:middle;
+}
+.ReportTable .Totais
+{
+    font-size:13px; 
+    padding-Left:1px; 
+    padding-Right:1px; 
+    color:#FF0000; 
+    Font-Weight:bold; 
+}
+.ReportTable .MenuTitulo
+{
+    font-size:13px; 
+    Font-weight:Bold; 
+    padding-Left:5px; 
+    Color:#CC0000; 
+    Border-top-width:3px; 
+    Border-right-width:3px; 
+    Border-bottom-width:3px; 
+    Border-left-width:3px; 
+    Border-top-style:solid; 
+    Border-right-style:solid; 
+    Border-bottom-style:solid; 
+    Border-left-style:solid; 
+    Border-top-color:#FFFFFF; 
+    Border-right-color:#FFFFFF; 
+    Border-bottom-color:#FFFFFF; 
+    Border-left-color:#FFFFFF; 
+    Height:15px; 
+}
+.ReportTable .MenuDetalhe
+{
+    font-size:13px; 
+    Font-weight:Bold; 
+    padding-Left:5px; 
+    Border-top-width:0px; 
+    Border-right-width:3px; 
+    Border-bottom-width:3px; 
+    Border-left-width:3px; 
+    Border-top-style:solid; 
+    Border-right-style:solid; 
+    Border-bottom-style:solid; 
+    Border-left-style:solid; 
+    Border-top-color:#FFF; 
+    Border-right-color:#FFF; 
+    Border-bottom-color:#FFF; 
+    Border-left-color:#FFF; 
+    Height:15px; 
+}
+.ReportTable .Sensor
+{
+    font-size:13px; 
+    Font-weight:Bold; 
+    padding-Left:5px; 
+    Border-top-width:0px; 
+    Border-right-width:0px; 
+    Border-bottom-width:3px; 
+    Border-left-width:3px; 
+    Border-top-style:solid; 
+    Border-right-style:solid; 
+    Border-bottom-style:solid; 
+    Border-left-style:solid; 
+    Border-top-color:#FFF; 
+    Border-right-color:#FFF; 
+    Border-bottom-color:#FFF; 
+    Border-left-color:#FFF; 
+    Height:15px; 
+}
+.ReportHdr1Table
+{
+    Margin-Top:10px
+}
+.ReportHdr1Table .Data
+{
+    font-size:13px; 
+    Text-Align:Left; 
+    Vertical-Align:Top; 
+}
+.ReportHdr1Table .Label
+{
+    font-size:13px; 
+    Text-Align:Left; 
+    Vertical-Align:Top; 
+}
+.ZoomTable
+{
+    Border:solid gray 1px; 
+    Border-top:none
+}
+.ZoomTable .Data
+{
+    font-size:13px; 
+    padding-Left:3px; 
+    padding-Right:3px;
+}
+.ZoomTable .Label
+{   
+    text-align:left; 
+    vertical-align:top; 
+    color:DarkBlue; 
+    font-size:13px; 
+}
+.ZoomTable .Header
+{
+    background-color:silver; 
+    text-align:left; 
+    vertical-align:top; 
+    font-size:13px; 
+}
+.tr_email 
+{
+    font-size:13px;	
+    padding-left:3px; 
+    padding-right:3px; 
+    color:#155380;	
+    font-weight:bold;
+}
+.EntryTable #lgImage 
+{ 
+    padding:10px 0 0 0; 
+    float:right; 
+}
+.log_field 
+{
+	border-right:1px #fff solid;
+	border-top:1px #fff solid;
+	border-bottom:1px #CCC solid;
+	border-left:1px #fff solid;
+	font-size:13px;
+	font-weight:bold;
+}
+.divPopUp_New
+{
+    position:absolute;
+	z-index:999;
+	background-color:#FFF;
+	border:1px solid #f2f2f2;
+	width:80%;
+	height:80%;
+	left:10%;
+	top:10%;
+}
+.divPopUp_bottom
+{
+    position:absolute;
+	z-index:998;
+	background-color:#FFF;
+	border:1px solid #ccc;
+	width:90%;
+	height:20%;
+	left:5%;
+	bottom:1%;
+}
+.dtime 
+{
+	font-weight:bold;
+	font-size:13px;
+	margin:0px 2px 0 5px;
+}
+.ttime 
+{
+	font-weight:bold;
+	font-style:italic;
+}
+.textPergunta
+{
+    font-family:Verdana !important;
+    font-size:25px !important;
+    font-weight:bold;
+    color:#2F4F4F;
+}
+.textResposta
+{
+    font-family:Verdana !important;
+    font-size:16px !important;
+    font-weight:normal;
+    font-weight:bold;
+    padding-left:18px;
+    color:#2F4F4F;
+}

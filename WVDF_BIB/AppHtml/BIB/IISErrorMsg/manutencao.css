@@ -1,0 +1,97 @@
+/* CSS Document */
+
+
+
+footer {
+    padding:0px;
+    margin:auto;
+    width: 1020px;
+    height: 20px;
+}
+body {
+	margin-top: 100px;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-bottom: 10px;
+	margin: 0 auto;
+    background:url('grunge-danger-background.jpg') repeat-x top center;
+	background-size: 70%;
+	}	
+	
+#caixa_1{ 
+	width:800px;
+	height:400px;
+	background-color:#FFFFFF;
+	border-radius: 10px; /* arredondar os cantos das bordas*/
+	border-style: solid;
+	border-color:#000000;
+	position:relative;
+	margin: 0 auto;
+	left: 0px;
+	top:90px;
+    background-attachment: fixed;	
+	} 
+	
+#caixa_2{
+	width:750px;
+	height:80px;
+	background-color:#E6E6E6;
+	border-radius: 10px; /* arredondar os cantos das bordas*/
+	position:relative;
+	margin: 0 auto;
+	left:0px;
+	top:-275px;
+    background-attachment: fixed;	
+	} 
+	
+#icone_exclamacao{
+	position: relative;
+	margin: 0px;
+	left: 340px;
+	top: -330px;
+}
+
+
+	/*background-attachment:scroll;
+	background-position:right top; /*right top, top, center, 	
+}
+	background:#f6f6f6 url('images.png') no-repeat right top;
+	margin-top:100px;
+	margin-right: 40px;
+	margin-bottom:10px;
+	margin-left:70px;
+	margin-left:70px;
+}
+
+
+
+/*body {
+    background:url('grunge-danger-background.jpg') no-repeat center ;
+	background-attachment:scroll;
+	background-position:right top; /*right top, top, center, 	
+	
+	background:#f6f6f6 url('images.png') no-repeat right top;
+	margin-top:100px;
+	margin-right: 40px;
+	margin-bottom:10px;
+	margin-left:70px;
+}
+
+
+.box{
+	width:600px;
+	height:80px;
+	background-color:#E6E6E6;
+	border-radius: 10px;
+	position:relative;
+	left:500px;
+	top:115px;
+	
+	} 
+.centro{
+	width:100px;
+	height:100px;
+}
+
+
+*/

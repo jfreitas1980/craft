@@ -1,0 +1,206 @@
+// Class Name: Csag308_DataDictionary
+// Revision  : 11
+// Version   : 2
+//-2WA
+Use  Windows           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  DDvalTbl          // Validation Table Class Definitions
+
+Open Csag308
+Open Tsmg801
+Open Csag320
+
+
+Register_Object Csag308_Uf_VT
+Register_Object Csag308_Pais_VT
+
+Object Csag308_Uf_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "AC"  "ACRE"
+        Send Add_Table_Value  "AL"  "ALAGOAS"
+        Send Add_Table_Value  "AM"  "AMAZONIA"
+        Send Add_Table_Value  "AP"  "AMAPA"
+        Send Add_Table_Value  "BA"  "BAHIA"
+        Send Add_Table_Value  "CE"  "CEARA"
+        Send Add_Table_Value  "DF"  "DISTRITO FEDERAL"
+        Send Add_Table_Value  "ES"  "ESPIRITO SANTO"
+        Send Add_Table_Value  "FN"  "FERNANDO DE NORONHA"
+        Send Add_Table_Value  "GO"  "GOIANIA"
+        Send Add_Table_Value  "MA"  "MARANHAO"
+        Send Add_Table_Value  "MG"  "MINAS GERAIS"
+        Send Add_Table_Value  "MS"  "MATO GROSSO DO SUL"
+        Send Add_Table_Value  "MT"  "MATO GROSSO"
+        Send Add_Table_Value  "PA"  "PARA"
+        Send Add_Table_Value  "PB"  "PARAIBA"
+        Send Add_Table_Value  "PE"  "PERNAMBUCO"
+        Send Add_Table_Value  "PI"  "PIAUI"
+        Send Add_Table_Value  "PR"  "PARANA"
+        Send Add_Table_Value  "RJ"  "RIO DE JANEIRO"
+        Send Add_Table_Value  "RN"  "RIO GRANDE DO NORTE"
+        Send Add_Table_Value  "RO"  "RONDONIA"
+        Send Add_Table_Value  "RR"  "RORAIMA"
+        Send Add_Table_Value  "RS"  "RIO GRANDE DO SUL"
+        Send Add_Table_Value  "SC"  "SANTA CATARINA"
+        Send Add_Table_Value  "SE"  "SERGIPE"
+        Send Add_Table_Value  "SP"  "SAO PAULO"
+        Send Add_Table_Value  "TO"  "TOCANTINS"
+    End_Procedure    // Fill_List
+End_Object   // Csag308_Uf_VT
+
+Object Csag308_Pais_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "BRA"  "Brasil"
+    End_Procedure    // Fill_List
+End_Object   // Csag308_Pais_VT
+
+Object Csag308_Usess_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "1" "True"
+        Send Add_Table_Value "2" "False"
+    End_Procedure
+End_Object
+
+Object Csag308_Classe_VT is a DescriptionValidationTable
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "1" "FORNECEDOR"
+        Send Add_Table_Value "2" "CLIENTE"
+    End_Procedure
+End_Object
+
+Class Csag308_DataDictionary  is a DataDictionary
+
+    // Define_Fields:
+    // This procedure is used to set up all data-dictionary rules.
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Csag308.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        // External (System) file structure.............
+        Set Add_System_File to Tsmg801.File_Number DD_LOCK_ON_ALL
+        Set Add_System_File to Csag320.File_Number DD_LOCK_ON_ALL
+
+        // Field-based properties.......................
+
+        Set Field_Label_Long Field Csag308.Clientenumero to "ID CLIENTE"
+
+        Set Field_Label_Long Field Csag308.Clientecpfcnpj to "CPF/CNPJ"
+
+        Set Field_Label_Long Field Csag308.Editadocpfcnpj To "CPF/CNPJ Editado"
+
+        Set Field_Label_Long Field Csag308.Clientenome to "NOME"
+
+        Set Field_Label_Long Field CSAG308.CLIENTEFANTASIA to "NOME FANTASIA"
+
+        Set Field_Label_Long Field CSAG308.CLIENTEMAIL to "E-MAIL DO CLIENTE"
+
+
+        Set Field_Label_Long Field Csag308.Logradouro to "LOGRADOURO"
+
+        Set Field_Label_Long Field Csag308.Numero to "NUMERO"
+
+        Set Field_Label_Long Field Csag308.Complemento to "COMPLEMENTO"
+
+        Set Field_Label_Long Field Csag308.Bairro to "BAIRRO"
+
+        Set Field_Label_Long Field Csag308.Id_Csag325 to "COD. CIDADE"
+        Set Field_Option Field Csag308.Id_Csag325 DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag308.Ds_Cidade to "CIDADE"
+
+        Set Field_Label_Long Field Csag308.Uf To "U.F."
+        Set Field_Value_Table Field Csag308.Uf to Csag308_Uf_VT
+
+        Set Field_Label_Long Field Csag308.Pais to "PAIS"
+        Set Field_Value_Table Field Csag308.Pais to Csag308_Pais_VT
+
+        Set Field_Label_Long Field Csag308.Cep To "C.E.P."
+
+        Set Field_Label_Long Field Csag308.Cepextensao to "EXTENSAO"
+
+        Set Field_Label_Long Field Csag308.Atividade to "ATIVIDADE PROFISSIONAL"
+
+        Set Field_Label_Long Field Csag308.Telefone_Ddd to "TELEFONE ( DDD )"
+
+        Set Field_Label_Long Field Csag308.Telefone_Numero to "NUMERO"
+
+        Set Field_Label_Long Field Csag308.Cf_Logo to "CAMINHO FISICO LOGO"
+
+        Set Field_Label_Long Field Csag308.Cl_Logo to "CAMINHO LOGICO LOGO"
+
+        Set Field_Label_Long Field Csag308.Ddd to "DDD DA REGIAO DO CLIENTE"
+
+        Set Field_Label_Long Field CSAG308.SMS_QTCONTRATO to "SMS QT.CONTRATADO"
+
+        Set Field_Label_Long Field CSAG308.SMS_QTUTILIZADO to "SMS QT.UTILIZADO"
+
+        Set Field_Label_Long Field CSAG308.SMS_QTSALDO to "SMS QT.SALDO"
+
+        Set Field_Label_Long Field CSAG308.SMS_LOGIN to "SMS LOGIN"
+
+        Set Field_Label_Long Field CSAG308.SMS_SENHA to "SMS SENHA"
+
+        Set Field_Label_Long Field CSAG308.SMS_CONTA to "SMS CONTA"
+
+        Set Field_Label_Long Field CSAG308.SMS_CAMPANHA to "SMS CAMPANHA"
+
+        Set Field_Label_Long Field CSAG308.SMS_PAISFROM to "SMS PREFIXO DO PAIS( Ex: Brasil 55 )"
+
+        Set Field_Label_Long Field CSAG308.SMS_PAISTO to "SMS PREFIXO DO PAIS( Ex: Brasil 55 )"
+
+        Set Field_Label_Long Field CSAG308.SMS_ASSINAR to "SMS ASSINATURA"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_SMTP to "Email smtp"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_PORTA25 to "Email Porta do SMTP 25"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_PORTACDO to "Email Porta do CDO 2"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_TIMEOUT to "Email Timeout"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_USERNAME to "Email User Name"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_USERPASS to "Email User password"
+
+        Set Field_Label_Long Field CSAG308.EMAIL_USESS to "Usar SSL para conesao ( True, False )"
+        Set Field_Value_Table Field Csag308.EMAIL_USESS to Csag308_Usess_VT
+
+        Set Field_Label_Long Field CSAG308.EMAIL_AUTENTICACAO to "Servidor Requeer Autenticacao na Saida ? 0 - Nao, 1 - Sim"
+
+        Set Field_Label_Long Field CSAG308.GEO_LATITUDE to "LATITUDE"
+
+        Set Field_Label_Long Field CSAG308.GEO_LONGITUDE to "LONGITUDE"
+
+        Set Field_Label_Long Field CSAG308.CLASSE to "CLASSE"
+        Set Field_Value_Table Field CSAG308.CLASSE to Csag308_Classe_VT
+
+    End_Procedure    // Construct_Object
+
+    // Field_Defaults:
+    // This procedure is used to establish default field values.
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value   Field Csag308.Uf To "SP"
+        Set Field_Changed_Value   Field Csag308.Pais To "BRA"
+        Set Field_Changed_Value Field CSAG308.EMAIL_USESS to 2
+        Set Field_Changed_Value Field CSAG308.CLASSE to 1
+    End_Procedure    // Field_Defaults
+
+End_Class    // Csag308_DataDictionary
+

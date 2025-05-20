@@ -1,0 +1,460 @@
+//-2WA
+//- deve estar dentro do objeto da classe cApplication do WebApp.
+//- 32-character base32-encoded string, allowed chars: A-Z and 2-7
+    Property String psOneTimePasswordSecret "5OCORRO3U5UBINUMONIBU53MMARROCO5" 
+    { Visibility=Private }
+    Property String ppTimeStamp 
+    { Visibility=Private }
+    Property String ppUrl 
+    { Visibility=Private }
+    Property String ppHashdata 
+    { Visibility=Private }
+    Property String ppHashcode 
+
+    Function f_Decode_Period String slCode Returns Integer
+        Move (Uppercase(slCode)) to slCode
+    
+        If (slCode='M') Function_Return 1
+        If (slCode='H') Function_Return Hour_Length
+        If (slCode='D') Function_Return Day_Length
+        If (slCode='W') Function_Return (Week_Length*Day_Length)
+    
+    End_Function // f_Decode_Period
+    
+    Function f_Decode_Day String slDay Returns Integer
+        Move (Uppercase(slDay)) to slDay
+    
+        If (slDay='SU') Function_Return 0
+        If (slDay='MO') Function_Return 1
+        If (slDay='TU') Function_Return 2
+        If (slDay='WD') Function_Return 3
+        If (slDay='TH') Function_Return 4
+        If (slDay='FR') Function_Return 5
+        If (slDay='SA') Function_Return 6
+    
+    End_Function// f_Decode_Day
+    
+//- Purpose: Translate an integer between 0 and 15 
+//           into a hexadecimal format.
+    Function Integer2Hex Integer iInput Returns String
+        String sOutStr
+        
+        Move "0" to sOutStr
+        If (iInput=1) Move "1" to sOutStr
+        Else If (iInput=2) Move "2" to sOutStr
+        Else If (iInput=3) Move "3" to sOutStr
+        Else If (iInput=4) Move "4" to sOutStr
+        Else If (iInput=5) Move "5" to sOutStr
+        Else If (iInput=6) Move "6" to sOutStr
+        Else If (iInput=7) Move "7" to sOutStr
+        Else If (iInput=8) Move "8" to sOutStr
+        Else If (iInput=9) Move "9" to sOutStr
+        Else If (iInput=10) Move "A" to sOutStr
+        Else If (iInput=11) Move "B" to sOutStr
+        Else If (iInput=12) Move "C" to sOutStr
+        Else If (iInput=13) Move "D" to sOutStr
+        Else If (iInput=14) Move "E" to sOutStr
+        Else If (iInput=15) Move "F" to sOutStr
+        Function_Return sOutStr
+    End_Function
+
+//- Purpose: Translate a character into a hexadecimal format.
+    Function Ascii2Hex String sInStr Returns String
+        String  sFirstChar
+        String  sSecondChar
+        Integer iAscii
+        Integer iFirstNumber
+        Integer iSecondNumber
+        
+        Move (Ascii(sInStr)) to iAscii
+        Move (Mod(iAscii, 16)) to iSecondNumber
+        Move ((iAscii-iSecondNumber)/16) to iFirstNumber
+        Move (Integer2Hex(Self,iFirstNumber)) to sFirstChar
+        Move (Integer2Hex(Self,iSecondNumber)) to sSecondChar
+        Function_Return (Append(sFirstChar, sSecondChar))
+    End_Function
+
+//- Purpose: Convert a string into a string consisting of Hexadecimal characters.
+    Function DaiEncode String sInStr Returns String
+        String  sChar
+        String  sOutStr
+        String  sHexStr
+        Integer iCounter
+        Integer iLength
+
+        Move (Length(sInStr)) to iLength
+        Move "" to sOutStr
+        For iCounter from 1 to iLength
+            Move (Mid(sInStr, 1, iCounter)) to sChar
+            Move (Ascii2Hex(Self,sChar)) to sHexStr
+            Move (Append(sOutStr, sHexStr)) to sOutStr
+        Loop
+        Function_Return sOutStr
+    End_Function
+    
+//- Purpose: Returns a string of two digits so 7 is returned 
+//           as "07" and 14 is returned as "14". 213 would be returned
+//           as "13".
+    Function TwoDigits Integer iNumber Returns String
+        String sResult
+        
+        Move (Append("00", String(iNumber))) to sResult
+        Move (Right(sResult, 2)) to sResult
+        Function_Return sResult
+    End_Function
+
+//- Purpose: Creates a timestamp Returns a string formatted as "YYYY-MM-DDTHH:MM:SS"
+    Function CreateTimestamp Returns String
+        DateTime dtCurrentDateTime
+        Integer  iYear
+        Integer  iMonth
+        Integer  iDay
+        Integer  iHour
+        Integer  iMinute
+        Integer  iSecond
+        String   sResult
+        
+        Move (CurrentDateTime()) to dtCurrentDateTime
+        
+        Move (DateGetYear  (dtCurrentDateTime)) to iYear
+        Move (DateGetMonth (dtCurrentDateTime)) to iMonth
+        Move (DateGetDay   (dtCurrentDateTime)) to iDay
+        Move (DateGetHour  (dtCurrentDateTime)) to iHour
+        Move (DateGetMinute(dtCurrentDateTime)) to iMinute
+        Move (DateGetSecond(dtCurrentDateTime)) to iSecond
+
+        Move  "%1-%2-%3T%4:%5:%6" to sResult
+        Move (SFormat(sResult, iYear, TwoDigits(Self,iMonth);
+                                    , TwoDigits(Self,iDay);
+                                    , TwoDigits(Self,iHour);
+                                    , TwoDigits(Self,iMinute);
+                                    , TwoDigits(Self,iSecond))) to sResult
+        
+        Function_Return sResult
+    End_Function //CreateTimestamp
+
+//- Generates a timestamp and stores it in a private property.
+    Procedure Generate_Timestamp
+        String sTimeStamp
+        Get CreateTimestamp to sTimeStamp
+        Set ppTimeStamp to sTimeStamp
+    End_Procedure //Generate_Timestamp
+    
+//- AR20170531 - Insert left zeroes
+    Function InsertLeftZeroes String sValue Integer iLength Returns String
+        Move (Rtrim(sValue)) to sValue
+        While (Length(sValue) < iLength)
+            Move ("0" + sValue) to sValue
+        Loop    
+        Function_Return sValue
+    End_Function //InsertLeftZeroes
+    
+//- AR20170531 - Remove spaces and punctuation
+    Function RemoveSpacesAndPunctuation String sValue Returns String
+        Move (Replaces(" ", sValue, "")) to sValue
+        Move (Replaces(".", sValue, "")) to sValue
+        Move (Replaces("&", sValue, "")) to sValue
+        Move (Replaces("-", sValue, "")) to sValue
+        Move (Replaces("_", sValue, "")) to sValue
+        Move (Replaces(",", sValue, "")) to sValue
+        Move (Replaces(":", sValue, "")) to sValue
+        Move (Replaces("?", sValue, "")) to sValue
+        Move (Replaces("/", sValue, "")) to sValue
+        Move (Replaces("'", sValue, "")) to sValue
+        Move (Replaces("%", sValue, "")) to sValue
+        Move (Replaces("$", sValue, "")) to sValue
+        Move (Replaces("#", sValue, "")) to sValue
+        Move (Replaces("!", sValue, "")) to sValue
+        Move (Replaces("+", sValue, "")) to sValue
+        Move (Replaces("=", sValue, "")) to sValue
+        Move (Replaces(";", sValue, "")) to sValue
+        Move (Replaces("|", sValue, "")) to sValue
+        Move (Replaces("\", sValue, "")) to sValue
+        //
+        Function_Return sValue
+    End_Function //RemoveSpacesAndPunctuation
+
+//- AR20170531 - Verify/Create the WebAppOut folder
+//  Folder location for saving any/all PDF output from web order entry application.
+//  a subfolder named: WebAppOut located directly under whatever is the data folder for the workspace
+    Function ReportOutPutPath Returns String
+        String  sDataPath sReportOutPutPath
+        Integer iHasFolder iHasError
+        Get psDataPath  of (phoWorkspace(ghoApplication)) to sDataPath
+        Get PathAtIndex of (phoWorkspace(ghoApplication)) sDataPath 1 to sReportOutPutPath
+        Move (sReportOutPutPath + "\WebAppOut") to sReportOutPutPath
+        //Does the directory exist? - No = 0, Yes = 1
+        Move (vFolderExists(sReportOutPutPath)) to iHasFolder
+        If (not(iHasFolder)) Begin
+            // 0 if the folder is created.
+            // 1 if the API-call returned an error.
+            Move (vCreateDirectory(sReportOutPutPath)) to iHasError
+            If (iHasError) Move "" to sReportOutPutPath
+        End
+        If (not(iHasError) and iHasFolder) Begin
+            Send RegisterDownloadFolder of ghoWebResourceManager sReportOutPutPath
+        End
+        Function_Return sReportOutPutPath
+    End_Function //ReportOutPutPath
+
+    Function ValidarSessaoUsuario String aUsuarioSessao String aFingerPrint Returns stDefaultMessage
+        stDefaultMessage stDefaultMsg
+        String aUsuarioIP
+        String aRemoteAddress
+        //-
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find EQ CSAG311 by 1
+        If (not(Found)) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'SESSAO INVALIDA/INVALID SESSION.' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+
+        //- VALIDACAO DO IP
+        //Get ServerVariable  of ghoWebServiceDispatcher "REMOTE_ADDR" to aRemoteAddress
+        //Move (Rtrim(CSAG311.USUARIOIP)) to aUsuarioIP
+        //If (aUsuarioIP <> aRemoteAddress) Begin
+        //    Move True to stDefaultMsg.hasError
+        //    Move 'IP INVALIDO' to stDefaultMsg.msgError
+        //    Function_Return stDefaultMsg
+        //End
+
+        //- VALIDACAO DO FINGERPRINT
+        Clear HSAG300
+        Move CSAG311.USUARIONUMERO  to HSAG300.USUARIONUMERO
+        Move aFingerPrint           to HSAG300.FINGERPRINT
+        Find Eq HSAG300 by 1
+        If (not(Found)) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'FINGERPRINT NAO ENCONTRADO' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+        
+        If (Rtrim(CSAG311.FINGERPRINT) <> aFingerPrint) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'FINGERPRINT INVALIDO' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+        
+
+    //- variables ------
+        DateTime dtVar
+        Date     dlToday
+        Date     dDtLastRun
+        String   slTime
+        String   slHH slMM
+        String   sHrLastRun
+        String   slPeriodType
+        String   slDay
+        Integer  ilTodayDay
+        Integer  ilMultiplier
+        Integer  ilSchedDay
+        Integer  idTime
+        Integer  ilPeriod
+        Handle   hObj
+        Boolean  bError
+        
+        Sysdate dlToday slHH slMM
+    
+        If (Integer(slMM)<10) Move (Insert('0', slMM, 1)) to slMM
+        If (Integer(slHH)<10) Move (Insert('0', slHH, 1)) to slHH
+    
+        Move (slHH + slMM) to slTime
+    
+        Move dlToday           to dDtLastRun
+        Move (slHH +':'+ slMM) to sHrLastRun
+    
+        //- WE NEED AN INTEGER TO REPRESENT THE TIME OF DAY TO ELIMINATE CROSS MIDNIGHT PROBLEMS.
+        //  WE CREATED A SINGLE INTEGER FROM THE DATE, HOUR AND MINUTES THAT DOES NOT HAVE TO GO
+        //  BACK TO 0 AT THE BEGINNING OF THE DAY OR HOUR.
+        Move (Integer(dlToday)*1440 + (Integer(slHH)*60) + Integer(slMM)) to idTime
+
+        //- WE NEED THE DAY OF THE WEEK. 1=SUNDAY, 2=MONDAY, ETC.
+        Move (CurrentDateTime())       to dtVar
+        Move (DateGetDayOfWeek(dtVar)) to ilTodayDay
+
+        Clear TSMG800
+        Smart_Find GE TSMG800 by 0
+        
+        Move (Rtrim(TSMG800.DAY_OF_WEEK)) to slDay
+        Move (Right(Trim(TSMG800.PERIOD_SESSION_TIMEOUT),1)) to slPeriodType
+        Move (Replace(slPeriodType,Trim(TSMG800.PERIOD_SESSION_TIMEOUT),'')) to ilMultiplier
+
+        //- DAY CODE, SU, MO, ETC.
+        //  DAY SPECIFIED IN THE SCHEDULE.
+        If (slDay<>'') Move (f_Decode_Day(Self, Uppercase(slDay))) to ilSchedDay
+
+        //- DO SOME ACTION
+        Move ((f_Decode_Period(Self, slPeriodType))*ilMultiplier) to ilPeriod
+        If ((idTime <= Integer(CSAG311.LASTRUN)+ilPeriod) or Integer(CSAG311.LASTRUN) = 0) Begin
+            If (slDay = '' or (slDay <> '' and ilSchedDay = ilTodayDay)) Begin
+               //- WRITE THE CURRENT DATE/TIME BACK TO THE DATA FILE
+                Get Create (RefClass(DataDictionary)) to hObj
+                Set Main_File of hObj to CSAG311.File_Number
+                Send Request_Assign of hObj
+                Set Field_Changed_Value of hObj Field CSAG311.LASTRUN to idTime
+                Set Field_Changed_Value of hObj Field CSAG311.LASTACCESSDATE to dDtLastRun
+                Set Field_Changed_Value of hObj Field CSAG311.LASTACCESSTIME to sHrLastRun
+                Get Request_Validate of hObj to bError
+                If (not(bError)) Send Request_Save of hObj
+                Send Destroy of hObj
+            End
+        End
+        Else Begin
+            //- DO SOME ACTION. USE OF DTIME HERE IS CRITICAL AS IT PREVENTS THE REPETITIVE CALLING
+            //  OF THE PROCESS WITHIN THE SAME MINUTE.
+            If (TSMG800.PERIOD_SESSION_TIMEOUT <> '' and idTime > (Integer(CSAG311.LASTRUN)+ilPeriod)) Begin
+                If (slDay = '' or (slDay <> '' and ilSchedDay = ilTodayDay)) Begin
+                    Get Create (RefClass(DataDictionary)) to hObj
+                    Set Main_File of hObj to CSAG311.File_Number
+                    Send Request_Assign of hObj
+                    Send Request_Delete of hObj
+                    Send Destroy of hObj
+                    //-
+                    Move True to stDefaultMsg.hasError
+                    Move 'SESSAO EXPIRADA' to stDefaultMsg.msgError
+                End
+            End
+        End
+        
+        Function_Return stDefaultMsg
+    End_Function //ValidarSessaoUsuario
+    
+    Function KillSessaoUsuario String aUsuarioSessao String aFingerPrint Returns stDefaultMessage
+        stDefaultMessage stDefaultMsg
+        String aUsuarioIP
+        String aRemoteAddress
+        //-
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find EQ CSAG311 by 1
+        If (not(Found)) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'SESSAO INVALIDA/INVALID SESSION.' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+
+        //- VALIDACAO DO IP
+        //Get ServerVariable  of ghoWebServiceDispatcher "REMOTE_ADDR" to aRemoteAddress
+        //Move (Rtrim(CSAG311.USUARIOIP)) to aUsuarioIP
+        //If (aUsuarioIP <> aRemoteAddress) Begin
+        //    Move True to stDefaultMsg.hasError
+        //    Move 'IP INVALIDO' to stDefaultMsg.msgError
+        //    Function_Return stDefaultMsg
+        //End
+
+        //- VALIDACAO DO FINGERPRINT
+        Clear HSAG300
+        Move CSAG311.USUARIONUMERO  to HSAG300.USUARIONUMERO
+        Move aFingerPrint           to HSAG300.FINGERPRINT
+        Find Eq HSAG300 by 1
+        If (not(Found)) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'FINGERPRINT NAO ENCONTRADO' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+        
+        If (Rtrim(CSAG311.FINGERPRINT) <> aFingerPrint) Begin
+            Move True to stDefaultMsg.hasError
+            Move 'FINGERPRINT INVALIDO' to stDefaultMsg.msgError
+            Function_Return stDefaultMsg
+        End
+        
+
+    //- variables ------
+        DateTime dtVar
+        Date     dlToday
+        Date     dDtLastRun
+        String   slTime
+        String   slHH slMM
+        String   sHrLastRun
+        String   slPeriodType
+        String   slDay
+        Integer  ilTodayDay
+        Integer  ilMultiplier
+        Integer  ilSchedDay
+        Integer  idTime
+        Integer  ilPeriod
+        Handle   hObj
+        Boolean  bError
+        
+        Sysdate dlToday slHH slMM
+    
+        If (Integer(slMM)<10) Move (Insert('0', slMM, 1)) to slMM
+        If (Integer(slHH)<10) Move (Insert('0', slHH, 1)) to slHH
+    
+        Move (slHH + slMM) to slTime
+    
+        Move dlToday           to dDtLastRun
+        Move (slHH +':'+ slMM) to sHrLastRun
+    
+        //- WE NEED AN INTEGER TO REPRESENT THE TIME OF DAY TO ELIMINATE CROSS MIDNIGHT PROBLEMS.
+        //  WE CREATED A SINGLE INTEGER FROM THE DATE, HOUR AND MINUTES THAT DOES NOT HAVE TO GO
+        //  BACK TO 0 AT THE BEGINNING OF THE DAY OR HOUR.
+        Move (Integer(dlToday)*1440 + (Integer(slHH)*60) + Integer(slMM)) to idTime
+
+        //- WE NEED THE DAY OF THE WEEK. 1=SUNDAY, 2=MONDAY, ETC.
+        Move (CurrentDateTime())       to dtVar
+        Move (DateGetDayOfWeek(dtVar)) to ilTodayDay
+
+        Clear TSMG800
+        Smart_Find GE TSMG800 by 0
+        
+        Move (Rtrim(TSMG800.DAY_OF_WEEK)) to slDay
+        Move (Right(Trim(TSMG800.PERIOD_SESSION_TIMEOUT),1)) to slPeriodType
+        Move (Replace(slPeriodType,Trim(TSMG800.PERIOD_SESSION_TIMEOUT),'')) to ilMultiplier
+
+        //- DAY CODE, SU, MO, ETC.
+        //  DAY SPECIFIED IN THE SCHEDULE.
+        If (slDay<>'') Move (f_Decode_Day(Self, Uppercase(slDay))) to ilSchedDay
+
+        //- DO SOME ACTION
+        Move ((f_Decode_Period(Self, slPeriodType))*ilMultiplier) to ilPeriod
+        If (not((idTime <= Integer(CSAG311.LASTRUN)+ilPeriod) or Integer(CSAG311.LASTRUN) = 0)) Begin
+            //- DO SOME ACTION. USE OF DTIME HERE IS CRITICAL AS IT PREVENTS THE REPETITIVE CALLING
+            //  OF THE PROCESS WITHIN THE SAME MINUTE.
+            If (TSMG800.PERIOD_SESSION_TIMEOUT <> '' and idTime > (Integer(CSAG311.LASTRUN)+ilPeriod)) Begin
+                If (slDay = '' or (slDay <> '' and ilSchedDay = ilTodayDay)) Begin
+                    Get Create (RefClass(DataDictionary)) to hObj
+                    Set Main_File of hObj to CSAG311.File_Number
+                    Send Request_Assign of hObj
+                    Send Request_Delete of hObj
+                    Send Destroy of hObj
+                    //-
+                    Move True to stDefaultMsg.hasError
+                    Move 'SESSAO EXPIRADA' to stDefaultMsg.msgError
+                End
+            End
+        End
+        Else Begin
+            Move False to stDefaultMsg.hasError
+            Move ((Trim(Integer(CSAG311.LASTRUN)+ilPeriod))-idTime) to stDefaultMsg.msgInfo
+        End
+        
+        Function_Return stDefaultMsg
+    End_Function //KillSessaoUsuario
+    
+    Procedure pLogSQLCROSS String sIndeficador String sQuery
+        Handle  hoWorkspace
+        Integer iChnOut
+        String  logPath
+        
+        Get phoWorkspace of ghoApplication to hoWorkspace
+        Get psProgramPath of hoWorkspace to logPath
+        Get PathAtIndex of hoWorkspace logPath 1 to logPath
+        
+        Move (logPath + "\SQL-CROSS.log" ) to logPath
+
+        If (TSMG800.LOGQUERY_YN = "Y") Begin
+           Move (Seq_New_Channel()) to iChnOut
+           Append_Output channel iChnOut logPath
+               Writeln   channel iChnOut ("/*[" + String(CurrentDateTime()) + "]" * Trim(sIndeficador) + "*/")
+               Writeln   channel iChnOut  "--[bgn]-----------------------------------"
+               Writeln   channel iChnOut  sQuery
+               Writeln   channel iChnOut  "--[end]-----------------------------------"
+           Close_Output  channel iChnOut
+           Send Seq_Release_Channel iChnOut 
+        End
+    End_Procedure //pLogSQLCROSS
+

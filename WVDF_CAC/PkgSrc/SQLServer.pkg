@@ -1,0 +1,36 @@
+//-2WA
+Procedure pTRUNCATETABLE String sTabela
+    Integer hoSQL
+    String  sConnect
+    String  sDatabase
+    String  sSQL
+    Integer hdbc
+    Integer hstmt
+    Integer iFetchResult
+    
+    Open    TSMG800
+    Clear   TSMG800
+    Smart_Find Ge TSMG800   by 0
+      If (not(Found)) Clear TSMG800
+      
+    Object oEnumDBSQLmanager is a cSQLHandleManager
+        Move Current_Object to hoSQL
+    End_Object // oEnumDBSQLManager
+   
+    If (hoSQL <> 0) Begin
+        Get SQLConnect of hoSQL "MSSQLDRV" (Trim(TSMG800.SIDI_DSN)) to hdbc
+        If (hdbc <> 0) Begin
+            Get SQLOpen of hdbc to hstmt
+            If (hstmt <> 0) Begin
+                
+                Move ('TRUNCATE TABLE '+(Trim(TSMG800.SIDI_SCHEMA) + (Trim(sTabela)))) to sSQL
+                Send SQLExecDirect of hstmt sSQL
+
+                Send SQLClose to hstmt
+            End
+            Send SQLDisconnect to hdbc
+        End
+    End
+    Send Destroy_Object to hoSQL
+
+End_Procedure

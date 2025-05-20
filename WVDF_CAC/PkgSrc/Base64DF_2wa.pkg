@@ -1,0 +1,9 @@
+// LEITURA DO CAMPO CONTENDO O CONTEUDO BASE64 PARA GERACAO DE IMAGEM
+Use Base64DF.pkg
+
+Global_Variable Handle ghoComBase64DF
+
+Object oComBase64DF is a cComBase64DF
+    Move Self to ghoComBase64DF
+    Set peAutoCreate to acAutoCreate
+End_Object

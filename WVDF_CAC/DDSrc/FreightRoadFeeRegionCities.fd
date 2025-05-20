@@ -1,0 +1,4 @@
+#REPLACE FILE14 FreightRoadFeeRegionCities
+#REPLACE FreightRoadFeeRegionCities.File_Number |CI14
+#REPLACE FreightRoadFeeRegionCities.FreightRoadFeeRegionId |FN14,1
+#REPLACE FreightRoadFeeRegionCities.CityId |FN14,2

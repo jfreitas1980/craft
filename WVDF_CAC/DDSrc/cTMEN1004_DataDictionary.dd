@@ -1,0 +1,90 @@
+//-2WA
+Use CtrlData.PKG
+
+Use TabelasdeValidacao.pkg
+
+Open TMEN1004
+
+Class cTMEN1004_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to TMEN1004.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+    End_Procedure
+    
+    Procedure Creating_TMEN1004
+        Forward Send Creating
+        
+//        Clear CSAG311
+//        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+//        Find Eq CSAG311                      by 1
+//        If (Found) Begin
+//            Send p_RegistraAcessoUsuario "TMEN1004.USUARIO_ID_C" CSAG311.USUARIONUMERO
+//        End
+        
+    End_Procedure // Creating_TMEN1004
+
+    Procedure Update_TMEN1004
+        Forward Send Update
+
+    End_Procedure // Update_TMEN1004
+
+    Procedure Deleting_TMEN1004
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure   // Deleting_TMEN1004
+
+    Procedure Save_Main_File_TMEN1004
+        Integer iRECNUM
+        Move CSAG390.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+            Send p_FFOperation 1 
+        End
+                    
+    End_Procedure // Save_Main_File_TMEN1004
+    
+    Procedure Backout_TMEN1004
+        Forward Send Backout
+        Send p_FFOperation 0
+    End_Procedure   // Backout_TMEN1004
+    
+    Function Validate_Save_TMEN1004 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_TMEN1004
+
+    Function Validate_Delete_TMEN1004 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+            
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_TMEN1004
+    
+	#Include p_FFOperation.inc  
+
+End_Class

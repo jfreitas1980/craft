@@ -1,0 +1,7 @@
+[WebService]
+Application=CrossHome
+Object=oWs_CSAG300
+ServicePageGenerator=DefaultWebServiceHomePage.xslt
+TestPageGenerator=DefaultWebServiceMethodPage.xslt
+WSDLGenerator=DefaultWebServiceDescription.xslt
+SoapBodyStyle=document

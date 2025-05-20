@@ -1,0 +1,69 @@
+        <% 
+            oPAG320_08.Call "Msg_SetUsuariosessao", aUsuarioSessao
+            Function fLogSistema (pIndice, pRecNum)
+                     Retorno        = oPAG800_01.Call ("Get_fAcaoSistema", aUsuarioSessao, pIndice, "CSAG320", pRecNum, aPrograma)
+            End function
+        
+            oPAG320_08.Call "Set_pbReportErrors", 1 'Normally show any errors that occur
+            'We either find a record, or clear the WBO
+            If RowId <> "" Then
+                Err = oPAG320_08.RequestFindbyRowId( "CSAG320", RowId)
+            Else 
+                Err = oPAG320_08.RequestClear("CSAG320",1)
+            End If
+
+            ' process various buttons that might have been pressed.
+            ' only support Post submissions
+            If Request ("Request_Method") = "POST" Then
+
+                aRecNum = Request("csag320__recnum")
+                If Request ("Clear") <> "" Then
+                    Err = oPAG320_08.RequestClear("CSAG320",1)
+                End If
+
+                If Request ("Save") <> "" then
+                    If aRecNum =  "0" Then aIndice="2"
+                    If aRecNum <> "0" Then aIndice="3"
+      
+                    oPAG320_08.Call "Set_pbReportErrors", 0
+                    Err = oPAG320_08.RequestSave("CSAG320")
+                    If Err = 0 Then
+                       If aRecNum<>"0" Then fLogSistema aIndice, aRecNum
+                       Response.Write("<p class=""alert alert-success""><i class=""fa fa-info-circle""></i>Record Saved.</p>")
+                    Else
+                       Response.Write("<p class=""alert alert-warning"">")
+                       Response.Write("<font style=""text-decoration:underline;"">Could not save. Errors Occurred:</font></br>")
+                       oPAG320_08.call "msg_ReportAllErrors"
+                       Response.Write("</p>")
+                    End If
+                End If
+
+                If Request("Delete") <> "" Then
+                    oPAG320_08.Call "Set_pbReportErrors", 0
+                    Err = oPAG320_08.RequestDelete("CSAG320")
+                    If Err = 0 Then
+                       If aRecNum<>"0" Then fLogSistema "4", aRecNum
+                       Response.Write("<p class=""alert alert-danger""><i class=""fa fa-info-circle""></i>Record deleted.</p>")
+                    Else
+                       Response.Write("<p class=""alert alert-warning"">")
+                       Response.Write("<font style=""text-decoration:underline;"">Record could not be deleted:</font></br>")
+                       oPAG320_08.call "msg_ReportAllErrors"
+                       Response.Write("</p>")
+                    End If
+                End If
+
+                If Request("FindPrev") <> "" Then Err = oPAG320_08.RequestFind("CSAG320", Index, LT)
+                If Request("Find") <> "" Then Err = oPAG320_08.RequestFind("CSAG320", Index, GE)
+                If Request("FindNext") <> "" Then  Err = oPAG320_08.RequestFind("CSAG320", Index, GT)
+                If Request("FindFirst") <> "" Then  Err = oPAG320_08.RequestFind("CSAG320", Index, FIRST_RECORD)
+                If Request("FindLast") <> "" Then Err = oPAG320_08.RequestFind("CSAG320", Index, LAST_RECORD)
+
+            End If
+
+        %>
+
+		<input type="hidden" name="aCI" id="aCI" value="<%=aI%>" />
+		<input type="hidden" name="aCE" id="aCE" value="<%=aE%>" />
+		<input type="hidden" name="aCC" id="aCC" value="<%=aC%>" />
+        
+		<input type="hidden" name="jaUsuarioSessao" id="jaUsuarioSessao" value="<%=aUsuarioSessao%>" />

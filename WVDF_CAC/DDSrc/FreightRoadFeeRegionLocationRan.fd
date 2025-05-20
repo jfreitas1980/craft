@@ -1,0 +1,4 @@
+#REPLACE FILE16 FreightRoadFeeRegionLocationRan
+#REPLACE FreightRoadFeeRegionLocationRan.File_Number |CI16
+#REPLACE FreightRoadFeeRegionLocationRan.FreightRoadFeeRegionLocationId |FN16,1
+#REPLACE FreightRoadFeeRegionLocationRan.Value |FS16,2

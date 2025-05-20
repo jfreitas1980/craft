@@ -1,0 +1,153 @@
+// Class Name: Csag315_DataDictionary
+// Revision  : 19
+// Version   : 2
+//-2WA
+Use  Windows           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  DDvalTbl          // Validation Table Class Definitions
+Use  CtrlData.PKG
+
+Open Csag315
+
+
+Register_Object Csag315_Classe_VT
+Register_Object Csag315_Stinclusao_VT
+Register_Object Csag315_Stalteracao_VT
+Register_Object Csag315_Stexclusao_VT
+Register_Object Csag315_Stconsulta_VT
+
+Object Csag315_Classe_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "ADMINISTRADOR"
+        Send Add_Table_Value  "2"  "SUPERVISOR"
+        Send Add_Table_Value  "3"  "MASTER"
+        Send Add_Table_Value  "4"  "DIRETOR"
+        Send Add_Table_Value  "5"  "GERENTE"
+        Send Add_Table_Value  "6"  "OPERADOR COMUM"
+        Send Add_Table_Value  "7"  "CLIENTE"
+        Send Add_Table_Value  "8"  "SEM CLASSIFICACAO"
+    End_Procedure    // Fill_List
+End_Object   // Csag315_Classe_VT
+
+Object Csag315_Stinclusao_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "LIBERADO"
+        Send Add_Table_Value  "2"  "BLOQUEADO"
+    End_Procedure    // Fill_List
+End_Object   // Csag315_Stinclusao_VT
+
+Object Csag315_Stalteracao_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "LIBERADO"
+        Send Add_Table_Value  "2"  "BLOQUEADO"
+    End_Procedure    // Fill_List
+End_Object   // Csag315_Stalteracao_VT
+
+Object Csag315_Stexclusao_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "LIBERADO"
+        Send Add_Table_Value  "2"  "BLOQUEADO"
+    End_Procedure    // Fill_List
+End_Object   // Csag315_Stexclusao_VT
+
+Object Csag315_Stconsulta_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "LIBERADO"
+        Send Add_Table_Value  "2"  "BLOQUEADO"
+    End_Procedure    // Fill_List
+End_Object   // Csag315_Stconsulta_VT
+
+Class Csag315_DataDictionary  is a c_DataDictionary
+
+    // Define_Fields:
+    // This procedure is used to set up all data-dictionary rules.
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Csag315.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        // Field-based properties.......................
+
+        Set Field_Label_Long Field Csag315.Usuarionumero To "ID"
+        Set Field_Option Field Csag315.Usuarionumero DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag315.Usuarionome To "Usuario"
+        Set Field_Option Field Csag315.Usuarionome DD_RETAINALL to True
+        Set Field_Option Field Csag315.Usuarionome DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field Csag315.Programa To "Programa"
+        Set Field_Option Field Csag315.Programa DD_RETAINALL to True
+        Set Field_Option Field Csag315.Programa DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field Csag315.Classe To "Classe"
+        Set Field_Value_Table Field Csag315.Classe to Csag315_Classe_VT
+
+        Set Field_Label_Long Field Csag315.Stinclusao To "Status Inclusao"
+        Set Field_Value_Table Field Csag315.Stinclusao to Csag315_Stinclusao_VT
+
+        Set Field_Label_Long Field Csag315.Stalteracao To "Status Alteracao"
+        Set Field_Value_Table Field Csag315.Stalteracao to Csag315_Stalteracao_VT
+
+        Set Field_Label_Long Field Csag315.Stexclusao To "Status Exclusao"
+        Set Field_Value_Table Field Csag315.Stexclusao to Csag315_Stexclusao_VT
+
+        Set Field_Label_Long Field Csag315.Stconsulta To "Status Consulta"
+        Set Field_Value_Table Field Csag315.Stconsulta to Csag315_Stconsulta_VT
+
+    End_Procedure    // Construct_Object
+
+    // Field_Defaults:
+    // This procedure is used to establish default field values.
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+    Procedure Backout_CSAG315
+        Forward Send Backout
+        Send p_FFOperation 1
+    End_Procedure
+
+    Procedure Deleting_CSAG315
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure 
+
+    Procedure Save_Main_File_CSAG315
+        Integer iRECNUM
+        Move CSAG315.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+            Send p_FFOperation 1 
+        End
+        
+    End_Procedure
+    
+	#Include p_FFOperation.inc
+
+End_Class    // Csag315_DataDictionary
+

@@ -1,0 +1,29 @@
+// ContaModoSeguranca.pkg
+//
+// Vers∆o 1.0
+// Èltima alteraá∆o: 02/08/2010
+// Autor: Jose Carlos Vasconcellos
+// Function ContaModoSeguranca: Recebe um string e verifica se a 
+//          conta do usuario esta em modo seguranca e coloca o nome de demosntracao
+Function fMODOSEGURANCA Global String aNome String aUsuarioSessao Returns String
+       String  sRetorno
+       
+       Move    aNome               To sRetorno
+       Clear   CSAG311
+       Move (Trim(aUsuarioSessao)) To CSAG311.Usuariosessao
+       Find Eq CSAG311             By 1
+         If (Found) Begin
+
+             Clear   CSAG300
+             Move CSAG311.Usuarionumero   To CSAG300.Usuarionumero
+             Find Eq CSAG300              By 3
+               If (Found) Begin
+                   If (CSAG300.Usuariomodose='2') Move 'Modo de serguranca' to sRetorno
+               End
+               Else Move 'Modo de serguranca' to sRetorno
+         End
+         Else Move 'Modo de serguranca' To sRetorno
+
+       Function_Return  sRetorno
+
+End_Function // fVERIFICACAO_CONTA_SEGURANCA

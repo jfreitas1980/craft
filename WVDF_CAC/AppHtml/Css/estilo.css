@@ -1,0 +1,48 @@
+@import url(miolo-theca.css);
+@import url(rodape-theca.css);
+@import url(topo-theca.css);
+*{margin:0;padding:0;}
+
+body{background-image:url(../Images/bg-top.jpg);background-repeat:repeat-x;color:#0E2E54;font-family:Arial, Helvetica, sans-serif;font-size:12px;}
+
+a{color:#0E2E54;outline:none;text-decoration:none;}
+a:hover{color:#174D8C;outline:none;text-decoration:none;}
+p{margin-bottom:10px;text-align:left;}
+ol{list-style:none;}
+#geral,#subTopo{width:750px;text-align:left;margin:auto;}
+#conteudo{height:auto;padding:0px;}
+
+#conteudo-interna{float:left;width:750px;background-image:url(../layout/bg_conteudo.gif);background-repeat:repeat-y;padding:0;}
+#conteudo-interna table{border-collapse:collapse;}
+h2{color:#0E2E54;font-size:16px;text-align:left;margin-top:10px;}
+#barra-sub{margin-top:2px;margin-bottom:0;height:45px;width:750px;float:left;background-image:url(../layout/bg_sub_barra.gif);background-repeat:no-repeat;font-size:13px;font-family:Arial, Helvetica, sans-serif;color:#0E2E54;padding:0;}
+#barra-esq{height:45px;width:193px;float:left;padding:0;}
+#barra-esq h3{font-size:20px;margin-top:12px;margin-left:10px;}
+#barra-dir{padding-left:5px;height:45px;width:552px;float:right;}
+#barra-dir a{font-size:12px;}
+#barra-dir p{margin-top:20px;font-size:11px;margin-left:10px;}
+#conteudo-esq{width:193px;float:left;padding:0 0 50px;}
+#conteudo-esq a{margin-left:3px;color:#0E2E54;font-size:14px;text-decoration:none;}
+#conteudo-esq a:hover{color:#144076;}
+#conteudo-esq li{background-image:url(../layout/bg_link.gif);background-repeat:no-repeat;list-style:none;font-weight:700;padding:5px;}
+#conteudo-dir-interno{width:200px;float:right;}
+#conteudo-dir-interno ul li{list-style:none;text-align:center;padding-bottom:5px;}
+#conteudo-esq-interno{width:313px;float:left;}
+#conteudo-dir{padding-left:14px;padding-bottom:25px;padding-right:30px;width:513px;float:right;}
+#conteudo-dir ul{padding-left:20px;}
+#conteudo-dir p{text-align:justify;padding-bottom:5px;}
+#conteudo-dir a{text-decoration:none;color:#003F9D;outline:none;}
+#conteudo-dir a:hover{color:#003482;outline:none;text-decoration:underline;}
+#conteudo-dir h5{font-size:12px;padding-bottom:10px;font-weight:700;}
+#conteudo-site{float:left;width:725px;padding:10px 15px 30px 10px;}
+#conteudo-site p{text-align:justify;}
+#conteudo-site a{color:#003F9D;text-decoration:underline;}
+#conteudo-site a:hover{color:#003482;outline:none;text-decoration:none;}
+#conteudo-site h5{font-size:13px;padding-top:10px;padding-bottom:10px;font-weight:700;}
+#barra-site{margin-bottom:0;height:20px;width:740px;float:left;padding:5px 0 0 10px;}
+.campo{font-size:8pt;color:#333;background-color:#FFF;text-decoration:none;border-color:#FFF #FFF #000 #000;border-style:solid;border-width:1px;}
+.tabela{font-family:Arial, Helvetica, sans-serif;font-size:10px;color:#0e2e54;}
+img,fieldset{border:0;}
+#conteudo-esq img,#conteudo-esq .bovespa-link{border:0;margin:0;padding:0;}
+#conteudo-dir h4,#conteudo-site h4{font-size:14px;padding-bottom:10px;}
+.btn_toolbar{cursor:pointer; width:32px; height:32px; vertical-align:middle; }

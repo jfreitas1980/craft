@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="" name="Keywords">
+	<meta content="" name="Description">
+	<meta name="Author" content="Grupo Factor Business Solutions, www.factorbs.com.br" />
+	<title>Asia Shipping - Estruturas</title> 
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/docs.css" rel="stylesheet" type="text/css" />
+	<link href="css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery-1.8.3.js" type="text/javascript"></script>
+	<script src="js/bootstrap.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[placeholder]").each(function(el){
+			if($(this).val()==""){
+			$(this).val($(this).attr("placeholder")).addClass("placeholder");
+			}
+			$(this).focus(function(){
+				if($(this).val()==$(this).attr("placeholder")){
+					$(this).removeClass("placeholder").val("");
+				}
+			});
+			$(this).blur(function(){
+				if($(this).val()==""){
+					$(this).addClass("placeholder").val($(this).attr("placeholder"));
+				}
+			});
+		});
+		$("form").submit(function(){
+			$("input[placeholder]").each(function(n,element){
+				if($(element).val()==$(element).attr("placeholder")){
+					return false;
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">
+		<a href="index.html" title="Asia Shipping" class="branding"><img src="img/branding.jpg" alt="Asia Shipping"/></a>
+		<div class="content_user">
+			<div class="painel">
+				<div class="user">
+					Olá Fulano de Tal
+				</div>
+				<div class="logout">
+					<a href="" title="Logout">Logout</a>
+				</div>
+			</div>
+			<form>
+				<fieldset>
+					<label>
+						<input type="text" name="pesquisa" placeholder="Procurar no site" />
+					</label>
+					<label>
+						<input type="submit" name="" value="" />
+					</label>
+				</fieldset>
+			</form>
+		</div>
+		<ul class="nav">
+       		<li><strong><a href="index.html" title="HOME">HOME</a></strong></li>
+			<li><strong><a href="estruturas.html" title="ESTRUTURAS">ESTRUTURAS</a></strong></li>
+			<li><strong><a href="objetos-basicos.html" title="OBJETOS BÁSICOS">OBJETOS BÁSICOS</a></strong></li>
+			<li><strong><a href="componentes.html" title="COMPONENTES">COMPONENTES</a></strong></li>
+			<li><strong><a href="javascript.html" title="JAVASCRIPT">JAVASCRIPT</a></strong></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Exemplo <b class="caret"></b></a><ul class="dropdown-menu">
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="formulario.html">Formulário</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li class="nav-header">Título SubCategoria</li>
+                          <li><a href="#">Separated link</a></li>
+                           <li class="dropdown-submenu">
+    <a tabindex="-1" href="#">More options</a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Something else here</a></li>
+      <li><a href="#">Something else here</a></li>
+    </ul>
+  </li>
+                        </ul></li>
+		</ul>
+	</div>
+	<div class="container-fluid">   
+     <div class="row-fluid">    
+     
+        <div class="span2">         
+         <ul class="nav nav-tabs nav-stacked">
+          <li class=""><a href="#gradefixa"><i class="icon-chevron-right"></i> Grade fixa</a></li>
+          <li class=""><a href="#layouts"><i class="icon-chevron-right"></i> Layouts</a></li>                 
+        </ul>  
+        </div><!--/span-->
+        
+        <div class="span9">
+        <div class="page-header"><h1>Estruturas</h1></div>          
+        <section id="gradefixa">
+        <div class="page-header"><h2>Grade</h2></div>
+        <div class="bs-docs-grid">
+            <div class="row-fluid show-grid">
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span4">4</div>
+              <div class="span4">4</div>
+              <div class="span4">4</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span4">4</div>
+              <div class="span8">8</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span6">6</div>
+              <div class="span6">6</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span12">12</div>
+            </div>
+          </div>
+        </section>
+       <section id="layouts">
+       <div class="page-header"><h2>Layouts</h2></div>
+       <h3>Para layouts fixos usar</h3>
+       <code>&lt;div class="container"&gt;</code>
+        <h3>Para layouts fluídos usar</h3>
+        <code>&lt;div class="container-fluid"&gt;</code>
+       </section> 
+             
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+<script>
+    $('#myTab a').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+    });
+</script>

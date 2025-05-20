@@ -1,0 +1,23 @@
+/* Estilo para Impressão */
+
+.screen-hide{
+	display:none;
+}
+
+.screen-show{
+	display:inline;
+}
+
+.screen-title { 
+	/*background: url(image/bg-ss-title.jpg) repeat-x #0D4D7B;*/
+	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#194F71,endColorStr=#5B839C);
+	padding:10px;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #FFF;
+	height:18px;
+}
+
+.screen-header { 
+	filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#55A0B5,endColorStr=#34849F);
+}

@@ -1,0 +1,634 @@
+//-2WA
+Use UI 
+
+Enum_List   // JToken Type
+    // Summary:
+    //     No token type has been set.
+    Define JTokenType_None 
+    //
+    // Summary:
+    //     A JSON object.
+    Define JTokenType_Object
+    //
+    // Summary:
+    //     A JSON array.
+    Define JTokenType_Array 
+    //
+    // Summary:
+    //     A JSON constructor.
+    Define JTokenType_Constructor 
+    //
+    // Summary:
+    //     A JSON object property.
+    Define JTokenType_Property 
+    //
+    // Summary:
+    //     A comment.
+    Define JTokenType_Comment 
+    //
+    // Summary:
+    //     An integer value.
+    Define JTokenType_Integer 
+
+    //
+    // Summary:
+    //     A float value.
+    Define JTokenType_Float 
+    //
+    // Summary:
+    //     A string value.
+    Define JTokenType_String 
+    //
+    // Summary:
+    //     A boolean value.
+    Define JTokenType_Boolean 
+    //
+    // Summary:
+    //     A null value.
+    Define JTokenType_Null 
+    //
+    // Summary:
+    //     An undefined value.
+    Define JTokenType_Undefined 
+    //
+    // Summary:
+    //     A date value.
+    Define JTokenType_Date 
+    //
+    // Summary:
+    //     A raw JSON value.
+    Define JTokenType_Raw 
+    //
+    // Summary:
+    //     A collection of bytes value.
+    Define JTokenType_Bytes 
+    //
+    // Summary:
+    //     A Guid value.
+    Define JTokenType_Guid 
+    //
+    // Summary:
+    //     A Uri value.
+    Define JTokenType_Uri 
+    //
+    // Summary:
+    //     A TimeSpan value.
+    Define JTokenType_TimeSpan     
+End_Enum_List
+
+//  Function:       IsJSONValueType
+//  Author:         Michael Salzlechner
+//  Copyright:      2016 StarZen Technologies, Inc.
+//  Web:            www.starzen.com
+//  Description:    tests a passed token type and returns true or false depending on type
+
+Function IsJSONValueType Global Integer iType Returns Integer
+    Case Begin
+        Case (iType=JTokenType_Object)
+        Case (iType=JTokenType_Property)
+        Case (iType=JTokenType_Array)
+        Case (iType=JTokenType_None)
+        Case (iType=JTokenType_Constructor)
+        Case (iType=JTokenType_Null)
+            Function_Return (False)
+            Case Break
+        
+        Case (iType=JTokenType_Comment    )
+        Case (iType=JTokenType_Integer)
+        Case (iType=JTokenType_Float)
+        Case (iType=JTokenType_String)
+        Case (iType=JTokenType_Boolean)
+        Case (iType=JTokenType_Date)
+        Case (iType=JTokenType_Raw)
+        Case (iType=JTokenType_Bytes)
+        Case (iType=JTokenType_Guid)
+        Case (iType=JTokenType_Uri)
+        Case (iType=JTokenType_TimeSpan)
+            Function_Return (True)
+            Case Break
+    Case End       
+    
+    Function_Return (False)
+End_Function
+    
+//  Class:          cszJSONObject
+//  Author:         Michael Salzlechner
+//  Copyright:      2016 StarZen Technologies, Inc.
+//  Web:            www.starzen.com
+//  Description:    a JSON Object
+    
+Class cszJSONObject is a cObject
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        
+        Property Variant pvJSONObject 
+        Property Integer phoParser Public 0
+    End_Procedure
+
+    //  Function:       Serialize
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    serializes this object into a string containing the JSON data
+    //                  on success this function will return a string containing the object
+    //                  on failure the return value is ""
+        
+    Function Serialize Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        String sJSON
+        Get ComSerialize vJSONObject to sJSON
+        
+        Function_Return sJSON
+    End_Function
+
+    
+    //  Function:       ChildCount
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the number of child tokens in this object
+    
+    Function ChildCount Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Integer iRetVal
+        Get ComGetTokenChildCount of hoParser vJSONObject to iRetVal
+        
+        Function_Return iRetVal
+    End_Function
+
+    //  Function:       TokenType
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the token type for the current JSON object
+        
+    Function TokenType Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Integer iType
+        Get ComGetTokenType of hoParser vJSONObject to iType
+        
+        Function_Return iType
+    End_Function
+
+    //  Function:       TokenTypeAsString
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the token type in text form for the current JSON object
+
+    Function TokenTypeAsString Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        String sType
+        Get ComGetTokenTypeAsString of hoParser vJSONObject to sType
+        
+        Function_Return sType
+    End_Function
+
+    //  Function:       HasValues
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns True or False depending on the type of object
+    //                  true means the object has child objects/values
+        
+    Function HasValues Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Boolean bHasValues
+        Get ComGetHasValues of hoParser vJSONObject to bHasValues
+        Function_Return bHasValues
+    End_Function
+
+    //  Function:       PropertyName
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the name of a property token
+        
+    Function PropertyName Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+            
+        String sPropName            
+        If (TokenType(Self)=JTokenType_Property) Begin
+            Get ComGetPropertyName of hoParser vJSONObject to sPropName 
+            Function_Return sPropName
+        End
+        Function_Return ""
+    End_Function
+    
+    //  Function:       TokenPath
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the path for the current token
+    
+    Function TokenPath Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        String sPath
+        Get ComGetTokenPath of hoParser vJSONObject to sPath
+        Function_Return sPath
+    End_Function
+    
+    //  Function:       ChildTokenByIndex
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns a child token at the given index
+    
+    Function ChildTokenByIndex Integer iIndex Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant vChild
+        Get ComGetChild of hoParser vJSONObject iIndex to vChild        
+        If (not(IsNullComObject(vChild))) Begin
+            Integer hoJSONObject
+            Get Create (RefClass(cszJSONObject)) to hoJSONObject
+            Set pvJSONObject of hoJSONObject to vChild
+            Set phoParser of hoJSONObject to hoParser
+            Function_Return hoJSONObject
+        End
+        Else Function_Return 0
+    End_Function
+
+    //  Function:       ChildTokenByName
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the child token with a given name
+
+    Function ChildTokenByName String sFieldName Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant vChild
+        Get ComGetChildByName of hoParser vJSONObject sFieldName to vChild   
+        If (not(IsNullComObject(vChild))) Begin
+            Integer hoJSONObject
+            Get Create (RefClass(cszJSONObject)) to hoJSONObject
+            Set pvJSONObject of hoJSONObject to vChild
+            Set phoParser of hoJSONObject to hoParser
+            Function_Return hoJSONObject
+        End
+        Else Function_Return 0
+    End_Function
+
+    //  Function:       ChildValueByName
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the value of a child token by name
+
+    Function ChildValueByName String sFieldName Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant vChild
+        Get ComGetChildByName of hoParser vJSONObject sFieldName to vChild   
+        If (not(IsNullComObject(vChild))) Begin
+            Integer iType
+            Get ComGetTokenType of hoParser vChild to iType
+            If (IsJSONValueType(iType)) Begin
+                String sVal
+                Get ComGetTokenValueAsString of hoParser vChild to sVal
+                Function_Return sVal
+            End
+            Else Begin
+                Function_Return ""
+            End
+        End       
+        Else Function_Return ""
+    End_Function    
+
+    //  Function:       ChildValueByIndex
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the value of a child token by index
+
+    Function ChildValueByIndex Integer iIndex Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant vChild
+        Get ComGetChild of hoParser vJSONObject iIndex to vChild   
+        If (not(IsNullComObject(vChild))) Begin
+            Integer iType
+            Get ComGetTokenType of hoParser vChild to iType
+            If (IsJSONValueType(iType)) Begin
+                String sVal
+                Get ComGetTokenValueAsString of hoParser vChild to sVal
+                Function_Return sVal
+            End
+            Else Begin
+                Function_Return ""
+            End
+        End       
+        Else Function_Return ""
+    End_Function    
+
+    //  Function:       TokenValue
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the value of the token 
+
+    Function TokenValue Returns String
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Integer iType
+        Get ComGetTokenType of hoParser vJSONObject to iType
+        If (IsJSONValueType(iType)) Begin
+            String sVal
+            Get ComGetTokenValueAsString of hoParser vJSONObject to sVal
+            Function_Return sVal
+        End
+        Else Begin
+            Function_Return ""
+        End
+
+        Function_Return ""
+    End_Function
+
+    //  Function:       GetAtPath
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the token with the given path starting at the current token
+    
+    Function GetAtPath String sPath Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Variant vToken
+        Get ComGetAtPath of hoParser vJSONObject sPath to vToken
+        If (not(IsNullComObject(vToken))) Begin
+            Integer hoJSON 
+            
+            Get Create (RefClass(cszJSONObject)) to hoJSON 
+            Set pvJSONObject of hoJSON to vToken
+            Set phoParser of hoJSON to hoParser
+            
+            Function_Return hoJSON
+        End
+        Else Function_Return 0
+    End_Function
+
+    //  Function:       GetValueAtPath
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    returns the value of a token with the given path starting at the current token
+
+    Function GetValueAtPath String sPath Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Variant vToken
+        Get ComGetAtPath of hoParser vJSONObject sPath to vToken
+        If (not(IsNullComObject(vToken))) Begin
+            Integer iType
+            Get ComGetTokenType of hoParser vToken to iType
+            If (IsJSONValueType(iType)) Begin
+                String sVal
+                Get ComGetTokenValueAsString of hoParser vToken to sVal
+                Function_Return sVal
+            End
+            Else Begin
+                Function_Return ""
+            End
+        End
+        Else Function_Return ""
+    End_Function
+
+    //  Procedure:      AddString
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    adds a strongly typed string value with a given property name to this object
+    //                  in case this object is an array the property name is ignored
+        
+    Procedure AddString String propName String propVal
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComAddString to hoParser vJSONObject propName propVal
+    End_Procedure
+
+    //  Procedure:      AddObject
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    adds a JSON object with a given property name to this object
+    //                  in case this object is an array the property name is ignored
+
+    Procedure AddObject String propName Integer hoJSONObj
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject vJSONObjectToAdd
+        Get pvJSONObject to vJSONObject
+        
+        Get pvJSONObject of hoJSONObj to vJSONObjectToAdd
+        Send ComAddObject to hoParser vJSONObject propName vJSONObjectToAdd
+    End_Procedure
+
+    //  Procedure:      AddInteger
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    adds a strongly typed integer value with a given property name to this object
+    //                  in case this object is an array the property name is ignored
+
+    Procedure AddInteger String propName Integer propVal
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComAddInteger to hoParser vJSONObject propName propVal
+    End_Procedure
+
+    //  Procedure:      AddNull
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    adds a null value object with a given property name to this object
+    //                  in case this object is an array the property name is ignored
+
+    Procedure AddNull String propName 
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComAddNull to hoParser vJSONObject propName
+    End_Procedure
+
+    //  Procedure:      AddBoolean
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    adds a strongly typed boolean value with a given property name to this object
+    //                  in case this object is an array the property name is ignored
+
+    Procedure AddBoolean String propName Boolean propVal
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComAddBoolean to hoParser vJSONObject propName propVal
+    End_Procedure
+
+    //  Function:       DeepClone
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    creates a deep clone of this object meaning descendents are deep cloned as well
+    //                  on success returns new dynamic JSON object that needs to be destroyed
+
+    Function DeepClone Returns Integer
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant vNewObj
+        Get ComDeepClone of hoParser vJSONObject to vNewObj
+        If (not(IsNullComObject(vNewObj))) Begin
+            Integer hoJSON 
+            
+            Get Create (RefClass(cszJSONObject)) to hoJSON 
+            Set pvJSONObject of hoJSON to vNewObj
+            Set phoParser of hoJSON to hoParser
+            
+            Function_Return hoJSON            
+        End
+    End_Function
+
+    //  Procedure:      RemoveFromParent
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    do not use at this time
+
+//    Procedure RemoveFromParent 
+//        Integer hoParser
+//        Get phoParser to hoParser
+//        Variant vJSONObject
+//        Get pvJSONObject to vJSONObject
+//        
+//        Send ComRemoveFromParent of hoParser vJSONObject
+//    End_Procedure
+
+    //  Procedure:      RemoveChild 
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    will remove the child item with the given property name
+
+    Procedure RemoveChild String propName
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComRemoveChild of hoParser vJSONObject propName
+    End_Procedure
+
+    //  Procedure:      RemoveAllChildren
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    removes all child objects from this object
+
+    Procedure RemoveAllChildren
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+        
+        Send ComRemoveAllChildren of hoParser vJSONObject 
+    End_Procedure
+
+    //  Function:       SelectToken
+    //  Author:         Michael Salzlechner
+    //  Copyright:      2016 StarZen Technologies, Inc.
+    //  Web:            www.starzen.com
+    //  Description:    uses JPath queries to select tokens 
+    //                  returns an array of dynamic JSON objects that need to be destroyed
+    
+    Function SelectTokens String sPath Returns Integer[]
+        Integer hoParser
+        Get phoParser to hoParser
+        Variant vJSONObject
+        Get pvJSONObject to vJSONObject
+
+        Variant[] vTokens
+        Get ComSelectTokens of hoParser vJSONObject sPath to vTokens
+        Integer iLoop iCount
+        Move (SizeOfArray(vTokens)-1) to iCount
+        
+        Integer[] jsonObjs
+        For iLoop from 0 to iCount
+            If (not(IsNullComObject(vTokens[iLoop]))) Begin
+                Get Create (RefClass(cszJSONObject)) to jsonObjs[iLoop]
+                Set pvJSONObject of jsonObjs[iLoop] to vTokens[iLoop]
+                Set phoParser of jsonObjs[iLoop] to hoParser                
+            End
+            Else Move 0 to jsonObjs[iLoop]
+        Loop
+        Function_Return jsonObjs
+    End_Function
+    
+    Procedure End_Construct_Object
+        Forward Send End_Construct_Object
+
+    End_Procedure
+
+
+End_Class

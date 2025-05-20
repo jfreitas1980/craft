@@ -1,0 +1,105 @@
+//-2WA
+Use CtrlData.PKG
+
+Use TabelasdeValidacao.pkg
+
+Open HCGS3000
+Open TSMG801
+
+Open LOGTARIFARIO
+
+Class cLOGTARIFARIO_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to LOGTARIFARIO.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+    End_Procedure
+    
+    Procedure Creating_LOGTARIFARIO
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+        Clear   CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin                   
+          Send p_RegistraAcessoUsuario "LOGTARIFARIO.USUARIO_ID_C" CSAG311.USUARIONUMERO
+        End
+              
+    End_Procedure // Creating_LOGTARIFARIO
+
+    Procedure Update_LOGTARIFARIO
+        Forward Send Update
+    
+        //------------------------------------------------------------
+        //---Configurando os dados Usuario Que Esta Cadastrando
+    
+//        Clear CSAG311
+//        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+//        Find Eq CSAG311                      by 1
+//        If (Found) Begin
+//            Send p_RegistraAcessoUsuario "HCGS3000.USUARIO_ID_A" CSAG311.USUARIONUMERO
+//        End
+        
+    End_Procedure // Update_LOGTARIFARIO
+
+    Procedure Deleting_LOGTARIFARIO
+       Forward Send Deleting
+        Send p_FFOperation 3 
+    End_Procedure   // Deleting_LOGTARIFARIO
+
+    Procedure Save_Main_File_LOGTARIFARIO
+        Integer iRECNUM
+        Forward Send Save_Main_File
+        
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+             //--- REGISTRO ALTERADO
+            Send p_FFOperation 1     
+        End
+    End_Procedure // Save_Main_File_PCGS3000_01
+    
+    Procedure Backout_LOGTARIFARIO
+        Forward Send Backout
+        Send p_FFOperation 0
+    End_Procedure   // Backout_LOGTARIFARIO
+    
+    Function Validate_Save_LOGTARIFARIO Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Boolean bFOUND
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_LOGTARIFARIO
+
+    Function Validate_Delete_LOGTARIFARIO Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_LOGTARIFARIO
+    
+	#Include p_FFOperation.inc
+
+End_Class

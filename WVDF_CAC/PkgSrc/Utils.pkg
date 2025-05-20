@@ -1,0 +1,31 @@
+//*****************************************************************
+// 21/12/2013 - Anderson Rodrigues - Revisao do Pacote
+//*****************************************************************
+//-2WA
+
+
+#COMMAND ARGUMENT_SIZE_BACKUP
+    #IFNDEF iArgumentSizeAtual
+        Integer iArgumentSizeAtual
+    #ENDIF
+    
+    Get_Argument_Size to iArgumentSizeAtual
+#ENDCOMMAND
+
+
+#COMMAND ARGUMENT_SIZE_NEW 
+    Set_Argument_Size !1
+#ENDCOMMAND
+
+
+#COMMAND ARGUMENT_SIZE_BACKUP_AND_NEW R
+    ARGUMENT_SIZE_BACKUP
+    //
+    ARGUMENT_SIZE_NEW !1
+#ENDCOMMAND
+
+#COMMAND ARGUMENT_SIZE_RESTORE
+    Set_Argument_Size iArgumentSizeAtual
+#ENDCOMMAND
+
+    

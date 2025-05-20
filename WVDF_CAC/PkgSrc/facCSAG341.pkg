@@ -1,0 +1,198 @@
+//--- ABERTURA DO ARQUIVO
+//-2WA
+Open CSAG320
+Open CSAG341
+
+Use facCSAG320.pkg
+
+{ Published = True }
+{ Description = "fCSAG341_EXEC_CONTAS" }
+Function fCSAG341_EXEC_CONTAS String sCONTEUDO String sNOMECOMBO String aUsuarioSessao Returns String
+    String    sRetorno
+    String    sQuery
+    String    sPESSOA
+    String    sDESCRICAO
+    String    sResult  
+
+    Move ('<select name="'+(Trim(sNOMECOMBO))+'" id="'+(Trim(sNOMECOMBO))+'" class="col-xs-6">') to sRetorno
+    
+    Clear CSAG311
+    Move (Trim(aUsuarioSessao) )  to CSAG311.USUARIOSESSAO
+    Find Eq  CSAG311              by 1
+      If (not(Found)) Begin
+         Move (sRetorno+'<option value="">SESSAO INVALIDA. CONTATE ADMINISTRADOR.</option>') to sRetorno
+         Move (sRetorno+'</select>') to sRetorno
+         Function_Return                sRetorno
+      End
+
+	Move "" to sQuery
+    CREATE_MAIN_CONNECTION BYFILE CSAG341
+    Move "SELECT a.CODIGO, b.FANTASIA FROM dbo.CSAG341 a INNER JOIN dbo.CSAG320 b ON a.CSAG320_ID = b.CODIGO ORDER BY b.FANTASIA" to sQuery
+    SQL_FIND_BEGIN hStmt_CSAG341_01 sQuery
+        //SqlFindValueByName
+        Move (SqlFindValue(hStmt_CSAG341_01,1)) to sPESSOA 
+        Move (SqlFindValue(hStmt_CSAG341_01,2)) to sDESCRICAO
+        
+        Move (Trim(sDESCRICAO))           to sDESCRICAO
+        Move (sPESSOA*"-"*sDESCRICAO)     to sResult
+        
+        Move (sRetorno+'<option '+If(sPESSOA=sCONTEUDO,'selected="selected"','')+' value="'+sPESSOA+'">'+sResult+'</option>') to sRetorno
+    SQL_FIND_END hStmt_CSAG341_01
+
+    Move (sRetorno+'</select>') to sRetorno
+    Function_Return                sRetorno
+
+End_Function // fCSAG341_EXEC_CONTAS
+
+{ Published = True }
+{ Description = "f_pegaDescricao" }
+Function f_pegaDescricao String sCODIGO Returns String
+    String sDESCRICAO
+    
+    Clear CSAG341
+    Move sCODIGO to CSAG341.CSAG320_ID
+    Find Eq CSAG341 by 2
+    Move CSAG341.APELIDO to sDESCRICAO
+    If (sDESCRICAO = "") Begin
+        Get f_pegaFantasia CSAG341.CSAG320_ID to sDESCRICAO
+    End
+    
+    Function_Return sDESCRICAO
+End_Function //f_pegaDescricao
+
+{ Published = True }
+{ Description = "f_pegaDescricao" }
+Function f_pegaCSAG341_desc String sCODIGO Returns String
+    String sDESCRICAO
+    
+    Clear CSAG341
+    Move sCODIGO to CSAG341.CODIGO
+    Find Eq CSAG341 by 1
+    Get f_pegaFantasia_2101_05 CSAG341.CSAG320_ID to sDESCRICAO
+    
+    Function_Return sDESCRICAO
+End_Function //f_pegaDescricao
+
+{ Published = True  }
+{ Description = ""  }
+Function f_bCSAG341_vendedor String sInicial String sSessionId Returns String
+    String  sQuebraLinha
+    String  sQuery
+    String  sLinhaAutoComplete
+    String  sListaAutoComplete
+    String  sCodigo
+    String  sExibeInformacao
+    String  sDescricao
+    String  sRecnum
+    String sCSAG320RECNUM       
+    String sCSAG320CODIGO       
+    String sCSAG320NOME         
+    String sCSAG320FANTASIA
+    String sCSAG320DATA_NASCFUND
+    String sCSAG320PAIS         
+    String sCSAG320STATUS       
+    String sCSAG320TPPESSOA     
+    String sCSAG320NRDOCTO  
+    String sCSAG320TPDOCTO 
+    String sCSAG341APELIDO
+   
+    Move (Character(13)+Character(10)) to sQuebraLinha
+    
+    Move (Uppercase(sInicial)) to sInicial
+    Move (Trim(sInicial))      to sInicial
+	
+	Move "" to sQuery
+    CREATE_MAIN_CONNECTION BYFILE CSAG320
+    Move "SELECT TOP 15 B.RECNUM, A.CODIGO, A.NOME, A.FANTASIA, B.APELIDO" to sQuery
+    Move (sQuery*"From dbo.CSAG320 A INNER JOIN dbo.CSAG341 B ON B.CSAG320_ID = A.CODIGO WHERE A.NOME LIKE '%1' ORDER BY NOME") to sQuery
+	Move (SFORMAT(sQuery, ('%'+Trim(sInicial)+'%'))) to sQuery
+    SQL_FIND_BEGIN hStmt_CSAG320_01 sQuery
+        //SqlFindValueByName
+        Move (SqlFindValue(hStmt_CSAG320_01,1))                             to sCSAG320RECNUM
+        Move (SqlFindValue(hStmt_CSAG320_01,2))                             to sCSAG320CODIGO
+        Move (SqlFindValue(hStmt_CSAG320_01,3))                             to sCSAG320NOME
+        Move (SqlFindValue(hStmt_CSAG320_01,4))                             to sCSAG320FANTASIA
+        Move (SqlFindValue(hStmt_CSAG320_01,5))                             to sCSAG341APELIDO
+                                                                            
+        //REMOVER ESPACOS EM BRANCO                                         
+        Move (Trim(sCSAG320NOME))                                           to sCSAG320NOME
+        Move (Trim(sCSAG320FANTASIA))                                       to sCSAG320FANTASIA
+        Move (Trim(sCSAG341APELIDO))                                        to sCSAG341APELIDO
+        
+        //IDENTIFICAR OS CAMPOS
+        Move  sCSAG320RECNUM                                                to sRecnum
+        Move  sCSAG320CODIGO                                                to sCodigo
+        If (sCSAG341APELIDO <> "") Move  sCSAG341APELIDO                    to sDescricao
+        Else Move  sCSAG320FANTASIA                                         to sDescricao
+                                                                            
+        Move (sDescricao)                                                   to sExibeInformacao
+        
+        //MONTAR O AUTOCOMPLETE
+        Move '{'                                                            to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+'"id":"'+sCodigo+'"')                      to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"label":"'+sExibeInformacao+'"')         to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"value":"'+sDescricao+'"')               to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"recnum":"'+sRecnum+'"')                 to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+'}')                                       to sLinhaAutoComplete
+        //                                                          
+        Move (sListaAutoComplete+If(sListaAutoComplete<>'',',','')+sLinhaAutoComplete) to sListaAutoComplete                    
+                        
+    SQL_FIND_END hStmt_CSAG320_01 
+	
+	If (sListaAutoComplete='') Begin
+        Move '{'                                                            to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+'"id":"0"')                                to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"label":"NENHUM REGISTRO ENCONTRADO"')   to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"value":"NENHUM REGISTRO ENCONTRADO"')   to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+',"recnum":"0"')                           to sLinhaAutoComplete
+        Move (sLinhaAutoComplete+'}')                                       to sLinhaAutoComplete
+        //
+        Move sLinhaAutoComplete to sListaAutoComplete
+	End
+	
+    Function_Return ('['+sListaAutoComplete+']')
+    
+End_Function // f_bCSAG341_vendedor
+
+// --------------- VERIFICA QUANTOS VENDEDORES O USUARIO POSSUI, CASO SEJA UM RETORNA ELE
+{ Published = True  }
+{ Description = ""  }
+Function f_Verifica_Vendedor String sUsuSession Returns Integer
+    String sQuery
+    Integer iCount
+    Integer iVendedor
+    
+    Clear CSAG311
+    Move sUsuSession to CSAG311.USUARIOSESSAO
+    Find EQ CSAG311 by 1
+    
+    Move "SELECT COUNT(a.RECNUM) FROM DBO.CSAG369 a INNER JOIN DBO.CSAG341 v ON a.CSAG320_NR = v.CSAG320_ID" to sQuery
+    Move (sQuery*"WHERE a.CSAG300_NRHD = %1") to sQuery
+    
+    SQL_FIND_BEGIN hStmt_contavendedor (SFORMAT(sQuery, (CSAG311.USUARIONUMERO)))
+        Move (SqlFindValue(hStmt_contavendedor,1)) to iCount
+    SQL_FIND_END hStmt_contavendedor
+    
+    If (iCount = 1) Begin
+       
+       Move "SELECT a.CSAG320_NR FROM DBO.CSAG369 a INNER JOIN DBO.CSAG341 v ON a.CSAG320_NR = v.CSAG320_ID" to sQuery
+       Move (sQuery*"WHERE a.CSAG300_NRHD = %1") to sQuery
+       
+       SQL_FIND_BEGIN hStmt_vendedorunico (SFORMAT(sQuery, (CSAG311.USUARIONUMERO)))
+           Move (SqlFindValue(hStmt_vendedorunico ,1)) to iVendedor
+       SQL_FIND_END hStmt_vendedorunico 
+       
+       Clear CSAG341
+       Move iVendedor to CSAG341.CSAG320_ID
+       Find EQ CSAG341 by 2
+       
+       Move CSAG341.CSAG320_ID to iVendedor
+       
+       If (Found and CSAG341.CSAG336_ID = 1) Function_Return iVendedor
+       Else Function_Return 0
+    
+    End     
+    Else Function_Return 0
+    
+End_Function //f_Verifica_Vendedor
+

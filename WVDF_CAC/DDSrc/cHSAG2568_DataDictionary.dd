@@ -1,0 +1,82 @@
+Use CtrlData.PKG
+Open CSAG319
+Open HSAG2568
+
+Class cHSAG2568_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to HSAG2568.File_Number
+    End_Procedure
+    
+    Procedure Creating_HSAG2568
+        Forward Send Creating
+    End_Procedure // Creating_HSAG2568
+
+    Procedure Update_HSAG2568
+        Forward Send Update
+    End_Procedure // Update_HSAG2568
+
+    Procedure Deleting_HSAG2568
+       Forward Send Deleting
+//        Send p_FFOperation 3 
+    End_Procedure   // Deleting_HSAG2568
+
+    Procedure Save_Main_File_HSAG2568
+        Integer iRECNUM
+        Move CSAG319.RECNUM to iRECNUM
+        Forward Send Save_Main_File
+        If (iRECNUM=0) Begin
+            //--- NOVO REGISTRO
+//            Send p_FFOperation 2
+        End // If (iRECNUM=0) Begin
+        Else Begin
+          //--- REGISTRO ALTERADO
+//            Send p_FFOperation 1 
+        End
+                    
+    End_Procedure // Save_Main_File_HSAG2568
+    
+    Procedure Backout_HSAG2568
+        Forward Send Backout
+//        Send p_FFOperation 0
+    End_Procedure   // Backout_HSAG2568
+    
+    Function Validate_Save_HSAG2568 Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+            //Move 308002     to iError_Id
+            //Move 'CSAG308'  to sError_Tabela
+            // //--EMPRESA DO PROCESSO NAO CADASTRADO.
+            //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+            //Error iError_Id sError_Ds
+            //Move 1 to iReturnVal 
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_HSAG2568
+
+    Function Validate_Delete_HSAG2568 Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+            //Move 308003     to iError_Id
+            //Move 'CSAG308'  to sError_Tabela
+            // //--EMPRESA DO PROCESSO NAO PODE SER EXCLUIDO.
+            //Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+            //Error iError_Id sError_Ds
+            //Move 1 to iReturnVal 
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_HSAG2568
+    
+//	#Include p_FFOperation.inc
+
+End_Class

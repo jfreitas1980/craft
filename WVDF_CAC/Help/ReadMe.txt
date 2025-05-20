@@ -1,0 +1,1 @@
+This Sample Application will use the default help file (DFHelp.hlp) because there is no specific help file defined.  The DFHelp file is located in the main Help folder.

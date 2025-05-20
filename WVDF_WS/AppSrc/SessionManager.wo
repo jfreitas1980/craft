@@ -1,0 +1,11 @@
+//-2WA
+Use cWebSessionManager2WA.pkg
+Use cOneTimePassword.pkg
+
+Object oSessionManager is a cWebSessionManager
+    Object oOneTimePassword is a cOneTimePassword
+        Set piSecretCodeType to otpDecodeBase32
+    End_Object
+    
+End_Object //oSessionManager
+

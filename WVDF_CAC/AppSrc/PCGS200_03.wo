@@ -1,0 +1,79 @@
+//-2WA--
+// PCGS200_03.wo
+// PCGS200_03
+Use cWebBusinessProcess.pkg
+
+Use cCCGS200_DataDictionary.dd
+
+Object oPCGS200_03 Is A cWebBusinessProcess
+    Set psDescription To "PCGS200_03"
+    Set pbClearAfterSave To False
+    
+    #Include USUARIOOPERACAO.inc
+
+    Object oCCGS200_DD is a cCCGS200_DataDictionary
+        Send DefineAllExtendedFields
+        
+        Set psProgramName to (psDescription(Self))
+        
+        #Include FIELDLABEL.INC
+        
+        Function Validate_Save  Returns Integer
+            Integer iReturnVal
+            Forward Get Validate_Save_PCGS200_03  to iReturnVal
+            If (not(iReturnVal)) Begin
+            End
+            Function_Return iReturnVal
+        End_Function   // Validate_Save
+
+        Function Validate_Delete  Returns Integer
+            Integer iReturnVal
+            Forward Get Validate_Delete_PCGS200_03 to iReturnVal
+            If not (iReturnVal) Begin
+            End    
+            Function_Return iReturnVal
+        End_Function // Validate_Delete
+        
+        Procedure Creating
+            Forward Send Creating_PCGS200_03
+        End_Procedure // Creating
+        
+        Procedure Update
+            Forward Send Update_PCGS200_03
+        End_Procedure // Update
+
+        Procedure Backout
+            Forward Send Backout_PCGS200_03
+        End_Procedure // Backout
+    
+        Procedure Deleting
+            Forward Send Deleting_PCGS200_03
+        End_Procedure // Deleting
+    
+        Procedure Save_Main_File
+            Forward Send Save_Main_File_PCGS200_03
+        End_Procedure // Save_Main_File        
+    End_Object // oCCGS200_DD
+
+
+    Set Main_DD To oCCGS200_DD
+
+
+    Send RegisterStandardInterface
+    // Send RegisterDebugInterface
+    Send RegisterFullErrorInterface
+    // Send RegisterAutoEntryInterface
+
+    Set pbAllowSaveNew To True
+    Set pbAllowSaveEdit To True
+    Set pbAllowDelete To True
+    Set pbAllowClear To True
+    Set pbAllowFind To True
+    Set pbAllowDDUpdate To True
+
+    Use facCCGS200.pkg 
+      
+    #Include GeraLinha.inc
+    #Include GERATABELA.inc
+
+End_Object // oPCGS200_03

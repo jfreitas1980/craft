@@ -1,0 +1,536 @@
+// EditaCpfCnpj.pkg
+//
+// VersÆo 1.0
+// éltima altera‡Æo: 15/06/2007
+// Autor: Ivan Kaupa (ivankaupa@gmail.com)
+// Function ColocaZerosEsquerda: Recebe uma string e um integer e acrescenta zeros … esqueda na String at‚ que fique com o tamanho
+//                               especificado no integer.
+//
+// Instru‡äes de uso:
+// *) Copie o pacote para o diret¢rio AppSrc da sua Workspace
+// *) Adicione o pacote em seu programa ou componente atrav‚s do comando Use (Use ColocaZerosEsquerda.pkg).
+// *) Exemplo de chamada: Move (ColocaZerosEsquerda(Cliente.CNPJ,14)) to sResultado
+
+// Hist¢rico de altera‡äes
+//
+// VersÆo #.# - Nenhuma altera‡Æo ap¢s a cria‡Æo
+//-2WA
+Function EditaCpfCnpj Global String sCPFCNPJ Integer iTamanho String sTipo Returns String
+    Boolean bOK
+    If (sTipo="J") Begin
+        Move (Length(sCPFCNPJ)=iTamanho) to bOK
+        If (not(bOK)) Begin
+            Move (Right(sCPFCNPJ, iTamanho)) to sCPFCNPJ
+            Move (Length(sCPFCNPJ)=iTamanho) to bOK
+        End
+        If (bOK) Begin
+            Move (Insert(".", sCPFCNPJ, 3))    to sCPFCNPJ
+            Move (Insert(".", sCPFCNPJ, 7))    to sCPFCNPJ
+            Move (Insert("/", sCPFCNPJ, 11))   to sCPFCNPJ
+            Move (Insert("-", sCPFCNPJ, 16))   to sCPFCNPJ
+        End
+    End
+    
+    If (sTipo="F") Begin
+        Move (Length(sCPFCNPJ)=iTamanho) to bOK
+        If (not(bOK)) Begin
+            Move (Right(sCPFCNPJ, iTamanho)) to sCPFCNPJ
+            Move (Length(sCPFCNPJ)=iTamanho) to bOK
+        End
+        If (bOK) Begin
+            Move (Insert(".", sCPFCNPJ, 4))    to sCPFCNPJ 
+            Move (Insert(".", sCPFCNPJ, 8))    to sCPFCNPJ
+            Move (Insert("-", sCPFCNPJ, 12))   to sCPFCNPJ
+        End
+    End
+    Function_Return sCPFCNPJ
+End_Function // EditaCpfCnpj
+//
+// Pacote de Comandos / Procedures / Funcoes Genericas
+//
+// Comando Mod
+//
+#COMMAND MOD #%NROBLG "FROM" #%ROBLG "TO" E#OBLCGUR .
+    MOVEINT (!3 / !1 ) to STRLEN
+    Move (!3 - (STRLEN * !1)) to !5
+#ENDCOMMAND
+//
+// Comando Remove
+//
+#COMMAND REMOVE #LGR "FROM" #LGRC .
+    !A [] $24D !3 !1 // FIND AND REPLACE
+#ENDCOMMAND
+//
+// Comando Remove_Char
+//
+#COMMAND REMOVE_CHAR R .
+    Repeat
+       REMOVE "." from !1
+    Until [not Found]
+    Repeat
+       REMOVE "-" from !1
+    Until [not Found]
+    Repeat
+       REMOVE "/" from !1
+    Until [not Found]
+#ENDCOMMAND
+//
+// Comando Check_Char
+//
+#COMMAND CHECK_CHAR R .
+    #IFDEF STR1$
+    #ELSE
+     Global_Variable String STR1$
+    #ENDIF
+    For STRMARK from 1 to (LENGTH(!1))
+        MID !1 to STR1$ 1
+        INDICATE not ERR as STR1$ IN '0123456789'
+    [not ERR] Loop
+#ENDCOMMAND
+//
+// Comando Ncgc_Check
+//
+#COMMAND NCGC_CHECK RUD#OGNI .
+    #IFDEF UNUM$CHK
+    #ELSE
+       Global_Variable Integer POS$CHK
+       Global_Variable Integer STACK$CHK
+       Global_Variable Integer STRCOUNT$CHK
+       Global_Variable Integer TOTAL$CHK
+       Global_Variable Integer UNUM$CHK
+       Global_Variable String  NUM$ 80
+       Global_Variable String  CHECK$DIG
+       Global_Variable String  TOTALSTR$CHK 2
+    #ENDIF
+    Move 0 to POS$CHK
+    Move 0 to STACK$CHK
+    Move 0 to STRCOUNT$CHK
+    Move 0 to TOTAL$CHK
+    Move 0 to UNUM$CHK
+
+    !A [] $086 !1 NUM$
+    !A [] $086 |CS"" CHECK$DIG
+    !A [] $086 |CS"" TOTALSTR$CHK
+    
+    For STACK$CHK from 5 to 6
+         Move STACK$CHK to STRCOUNT$CHK
+         Repeat
+            !A [] $083 POS$CHK |CI0
+            MID NUM$ to UNUM$CHK 1 POS$CHK
+            Move ((UNUM$CHK * STRCOUNT$CHK)+TOTAL$CHK) to TOTAL$CHK
+            CALC (STRCOUNT$CHK - 1) to STRCOUNT$CHK
+         Until (STRCOUNT$CHK LT 2)
+    
+         Move 9 to STRCOUNT$CHK
+         Repeat
+            !A [] $083 POS$CHK |CI0
+            MID NUM$ to UNUM$CHK 1 POS$CHK
+            Move ((UNUM$CHK * STRCOUNT$CHK)+TOTAL$CHK) to TOTAL$CHK
+            CALC (STRCOUNT$CHK - 1) to STRCOUNT$CHK
+         Until (STRCOUNT$CHK LT 2)
+         MOD 11 from (TOTAL$CHK*10) to TOTAL$CHK
+         If TOTAL$CHK GT 9 Move 0 to TOTAL$CHK
+         !A [] $086 TOTAL$CHK TOTALSTR$CHK
+         !A [] $243 CHECK$DIG TOTALSTR$CHK
+         !A [] $086 |CS"" TOTALSTR$CHK
+         !A [] $086 |CI0 POS$CHK
+         !A [] $086 |CI0 TOTAL$CHK
+    Loop
+   
+    !A [] $082 |CN2 STRLEN
+    !A [] $242 NUM$ TOTALSTR$CHK
+    INDICATE ~ |127 as TOTALSTR$CHK EQ CHECK$DIG
+    //[~|127] BEGIN
+    //        INSERT "." IN !1 AT 3
+    //        INSERT "." IN !1 AT 7
+    //        INSERT "/" IN !1 AT 11
+    //        INSERT "-" IN !1 AT 16
+    //END
+#ENDCOMMAND
+//
+// Comando Ncic_Check
+//
+#COMMAND NCIC_CHECK RUD#OGNI .
+    #IFDEF POS$CHK
+    #ELSE
+       Global_Variable Integer POS$CHK
+       Global_Variable Integer STACK$CHK
+       Global_Variable Integer STRCOUNT$CHK
+       Global_Variable Integer TOTAL$CHK
+       Global_Variable Integer UNUM$CHK
+       Global_Variable String  NUM$ 80
+       Global_Variable String  CHECK$DIG
+       Global_Variable String  TOTALSTR$CHK 2
+       Move 0 to POS$CHK
+       Move 0 to STACK$CHK
+       Move 0 to STRCOUNT$CHK
+       Move 0 to TOTAL$CHK
+       Move 0 to UNUM$CHK
+    #ENDIF
+    !A [] $086 !1 NUM$
+    Move  0 to POS$CHK
+    Move "" to CHECK$DIG
+    Move "" to TOTALSTR$CHK
+    For STACK$CHK from 10 to 11
+         Move STACK$CHK to STRCOUNT$CHK
+         Repeat
+            !A [] $083 POS$CHK |CI0
+            MID NUM$ to UNUM$CHK 1 POS$CHK
+            Move ((UNUM$CHK*STRCOUNT$CHK)+TOTAL$CHK) to TOTAL$CHK
+            CALC (STRCOUNT$CHK - 1) to STRCOUNT$CHK
+         Until (STRCOUNT$CHK LT 2)
+         MOD 11 from (TOTAL$CHK*10) to TOTAL$CHK
+    
+         If TOTAL$CHK GT 9 Move 0 to TOTAL$CHK
+         !A [] $086 TOTAL$CHK TOTALSTR$CHK
+         !A [] $243 CHECK$DIG TOTALSTR$CHK
+         !A [] $086 |CS"" TOTALSTR$CHK
+         !A [] $086 |CI0 POS$CHK
+         !A [] $086 |CI0 TOTAL$CHK
+    Loop
+    !A [] $082 |CN2 STRLEN
+    !A [] $242 NUM$ TOTALSTR$CHK
+    INDICATE not |127 as TOTALSTR$CHK EQ CHECK$DIG
+    //[~|127] BEGIN
+    //        INSERT "." IN !1 AT 4
+    //        INSERT "." IN !1 AT 8
+    //        INSERT "-" IN !1 AT 12
+    //END
+#ENDCOMMAND
+
+//
+// Funcao Roundall
+//
+Function ROUNDALL Global Number LN_VALOR Integer LI_CASAS Returns Number
+
+         LOCAL Number TMP$AUX
+         LOCAL Number TMP$
+         LOCAL Number LN_RESULT
+         LOCAL Integer POS$PONTO
+         LOCAL Integer QTDDIG$
+
+         INDICATE LT$ as LI_CASAS LT 0
+         INDICATE GT$ as LI_CASAS GT 0
+         INDICATE EQ$ as LI_CASAS EQ 0
+
+         Move (5 / (10. ^ (LI_CASAS + 1))) to TMP$
+         [not EQ$] Move (LN_VALOR + TMP$)  to TMP$
+                     POS "." IN TMP$
+         [not Found] POS "," IN TMP$
+         [not Found] Move (LENGTH (TMP$) ) to STRMARK
+         [LT$] [    Found] LEFT TMP$ to QTDDIG$  ((STRMARK - 1) + LI_CASAS)
+         [LT$] [not Found] LEFT TMP$ to QTDDIG$  ((STRMARK    ) + LI_CASAS)
+         [LT$] Move (QTDDIG$ * (10. ^ (ABS(LI_CASAS)))) to LN_RESULT
+         [GT$] Move (STRMARK + (ABS(LI_CASAS))) to STRMARK
+         [GT$] LEFT TMP$ to LN_RESULT
+         [EQ$] [    Found] MOVEINT (LN_VALOR + TMP$) to LN_RESULT
+         [EQ$] [not Found] Move     LN_VALOR         to LN_RESULT
+
+         Function_Return LN_RESULT
+
+End_Function // ROUNDALL
+
+//calcula arredondamento
+Use gFormatNumbers.pkg
+
+Function ROUNDVAL Global Number LN_VALOR Number LN_TAXA Returns Number
+     LOCAL Number LN_RESULT
+     LOCAL String SROUND SDIGITO
+
+     Move (LN_VALOR*LN_TAXA) to SROUND
+     
+     Move (Mid(sRound, 1, Pos(",",sRound)+3)) to sDigito
+     If (sDigito>4);
+        Move (sRound+0.01) to sRound
+
+     Move SROUND to LN_RESULT
+     
+     Function_Return LN_RESULT
+End_Function // ROUNDALL
+
+//calcula arredondamento
+Function ROUNDVAL2 Global Number LN_VALOR Number LN_TAXA Returns String
+     LOCAL String SROUND SDIGITO LN_RESULT
+
+     Move (LN_VALOR*LN_TAXA) to SROUND
+     
+     Move (Mid(sRound, 1, Pos(",",sRound)+3)) to sDigito
+     If (sDigito>4);
+        Move (sRound+0.01) to sRound
+
+     Move (formatNumber(SROUND,2)) to LN_RESULT
+     
+     Function_Return LN_RESULT
+End_Function // ROUNDALL
+
+//
+// Function Validate_CNPJ_CPF
+//
+Function Validate_CNPJ_CPF Global String sCNPJCPF Returns Integer
+    Boolean bLimpa
+    Boolean bIsCPF
+    Integer iReturnVal
+    Integer iError_Id
+    String  sError_Ds
+    String  sError_Tabela
+    
+    If (sCNPJCPF = "")  Function_Return iReturnVal
+    
+    Move (Length(sCNPJCPF)>14) to bLimpa
+    If (not(bLimpa)) Move (Length(sCNPJCPF)>11) to bLimpa
+    If (bLimpa) Begin
+        Move (Replaces("/",sCNPJCPF,"")) to sCNPJCPF
+        Move (Replaces("-",sCNPJCPF,"")) to sCNPJCPF
+        Move (Replaces(".",sCNPJCPF,"")) to sCNPJCPF
+    End
+    
+    Check_Char sCNPJCPF
+    If (not(Err)) Move (sCNPJCPF="") to Err
+    
+    Move (Length(sCNPJCPF)=11) to bIsCPF
+    If (bIsCPF)      Ncic_Check sCNPJCPF
+    If (not(bIsCPF)) Ncgc_Check sCNPJCPF
+    
+    If (not(Err)) Move (sCNPJCPF="00000000000000") to Err
+    If (not(Err)) Move (sCNPJCPF="") to Err
+    If (not(Err)) Move (sCNPJCPF="00000000000") to Err
+    
+    If (Err) Begin
+        Move 800099     to iError_Id
+        Move 'TSMG800'  to sError_Tabela
+        //CNPJ/CPF INVALIDO. PROCESSO CANCELADO.
+        Get fgRetErroDescricao iError_Id sError_Tabela to sError_Ds
+        Error iError_Id sError_Ds
+        Move 1 to iReturnVal 
+    End
+    
+    Function_Return iReturnVal
+End_Function // Validate_CNPJ_CPF
+
+
+
+// O QUE FAZ: Converte HORAS em MINUTOS
+// EXEMPLO  : CONVHORAMINUTO HORAS TO MINUTOS
+//            HORA: 3:58 - MINUTOS apos a conversao: 238
+#COMMAND CONVHORAMINUTO ID#UGLOB "TO" CD#UGELOB .
+   #IFDEF NUMB_HOUR
+   #ELSE
+      Global_Variable String STR$_HOUR
+      Global_Variable Number NUMB_HOUR
+   #ENDIF
+   #IFDEF CONV_RESTORE_FOUND
+   #ELSE
+      INDICATOR CONV_RESTORE_FOUND
+   #ENDIF
+   INDICATE CONV_RESTORE_FOUND as [Found] // GUARDA O VALOR DO INDICADOR FOUND
+
+   Move !1 			to STR$_HOUR
+
+   REPLACE ":" IN STR$_HOUR WITH "."
+//   REPLACE "." IN STR$_HOUR WITH ","
+
+   Move STR$_HOUR 		to NUMB_HOUR
+
+   CALC ((NUMB_HOUR-(Integer(NUMB_HOUR))/.01)+((Integer(NUMB_HOUR))*60)) to !3
+
+   INDICATE Found as [CONV_RESTORE_FOUND] // DEVOLVE O VALOR DO INDICADOR FOUND
+#ENDCOMMAND
+
+// O QUE FAZ: Converte MINUTOS em HORAS
+// EXEMPLO  : CONVMINUTOHORA MINUTOS TO HORAS 8 
+//            MINUTOS: 238 - HORAS apos a conversao: 00003:58
+// OBSERVAC.: CUIDADO !!! Nao use no ultimo argumento um numero MAIOR que o ta-
+//            manho declarado da STRING que recebera a hora convertida. Se isso
+//            ocorrer, o programa entrara num LOOP. Abaixo, vem um exemplo de
+//            como NAO SE DEVE FAZER: 
+//                                    STRING HORAS 8
+//                                    CONVMINUTOHORA MINUTOS TO HORAS 9
+
+#COMMAND CONVMINUTOHORA D#UGLOB "TO" CDI#UGELOB D#UGELOB .
+   #IFDEF NUM_HOUR
+   #ELSE
+      Global_Variable Number NUM_HOUR
+   #ENDIF
+   #IFDEF CONV_RESTORE_FOUND
+   #ELSE
+      INDICATOR CONV_RESTORE_FOUND
+   #ENDIF
+   INDICATE CONV_RESTORE_FOUND as [Found] // GUARDA O VALOR DO INDICADOR FOUND
+   CALC (Integer(!1/60)+(!1-(Integer(!1/60)*60)*.01)) to NUM_HOUR
+   Move NUM_HOUR 		to !3
+   FRA NUM_HOUR  		to NUM_HOUR
+
+   If NUM_HOUR EQ 0 Append !3 ":00"
+   Else Begin
+           FRA (NUM_HOUR / .1) to NUM_HOUR
+           IF_ NUM_HOUR EQ 0 Append !3 "0"
+        End                  
+
+   REPLACE "." IN !3 WITH ":"
+
+   IF_ !4 GT 4 IF_ !4 LT 256 Begin
+                                IF_ (LENGTH(!3)) LT !4 Begin
+                                                          Repeat
+                                                             INSERT "0" IN !3 AT 1
+                                                          Until (LENGTH(!3)) EQ !4
+                                                       End
+                             End
+
+   INDICATE Found as [CONV_RESTORE_FOUND] // DEVOLVE O VALOR DO INDICADOR FOUND
+#ENDCOMMAND
+
+#COMMAND FRA SDI#UGLOB "TO" CDI#UGELOB .
+     CALC (!1 - Integer(!1)) to !3
+#ENDCOMMAND
+
+// DIF_DATA DATA1 HORARIO1 DATA2 HORARIO2 RESULTADO
+//	!1 - data final ---> DATA1
+//	!2 - hora final ---> HORARIO1
+//	!3 - data inicial -> DATA2
+//	!4 - hora inicial -> HORARIO2
+//	!5 - RESULTADO
+//
+// EXEMPLO:
+// DIF_DATA 10/11/97 14:15 08/11/97 18:00 RESULT
+//
+// OBSERVACAO:
+// A VARIAVEL RESULT DEVE SER DO TIPO STRING
+// O RESULTADO SERA NO FORMATO HHHH:MM 
+
+#COMMAND DIF_DATA I I I I I .
+   #IFDEF NX1
+   #ELSE
+      Global_Variable Number NX1
+      Global_Variable Number NXTEMP1 NXTEMP2
+      Global_Variable Integer IXTEMP
+      Global_Variable String NSTEMP 2 NSX 4 NSR 7
+      Global_Variable Integer WHORA WMINUTO
+   #ENDIF
+   CALC (!1 - !3) 	to NX1
+   MID !2 		to NSTEMP 2 1
+   Move NSTEMP 	  	to NXTEMP1
+   MID !2 		to NSTEMP 2 4
+   Move NSTEMP 	  	to NXTEMP2
+   CALC ((NX1 * 1440) + (60 * NXTEMP1) + NXTEMP2) to NX1
+   MID !4 		to NSTEMP 2 1
+   Move NSTEMP 	  	to NXTEMP1
+   MID !4 		to NSTEMP 2 4
+   Move NSTEMP 	  	to NXTEMP2
+
+   CALC (NX1 - ((60 * NXTEMP1) + NXTEMP2)) to NX1
+   CALC (NX1 / 60) 	to NX1
+   Move NX1 		to WHORA
+   CALC (NX1 - WHORA) 	to NX1
+   CALC (NX1 * 100) 	to WMINUTO
+   Move WHORA 		to NSX
+   TRIM NSX 		to NSX
+   LENGTH NSX 		to IXTEMP
+   While (IXTEMP < 4)
+      INSERT "0" IN NSX AT 1
+      CALC (IXTEMP + 1) to IXTEMP
+   End
+   Move NSX 		to NSR
+   Move WMINUTO 	to NSX
+   TRIM NSX 		to NSX
+   LENGTH NSX 		to IXTEMP
+   While (IXTEMP < 2)
+      INSERT "0" IN NSX AT 1
+      CALC (IXTEMP + 1) to IXTEMP
+   End
+   Append NSR ":" NSX
+   Move NSR to !5
+#ENDCOMMAND
+
+// O QUE FAZ: COLOCA UM NUMERO NO FORMATO HORA (HH:MM).
+// EXEMPLO  : FORMAT_HOUR NUMERO
+// NUMERO   : 1 - 1.1 ONDE O VALOR 1 PASSA PARA 01:00 - VALOR 1.1 PASSA PARA 01:10
+#COMMAND FORMAT_HOUR ID#UGLOB .
+   #IFDEF NUMB_HORA1
+   #ELSE
+     Global_Variable String  STR$_HORA1
+     Global_Variable Number  NUMB_HORA1
+     Global_Variable Integer INT_HORA1
+   #ENDIF
+   Move !1 to STR$_HORA1
+   REPLACE ":" IN STR$_HORA1 WITH "."
+   Move STR$_HORA1 to NUMB_HORA1
+   CALC ((NUMB_HORA1-(Integer(NUMB_HORA1))/.01)+((Integer(NUMB_HORA1))*60)) to INT_HORA1
+   CALC (Integer(INT_HORA1/60)+(INT_HORA1-(Integer(INT_HORA1/60)*60)*.01))  to NUMB_HORA1
+   Move NUMB_HORA1 to STR$_HORA1
+   FRA NUMB_HORA1 to NUMB_HORA1
+   If NUMB_HORA1 EQ 0 Append STR$_HORA1 ":00"
+   Else Begin
+        FRA (NUMB_HORA1/.1) to NUMB_HORA1
+        If NUMB_HORA1 EQ 0 Append STR$_HORA1 "0"
+        End
+   REPLACE "." IN STR$_HORA1 WITH ":"
+   If (LENGTH(STR$_HORA1)) LT 5 Begin
+                                Repeat
+                                   INSERT "0" IN STR$_HORA1 AT 1
+                                Until (LENGTH(STR$_HORA1))  EQ 5
+                                End
+   Move STR$_HORA1 to !1
+#ENDCOMMAND
+
+// O QUE FAZ: Atraves de uma DATA/HORA inicial e DATA/HORA final, encontra-se a
+//            diferenca entre HORAS.
+// !1 - DATA INICIAL (DD/MM/AAAA)
+// !2 - HORA INICIAL (HH:MM)
+// !3 - DATA FINAL   (DD/MM/AAAA)
+// !4 - HORA FINAL   (HH:MM)
+// !5 - "TO"
+// !6 - DIFER.HORAS  (HHHHHHH:MM)
+// !7 - TAMANHO (LENGTH) DA VARIAVEL QUE RECEBERA A DIFERENCA DE HORAS
+//
+// EXEMPLO: /TELA
+//	    DATA INICIAL     : __/__/____ _____
+//	    DATA FINAL	     : __/__/____ _____
+//	    DIFERENCA (HORAS): __________
+//	    /*
+//	    CLEARSCREEN 
+//   REPEAT
+//		ACCEPT TELA.1
+//		ACCEPT TELA.2
+//		ACCEPT TELA.3
+//		ACCEPT TELA.4
+//		DIF_TIME TELA.1 TELA.2 TELA.3 TELA.4 TO TELA.5 10
+//	    LOOP
+// RESULT.: DATA INICIAL     : 28/02/1994 23:58
+//          DATA FINAL       : 01/03/1994 16:45
+//	    DIFERENCA (HORAS): 0000016:47
+//
+// OBSERV.: A DATA/HORA final pode ser menor que DATA/HORA inicial. Neste caso,
+//	    o resultado sera negativo.
+//	    Nas DATAS inicial e final, pode haver uma grande diferenca entre os
+//	    anos. Exemplo: DATA INICIAL: 01/01/1980 - DATA FINAL: 31/12/1994
+//	    O resultado deste commando , parecido com o resultado do comando
+//	    DIF_HORA (Topclass 3). A diferenca , que o comando DIF_HORA  nao
+//	    calcula a diferenca entre horas de datas diferentes.
+
+#COMMAND DIF_TIME I#UGLOB D#UGLOB I#UGLOB D#UGLOB "TO" D#UGLOB D#UGLOB 
+   #IFDEF DIF_T_DIAS 
+   #ELSE 
+      Global_Variable Number DIF_T_DIAS DIF_T_MIN DIF_T_MIN1 DIF_T_MIN2 DIF_T_POS 
+      Global_Variable String DIF_T_HORA 14 
+   #ENDIF 
+   Move (!3 - !1) 		    to DIF_T_DIAS 
+   Move (DIF_T_DIAS * 1440) to DIF_T_MIN 
+   CONVHORAMINUTO !2 		to DIF_T_MIN1 
+   CONVHORAMINUTO !4 		to DIF_T_MIN2 
+
+   Move (DIF_T_MIN - DIF_T_MIN1 + DIF_T_MIN2) to DIF_T_MIN
+
+   CONVMINUTOHORA DIF_T_MIN to DIF_T_HORA 14
+
+   RIGHT DIF_T_HORA 		to !6 !7
+
+   INDICATE DIF_T_FOUND as [Found] 
+
+   POS "-" IN !6 		to DIF_T_POS 
+   [Found] Begin 
+              REMOVE "-" from !6 
+              INSERT "-" IN   !6 AT 1 
+           End 
+   INDICATE Found as [DIF_T_FOUND] 
+#ENDCOMMAND 
+

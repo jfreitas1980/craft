@@ -1,0 +1,88 @@
+<div class="modal fade bs-example-modal-lg" id="abrirNegociacao" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;">
+    <div class="modal-dialog modal-lg center-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+            	  <div class="col-md-6">
+                    <h4 class="modal-title">Negociar Taxa(s)</h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btCloseModal btn btn-danger">
+                        <i class="fa fa-times" aria-hidden="true"></i> Fechar
+                    </button>
+                </div>
+            </div>
+            <div class=" modal-body">
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <label>Extender Validade:</label>
+                        <input ng-model="modal.abrirNegociacao.data.dt_new" datepicker placeholder="Nova Data" class="input-sm form-control" />
+                    </div>
+                    <div class="col-xs-8 col-md-8">
+                        <label>Concorrente:</label>
+                        <tags-input ng-model="modal.abrirNegociacao.data.concorrente" placeholder="Concorrente" key-property="sRecnum" display-property="Fantasia" add-from-autocomplete-only="true">
+                            <auto-complete source="call(WVDF.ws_CSAG340.f_fup_concorrente($query, Url.aUsuarioSessao))" min-length="1"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-condensed table_morecondensed">
+                                <thead>
+                                    <tr>
+                                        <th class="rptL" style="width: 1px">Classe</th>
+                                        <th class="rptL" style="width: 1px">Taxa</th>
+                                         <th class="rptL" style="width: 1%">Equipamento</th>
+                                        <th class="rptL" style="width: 15%">Valor</th>
+                                        <th class="rptL" style="width: 15%">Moeda</th>
+                                        <th class="rptL" style="width: 15%">Modo de Pagamento</th>
+                                        <th class="rptL" style="width: 40%">Note</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in modal.abrirNegociacao.data.table track by $index">
+                                        <td>
+                                            <span ng-if="row.classe == 'O'">Origem</span>
+                                            <span ng-if="row.classe == 'F'">Frete</span>
+                                            <span ng-if="row.classe == 'D'">Destino</span>
+                                        </td>
+                                        <td>
+                                            <label>{{row.DS_T}}</label>
+                                        </td>
+                                        <td>
+                                        	 {{row.venda.equipamento.DS}}
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="row.venda.valor">
+                                        </td>
+                                        <td>
+                                            <select ng-model="row.venda.moeda" class="form-control" ng-options="aux as aux.DS for aux in combo.moeda track by aux.ID"></select>
+                                        </td>
+                                        <td>
+                                            <select ng-model="row.venda.modPagamento" class="form-control" ng-options="aux as aux.value for aux in combo.modPagamento track by aux.id"></select>
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" ng-model="row.N_Note"></textarea>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden-print">
+                    <div class="col-xs-6">
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <button type="button" class="btn btn-success" ng-click="modal.abrirNegociacao.save(modal.abrirNegociacao.data)" data-dismiss="modal">
+                            <i class="fa fa-floppy-o"></i> Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

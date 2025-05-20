@@ -1,0 +1,1170 @@
+//-2WA
+Use cWebService.pkg
+Open CSAG325
+
+Object ows_CSAG325 is a cWebService
+    
+    // psDocumentation provides high level documentation of your web service. 
+    // Clients using this service will see and use this documentation. 
+    Set psDocumentation to "2WA - www.2wa.com.br"
+    Set psServiceTitle  to "Cidades"
+    Set psServiceName   to "ws_csag325"
+    //Set psServiceUri    to "http://tempuri.org/"
+    
+    { Published = True  }
+    { Description = "f_bPaisCidade"  }
+    Function f_bPaisCidade String aUsuarioSessao String idCidade Returns String
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Begin
+            Function_Return ''
+        End
+
+        Clear CSAG325
+        Move idCidade to CSAG325.CODIGO
+        Find Eq CSAG325 by 1
+        Function_Return (Trim(CSAG325.PAIS))
+        
+    End_Function //f_bPaisCidade
+
+    { Published = True  }
+    { Description = "buscarCidadesPorPaisesPorTrade"  }
+    Function buscarCidadesPorPaisesPorTrade String aUsuarioSessao;
+                                            String idPais;
+                                            String sCidade;
+                                            Returns stCityCountryTrade[]
+        stCityCountryTrade[] tLista
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+        Move (sCidade+'%')        to sCidade
+        
+        String  sQuery
+        String  sWhere sAux sAux2
+        String  sPais
+        String  sValue
+        Integer iIndex
+        String[] arPais
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Begin
+            Function_Return tLista
+        End
+        
+        Move "SELECT TOP 15 C.CODIGO, C.DESCRICAO, P.DESCRICAO,C.UF" to sQuery
+        Move (sQuery*"FROM DBO.CSAG325 C,DBO.CSAG329 P %1 ORDER BY C.DESCRICAO") to sQuery
+        
+//        Get Find_Code_Description of oCSAG367_FVT 'WS_CSAG325_CIDADES_POR_PAISES_POR_TRADE' to sQuery
+        
+        
+        Move (ResizeArray(tLista, 0)) to tLista    	
+        Move (Trim(idPais)) to idPais
+        Move (Uppercase(idPais)) to idPais
+    
+        Move '' to sWhere
+        Move '' to sAux2
+        Move (SFormat("WHERE C.PAIS=P.SIGLA AND C.DESCRICAO LIKE '%1' AND C.CSAG336_ID='1'", sCidade)) to sWhere
+        
+        If (idPais <> '') Begin
+            
+            Move '' to sAux
+            Move '' to sAux2
+                        
+            Move (StrSplitToArray(idPais,',')) to arPais
+            
+            For iIndex from 0 to (SizeOfArray(arPais)-1)
+                
+                Move (SFormat("P.SIGLA = '%1'", arPais[iIndex])) to sAux
+                
+                If (sAux2 <> '') Move (sAux2*"OR "+sAux) to sAux2
+                Else Move ("("+sAux) to sAux2
+                
+            Loop
+            
+            Move (sWhere*'AND'*Trim(sAux2)+')') to sWhere
+        
+        End
+        
+        Move (SFormat(sQuery, sWhere)) to sQuery 
+        SQL_FIND_BEGIN hStmtCidades sQuery
+            Move (SizeOfArray(tLista)) to iIndex
+            Move       (Trim(SqlFindValue(hStmtCidades,1)))  to tLista[iIndex].id
+            Move (ToOEM(Trim(SqlFindValue(hStmtCidades,2)))) to sValue
+
+            Move (sValue*'('+(SqlFindValue(hStmtCidades,4))+') -'*(SqlFindValue(hStmtCidades,3))) to sValue
+            
+            Move (Trim(sValue)) to tLista[iIndex].value
+        SQL_FIND_END hStmtCidades
+            
+        Function_Return tLista
+    End_Function //buscarCidadesPorPaisesPorTrade 
+    
+    { Published = True  }
+    { Description = "buscarCidadesVia"  }
+    Function buscarCidadesVia String aUsuarioSessao;
+                                            String idPais;
+                                            String sCidade;
+                                            Returns stCityCountryTrade[]
+        stCityCountryTrade[] tLista
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+        Move (sCidade+'%')        to sCidade
+        
+        String  sQuery
+        String  sWhere sAux sAux2
+        String  sPais
+        String  sValue
+        Integer iIndex
+        String[] arPais 
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Begin
+            Function_Return tLista
+        End
+        
+        Move "SELECT TOP 15 C.CODIGO, C.DESCRICAO, P.DESCRICAO,C.UF" to sQuery
+        Move (sQuery*"FROM DBO.CSAG325 C,DBO.CSAG329 P %1 ORDER BY C.DESCRICAO") to sQuery
+        
+//        Get Find_Code_Description of oCSAG367_FVT 'WS_CSAG325_CIDADES_POR_PAISES_POR_TRADE' to sQuery
+        
+        
+        Move (ResizeArray(tLista, 0)) to tLista    	
+        Move (Trim(idPais)) to idPais
+        Move (Uppercase(idPais)) to idPais
+    
+        Move '' to sWhere
+        Move '' to sAux2
+        Move (SFormat("WHERE C.PAIS=P.SIGLA AND C.DESCRICAO LIKE '%1' AND C.CSAG336_ID='1'", sCidade)) to sWhere
+        
+        If (idPais <> '') Begin
+            
+            Move '' to sAux
+            Move '' to sAux2
+                        
+            Move (StrSplitToArray(idPais,',')) to arPais
+            
+            For iIndex from 0 to (SizeOfArray(arPais)-1)
+                
+                Move (SFormat("P.SIGLA = '%1'", arPais[iIndex])) to sAux
+                
+                If (sAux2 <> '') Move (sAux2*"OR "+sAux) to sAux2
+                Else Move ("("+sAux) to sAux2
+                
+            Loop
+            
+            Move (sWhere*'AND'*Trim(sAux2)+')') to sWhere
+        End
+        
+        Move (SFormat(sQuery, sWhere)) to sQuery 
+        
+        If (sCidade contains 'DIRE') Begin
+            Move 0 to tLista[0].id
+            Move "DIRECT SERVICE" to tLista[0].value
+        End
+        
+        SQL_FIND_BEGIN hStmtCidades sQuery
+            Move (SizeOfArray(tLista)) to iIndex
+            Move       (Trim(SqlFindValue(hStmtCidades,1)))  to tLista[iIndex].id
+            Move (ToOEM(Trim(SqlFindValue(hStmtCidades,2)))) to sValue
+
+            Move (sValue*'('+(SqlFindValue(hStmtCidades,4))+') -'*(SqlFindValue(hStmtCidades,3))) to sValue
+            
+            Move (Trim(sValue)) to tLista[iIndex].value
+        SQL_FIND_END hStmtCidades
+            
+        Function_Return tLista
+    End_Function //buscarCidadesVia 
+    
+    { Published = True  }
+    { Description = "cidadeDescricaoPais"  }
+    Function cidadeDescricaoPais String sCODIGO Returns String
+        If (sCODIGO = '' or sCODIGO='0') Function_Return ''
+        
+        Clear CSAG325
+        Move sCODIGO   to CSAG325.CODIGO
+        Find Eq CSAG325 by 1
+        If (not(Found)) Function_Return 'REGISTRO NAO ENCONTRATO.'
+        Else Begin
+            Clear CSAG329
+            Move CSAG325.PAIS to CSAG329.SIGLA
+            Find EQ CSAG329 by 1
+            
+            Function_Return (Rtrim(CSAG325.DESCRICAO)+'('+CSAG325.UF+') -'*CSAG329.DESCRICAO)
+        End
+    End_Function //cidadeDescricaoPais
+    
+    { Published = True  }
+    { Description = "propostaVia"  }
+    Function propostaVia String sPol String sPod String sMod String sCliente Returns stIdValue[]
+        
+        stIdValue[] arVia
+        
+        Date dDate
+        Sysdate dDate
+        
+        String sQuery sTipoCliente
+        Integer iIndex 
+        Integer[] iMoeda
+        
+        Clear CSAG340
+    	Move sCliente to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End
+    	Else Move 'CD' to sTipoCliente 
+    
+        If (sPod = 'undefined' or sPol = 'undefined') Function_Return arVia
+        Else Begin
+            If (sPol <> '' and sPod <> '') Begin
+                Move 'SELECT DISTINCT C.CODIGO, C.DESCRICAO' to sQuery
+                Move (sQuery*"FROM DBO.HCGS3000 A LEFT JOIN DBO.CSAG325 C ON C.CODIGO=A.CSAG325_VIA") to sQuery
+                Move (sQuery*"WHERE A.CSAG325_ORIGEM=%1 AND A.CSAG325_DESTINO=%2 AND A.CCGS202_ID='%3'") to sQuery
+                Move (SFormat(sQuery,sPol,sPod,sMod)) to sQuery
+                Move (sQuery*"AND (%1 BETWEEN A.DT_INICIAL AND A.DT_FINAL) AND A.TAXA_CLASSE='F' AND A.TAXA_ID=9") to sQuery
+                Move (SFormat(sQuery,ToSQLDate(dDate))) to sQuery
+                Move (sQuery*(SFormat("AND A.ID_TIPO_CLCD='%1'",sTipoCliente))) to sQuery
+                Move (sQuery*"ORDER BY C.DESCRICAO") to sQuery
+                SQL_FIND_BEGIN hStmt_via sQuery
+                    
+                    Move (SizeOfArray(arVia)) to iIndex
+                    Move (SqlFindValue(hStmt_via,1)) to arVia[iIndex].id
+                    Move (Trim(SqlFindValue(hStmt_via,2))) to arVia[iIndex].value
+                SQL_FIND_END hStmt_via 
+                
+                For iIndex from 0 to (SizeOfArray(arVia)-1)
+                    
+                    Clear CSAG325
+                    Move arVia[iIndex].id to CSAG325.CODIGO
+                    Find EQ CSAG325 by 1
+                    If (Found) Begin
+                        Move (Trim(arVia[iIndex].value*"("+Trim(CSAG325.UF)+")")) to arVia[iIndex].value    
+                    End
+                    If (arVia[iIndex].id = '0') Move ("DIRECT SERVICE"*Trim(arVia[iIndex].value)) to arVia[iIndex].value
+                Loop
+            End
+        End
+        
+        Function_Return arVia
+        
+    End_Function //propostaVia
+    
+    { Published = True  }
+    { Description = "propostaCidadeOrigem"  }
+    Function propostaCidadeOrigem String aUsuarioSessao;
+                                  String sCidade;
+                                  String sPais;
+                                  String sMod;
+                                  String sCliente;
+                                 Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+
+        Move (Replaces("'", sCidade, "''")) to sCidade
+        
+        Move (sCidade+'%')        to sCidade
+        
+        Move (Trim(sPais)) to sPais
+        Move (Uppercase(sPais)) to sPais
+    
+        String  sQuery sTipoCliente sValue
+        String  sICAO sIATA sUf
+        Integer iIndex
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        Clear CSAG340
+    	Move HCGS3004.CSAG320_ID to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End 
+    	Else Move 'CD' to sTipoCliente 
+        
+        If (sCidade <> '') Begin
+
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "select top 25 C.CODIGO ,C.DESCRICAO ,P.DESCRICAO ,uf.no_uf" to sQuery      
+        
+			If (sMod = 'AIR') Begin
+			    Move (sQuery*",TARIFA.ORG_IATA") to sQuery
+				Move (sQuery*",(case when AIR.IATA is null then '' else AIR.IATA end) IATA") to sQuery
+				Move (sQuery*",(case when AIR.NAME is null then '' else AIR.NAME end) AIRPORT") to sQuery
+			End
+			Else Begin
+			    Move (sQuery*",TARIFA.CSAG325_ORIGEM") to sQuery
+            End
+        
+            Move (sQuery*"from dbo.CSAG325 C ") to sQuery
+            
+            If (sMod = 'AIR') Begin
+				Move (sQuery*"inner join dbo.HSAG325_AIR AIR on (AIR.CSAG325_ID = C.CODIGO)") to sQuery
+                Move (sQuery*"left join (select distinct AA.ORG_IATA from dbo.HCGS3000_AIRFR8 AA") to sQuery
+                Move (sQuery*"where %3 <= AA.VALID_UNTIL) TARIFA on (TARIFA.ORG_IATA = AIR.IATA)") to sQuery
+            End
+            Else Begin
+                Move (sQuery*"left join (select distinct AA.CSAG325_ORIGEM from dbo.HCGS3000 AA") to sQuery
+                Move (sQuery*"where AA.TAXA_CLASSE='F' and (AA.CCGS202_ID='%1' or AA.CCGS202_ID='DTA')") to sQuery
+                Move (sQuery*"and (AA.ID_TIPO_CLCD='%2' or AA.ID_TIPO_CLCD='AL')") to sQuery
+                Move (sQuery*"and (TAXA_ID = 9 OR TAXA_ID = 42) and (%3 between AA.DT_INICIAL and AA.DT_FINAL)") to sQuery
+                Move (sQuery*") TARIFA on (TARIFA.CSAG325_ORIGEM = C.CODIGO)") to sQuery
+            End
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+
+			Move (sQuery*"where C.CSAG336_ID=1") to sQuery
+				
+			If (sMod = 'AIR');
+				Move (sQuery*"and (C.DESCRICAO like '%4' or AIR.NAME like '%4' or AIR.IATA like '%4')") to sQuery
+			Else;
+				Move (sQuery*"and (C.DESCRICAO like '%4')") to sQuery
+
+            Move (SFormat(sQuery,sMod,sTipoCliente,ToSQLDate(dDate),sCidade)) to sQuery
+
+            If (sPais);
+                Move (sQuery*SFormat("and C.PAIS = '%1'", sPais)) to sQuery 
+                
+			If (sMod = 'AIR');
+				Move (sQuery*"order by TARIFA.ORG_IATA desc ,AIR.IATA ,C.DESCRICAO ,AIR.NAME") to sQuery  
+			Else;
+				Move (sQuery*"order by TARIFA.CSAG325_ORIGEM desc ,C.DESCRICAO") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesOrigemProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to tListaCidadesOrigemProposta[iIndex].uf
+                
+               
+            If (sMod = 'AIR') Begin
+                Move (Trim(SqlFindValue(hStmt_city,6))) to tListaCidadesOrigemProposta[iIndex].iata // IATA
+                
+                Move tListaCidadesOrigemProposta[iIndex].iata to sIATA
+                
+                Move ( If(sIATA  <> '', sIATA + ' - ','') + ToOEM(Trim(SqlFindValue(hStmt_city,7))) ) to sValue //NOME AEROPORTO
+                Move ( sValue + If(sValue <> '', ', ','') + ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue //CIDADE
+            End
+            Else Begin
+                Move ( ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue
+                Move '' to tListaCidadesOrigemProposta[iIndex].port
+            End
+                Move tListaCidadesOrigemProposta[iIndex].uf to sUf
+                Move (sValue + If(sUf <> '',' (' + sUf + ') - ', ' - ') + Trim(SqlFindValue(hStmt_city,3))) to sValue
+
+                If (sMod = 'AIR') If (SqlFindValue(hStmt_city,5) <> "") Move (sValue*"- POSSUI FRETE") to sValue //
+                Else If (SqlFindValue(hStmt_city,5) > 0) Move (sValue*"- POSSUI FRETE") to sValue //
+                
+                Move (Trim(sValue)) to tListaCidadesOrigemProposta[iIndex].value
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //propostaCidadeOrigem
+    
+    { Published = True  }
+    { Description = "propostaCidadeDestino"  }
+    Function propostaCidadeDestino String aUsuarioSessao;
+                                   String sCidade;
+                                   String sPais;
+                                   String sMod;
+                                   String sCliente;
+                                   String sPol;
+                                  Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesDestinoProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+        Move (Replaces("'" , sCidade ,"''")) to sCidade
+        Move (sCidade+'%')        to sCidade
+        
+        Move (Trim(sPais)) to sPais
+        Move (Uppercase(sPais)) to sPais
+    
+        String  sQuery sTipoCliente sValue
+        String  sICAO sIATA
+        String  sUF
+        Integer iIndex
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesDestinoProposta
+        
+        Clear CSAG340
+    	Move HCGS3004.CSAG320_ID to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End 
+    	Else Move 'CD' to sTipoCliente 
+        
+        If (sPol = 'undefined') Move '' to sPol
+        
+        If (sCidade <> '') Begin
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "SELECT TOP 25 C.CODIGO ,C.DESCRICAO," to sQuery      
+             
+             
+			If (sMod = 'AIR') Begin
+                Move (sQuery*"C.PAIS,C.UF,TARIFA.DST_IATA") to sQuery      
+				Move (sQuery*",(CASE WHEN AIR.IATA IS NULL THEN '' ELSE AIR.IATA END) IATA") to sQuery
+				Move (sQuery*",(CASE WHEN AIR.NAME IS NULL THEN '' ELSE AIR.NAME END) AIRPORT") to sQuery
+			End
+			Else Begin
+                Move (sQuery*"P.DESCRICAO,uf.no_uf,TARIFA.CSAG325_DESTINO") to sQuery      
+            End
+
+            Move (sQuery*"FROM DBO.CSAG325 C ") to sQuery
+            
+            If (sMod = 'AIR') Begin
+				Move (sQuery*"INNER JOIN DBO.HSAG325_AIR AIR ON (AIR.CSAG325_ID = C.CODIGO)") to sQuery
+                Move (sQuery*"left join (select distinct AA.DST_IATA from dbo.HCGS3000_AIRFR8 AA") to sQuery
+                Move (sQuery*"where %3 <= AA.VALID_UNTIL) TARIFA on (TARIFA.DST_IATA = AIR.IATA)") to sQuery
+            End
+            Else Begin
+                Move (sQuery*"LEFT JOIN (SELECT DISTINCT AA.CSAG325_DESTINO FROM DBO.HCGS3000 AA WHERE") to sQuery
+                Move (sQuery*"AA.TAXA_CLASSE='F' AND (AA.CCGS202_ID='%1' OR AA.CCGS202_ID='DTA')") to sQuery
+                Move (sQuery*"AND (AA.ID_TIPO_CLCD='%2' OR AA.ID_TIPO_CLCD='AL')") to sQuery
+                Move (sQuery*"AND (TAXA_ID = 9 OR TAXA_ID = 42) AND (%3 BETWEEN AA.DT_INICIAL AND AA.DT_FINAL)") to sQuery
+                Move (sQuery*") TARIFA ON TARIFA.CSAG325_DESTINO = C.CODIGO") to sQuery
+                
+                //ADICIONADO OS ESTADOS OU DIVISOES  
+                Move (sQuery*"LEFT JOIN DBO.CSAG329 P ON P.SIGLA = C.PAIS") to sQuery  
+                Move (sQuery*"LEFT JOIN DBO.TsubdivisionCode uf") to sQuery
+                Move (sQuery*"on C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country") to sQuery
+            End       
+            
+			Move (sQuery*"WHERE C.CSAG336_ID='1'") to sQuery
+				
+			If (sMod = 'AIR');
+				Move (sQuery*"AND (C.DESCRICAO LIKE '%4' OR AIR.NAME LIKE '%4' OR AIR.IATA LIKE '%4')") to sQuery
+			Else;
+				Move (sQuery*"AND (C.DESCRICAO LIKE '%4')") to sQuery
+
+            Move (SFormat(sQuery,sMod,sTipoCliente,ToSQLDate(dDate),sCidade)) to sQuery
+            
+        If (sPais) Move (sQuery*SFormat("AND C.PAIS = '%1'", sPais)) to sQuery 
+
+        If (sMod = 'AIR');
+            Move (sQuery*"ORDER BY TARIFA.DST_IATA DESC ,AIR.IATA ,C.DESCRICAO ,AIR.NAME") to sQuery  
+        Else;
+            Move (sQuery*"ORDER BY TARIFA.CSAG325_DESTINO DESC ,C.DESCRICAO") to sQuery     
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesDestinoProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesDestinoProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesDestinoProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to tListaCidadesDestinoProposta[iIndex].uf
+                
+            If (sMod = 'AIR') Begin
+                Move (Trim(SqlFindValue(hStmt_city,6))) to tListaCidadesDestinoProposta[iIndex].iata // IATA
+                
+                Move tListaCidadesDestinoProposta[iIndex].iata to sIATA
+                
+                Move ( If(sIATA <> '', sIATA + ' - ','') + ToOEM(Trim(SqlFindValue(hStmt_city,7))) ) to sValue //AIRPORT NAME
+                Move ( sValue + If(sValue <> '',', ','') + ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue //CITY NAME
+            End
+            Else Begin
+                Move ( ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue
+                Move '' to tListaCidadesDestinoProposta[iIndex].port
+            End
+                Move tListaCidadesDestinoProposta[iIndex].uf to sUF
+                Move ( sValue + If(sUF <> '',' (' + sUF + ') - ',' - ') + Trim(SqlFindValue(hStmt_city,3)) ) to sValue
+                
+            If (sMod = 'AIR') If (SqlFindValue(hStmt_city,5) <> "") Move (sValue*"- POSSUI FRETE") to sValue //
+            Else              If (SqlFindValue(hStmt_city,5) > 0)   Move (sValue*"- POSSUI FRETE") to sValue //
+                
+                Move (Trim(sValue)) to tListaCidadesDestinoProposta[iIndex].value
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesDestinoProposta
+        
+    End_Function //propostaCidadeDestino
+    
+    //AUTOCOMPLETE CIDADES
+    { Published = True  }
+    { Description = "autoCidades"  }
+    Function autoCidades String aInicio String aPais Returns stIdValueClasse[]
+        stIdValueClasse[] tListaAutoCidade
+        
+        String aCont
+        String  sQuery sQueryAuxC sQueryAuxP sAux2 sAux
+        Integer iIndex
+        String[] arCont
+        String[] arPais
+        
+        Move '' to sAux2
+        If (aPais <> '' and aPais <> 'undefined') Begin
+            If (aPais contains ',') Begin
+                Move (StrSplitToArray(aPais,',')) to arPais
+                For iIndex from 0 to (SizeOfArray(arPais)-1)
+                    Move (SFormat("C.PAIS = '%1'", arPais[iIndex])) to sAux
+                    If (sAux2 <> '') Move (sAux2*"OR"*sAux) to sAux2
+                    Else Move ("("+sAux) to sAux2
+                Loop
+                Move ('AND'*(sAux2+')')) to sQueryAuxP
+            End
+            
+            Else Move (SFormat("AND C.PAIS='%1'",aPais)) to sQueryAuxP
+        End
+        
+        Move (Trim(Uppercase(aInicio))) to aInicio
+        Move (aInicio+"%") to aInicio
+        
+        Move "SELECT TOP 25 C.CODIGO,C.DESCRICAO,uf.no_uf,P.DESCRICAO" to sQuery 
+        Move (sQuery*"FROM DBO.CSAG325 C") to sQuery
+        
+        //ADICIONADO OS ESTADOS OU DIVISOES  
+        Move (sQuery*"LEFT JOIN DBO.CSAG329 P ON P.SIGLA = C.PAIS") to sQuery          
+        Move (sQuery*"LEFT JOIN DBO.TsubdivisionCode uf") to sQuery
+        Move (sQuery*"ON C.UF = uf.sg_uf AND P.SIGLA_ISO = uf.sg_iso2_country") to sQuery
+        
+        Move (sQuery*"WHERE C.CSAG336_ID=1 AND C.DESCRICAO LIKE '%1'") to sQuery
+        
+        Move (SFormat(sQuery,aInicio)) to sQuery
+
+        If (sQueryAuxP <> '') Move (sQuery*sQueryAuxP) to sQuery
+        
+        Move (sQuery*"ORDER BY C.DESCRICAO") to sQuery
+        
+        SQL_FIND_BEGIN hStmtConti sQuery
+            Move (SizeOfArray(tListaAutoCidade)) to iIndex
+            Move            (SqlFindValue(hStmtConti,1))   to tListaAutoCidade[iIndex].id
+            Move (ToOEM(Trim(SqlFindValue(hStmtConti,2)))) to tListaAutoCidade[iIndex].value
+            Move (tListaAutoCidade[iIndex].value*'('+ToOEM(Trim(SqlFindValue(hStmtConti,3)))+')') to tListaAutoCidade[iIndex].value
+            Move tListaAutoCidade[iIndex].value to tListaAutoCidade[iIndex].classe
+            Move (tListaAutoCidade[iIndex].value*'-'*Trim(SqlFindValue(hStmtConti,4))) to tListaAutoCidade[iIndex].value
+            
+            Move (Trim(tListaAutoCidade[iIndex].value)) to tListaAutoCidade[iIndex].value
+            
+        SQL_FIND_END hStmtConti
+            
+        Function_Return tListaAutoCidade
+    End_Function //autoCidades 
+    
+    { Published=True }
+    { Description="" }
+    Function buscarCidadeporIATA String aUsuarioSessao String aCodigo String aIATA Returns String
+        String sRetVal
+        String sUF
+        String sQuery
+        
+        Boolean bhasIATA 
+        Boolean bhasLOCAL
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find eq CSAG311 by 1
+        If (not(Found)) Function_Return sRetVal
+        
+        Clear HSAG325_AIR
+        Move aIATA to HSAG325_AIR.IATA
+        Find Eq HSAG325_AIR by 1
+        Move (Found) to bhasIATA
+        
+        Clear CSAG325
+        Move aCodigo to CSAG325.CODIGO
+        Find Eq CSAG325 by 1
+        Move (Found and CSAG325.CSAG336_ID = 1) to bhasLOCAL
+        
+                                    Move ( If(bhasIATA, Trim(HSAG325_AIR.IATA) + ' - ','') )    to sRetVal //IATA
+        If (bhasIATA)               Move ( sRetVal + Trim(HSAG325_AIR.NAME) )                   to sRetVal //NOME AEROPORTO
+        If (bhasIATA and bhasLOCAL) Move ( sRetVal + ', ' + Trim(CSAG325.DESCRICAO) )           to sRetVal //CIDADE
+        Else         If (bhasLOCAL) Move ( sRetVal + Trim(CSAG325.DESCRICAO) )                  to sRetVal //CIDADE
+        Else         If (bhasIATA)  Move ( sRetVal + ', ' + Trim(HSAG325_AIR.CITY) )            to sRetVal //CIDADE
+
+        Clear CSAG329
+             If (bhasLOCAL) Move HSAG325_AIR.COUNTRY to CSAG329.SIGLA
+        Else If (bhasIATA)  Move CSAG325.PAIS        to CSAG329.SIGLA
+        Find eq CSAG329 by 1
+
+        If (bhasLOCAL) Begin
+            //- LOCALIZAR UF BY CSAG325
+            Move "select uf.no_uf from dbo.CSAG325 C" to sQuery
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+    		Move (sQuery*"where C.CODIGO = %1") to sQuery
+            Move ( SFormat(sQuery,aCodigo) )  to sQuery
+            SQL_FIND_BEGIN hStmtUF sQuery
+                Move (Trim(ToOEM(SqlFindValue(hStmtUF,1)))) to sUF
+            SQL_FIND_END hStmtUF
+        End
+        Else If (bhasIATA) Begin
+            //- LOCALIZAR UF BY HSAG325_AIR
+            Move "select uf.no_uf from dbo.HSAG325_AIR C" to sQuery
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.COUNTRY)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+    		Move (sQuery*"where C.IATA = '%1'") to sQuery
+            Move ( SFormat(sQuery,aIATA) )  to sQuery
+            SQL_FIND_BEGIN hStmtUF sQuery
+                Move (Trim(ToOEM(SqlFindValue(hStmtUF,1)))) to sUF
+            SQL_FIND_END hStmtUF
+        End
+
+        Move ( sRetVal + If(sUF <> '', ' (' + Uppercase(sUF) + ') - ', ' - ') + Trim(CSAG329.DESCRICAO) ) to sRetVal
+        
+        Function_Return sRetVal        
+    End_Function //buscarCidadeporIATA
+    
+    { Published = True  }
+    { Description = "multiOrigemCidadeOrigem"  }
+    Function multiOrigemCidadeOrigem String aUsuarioSessao String sCidade String sPais;
+                                  String sCliente Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        String[] arAux
+        String  sQuery sTipoCliente sValue
+        String  sICAO sQueryPais sUf
+        Integer iIndex
+        String sMod
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+
+        Move (Replaces("'", sCidade, "''")) to sCidade
+        
+        Move (sCidade+'%') to sCidade
+        
+        Move (Trim(sPais)) to sPais
+        Move (Uppercase(sPais)) to sPais
+        Move (StrSplitToArray(sPais,',')) to arAux
+        
+        For iIndex from 0 to (SizeOfArray(arAux)-1)
+            If (sQueryPais = '') Move (SFormat("C.PAIS = '%1'",Trim(arAux[iIndex]))) to  sQueryPais
+            Else Move (sQueryPais*SFormat("OR C.PAIS = '%1'",Trim(arAux[iIndex]))) to sQueryPais
+        Loop
+        If (sQueryPais <> '') Move ('('+sQueryPais+')') to sQueryPais
+        
+        Move "FCL" to sMod
+        
+        Clear CSAG340
+    	Move HCGS3004.CSAG320_ID to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End 
+    	Else Move 'CD' to sTipoCliente 
+        
+        If (sCidade <> '') Begin
+
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "select top 25 C.CODIGO ,C.DESCRICAO ,P.DESCRICAO ,uf.no_uf" to sQuery      
+        
+		    Move (sQuery*",TARIFA.CSAG325_ORIGEM") to sQuery
+        
+            Move (sQuery*"from dbo.CSAG325 C ") to sQuery
+            
+            Move (sQuery*"left join (select distinct AA.CSAG325_ORIGEM from dbo.HCGS3000 AA") to sQuery
+            Move (sQuery*"where AA.TAXA_CLASSE='F' and (AA.CCGS202_ID='%1' or AA.CCGS202_ID='DTA')") to sQuery
+            Move (sQuery*"and (AA.ID_TIPO_CLCD='%2' or AA.ID_TIPO_CLCD='AL')") to sQuery
+            Move (sQuery*"and (TAXA_ID = 9 OR TAXA_ID = 42) and (%3 between AA.DT_INICIAL and AA.DT_FINAL)") to sQuery
+            Move (sQuery*") TARIFA on (TARIFA.CSAG325_ORIGEM = C.CODIGO)") to sQuery
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+
+			Move (sQuery*"where C.CSAG336_ID=1") to sQuery
+			Move (sQuery*"and (C.DESCRICAO like '%4')") to sQuery
+            Move (SFormat(sQuery,sMod,sTipoCliente,ToSQLDate(dDate),sCidade)) to sQuery
+
+            If (sQueryPais) Move (sQuery*SFormat("AND %1", sQueryPais)) to sQuery
+            
+            Move (sQuery*"AND TARIFA.CSAG325_ORIGEM <> 0") to sQuery            
+			Move (sQuery*"order by TARIFA.CSAG325_ORIGEM desc ,C.DESCRICAO") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesOrigemProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to tListaCidadesOrigemProposta[iIndex].uf
+                
+                Move (ToOEM(Trim(SqlFindValue(hStmt_city,2)))) to sValue
+                Move tListaCidadesOrigemProposta[iIndex].uf to sUf
+                Move (sValue * If(sUf <> '','(' + sUf + ')','') + Trim(SqlFindValue(hStmt_city,3))) to sValue
+                Move (Trim(sValue)) to tListaCidadesOrigemProposta[iIndex].value
+
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //propostaCidadeOrigem
+    
+    { Published = True  }
+    { Description = "multiOrigemCidadeDestino"  }
+    Function multiOrigemCidadeDestino String aUsuarioSessao String sCidade String sPais;
+                                  String sCliente Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        
+        String[] arAux
+        String  sQuery sTipoCliente sValue
+        String  sICAO sQueryPais sUf
+        Integer iIndex
+        String sMod
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+
+        Move (Replaces("'", sCidade, "''")) to sCidade
+        
+        Move (sCidade+'%') to sCidade
+        
+        Move (Trim(sPais)) to sPais
+        Move (Uppercase(sPais)) to sPais
+        Move (StrSplitToArray(sPais,',')) to arAux
+        
+        For iIndex from 0 to (SizeOfArray(arAux)-1)
+            If (sQueryPais = '') Move (SFormat("C.PAIS = '%1'",Trim(arAux[iIndex]))) to  sQueryPais
+            Else Move (sQueryPais*SFormat("OR C.PAIS = '%1'",Trim(arAux[iIndex]))) to sQueryPais
+        Loop
+        If (sQueryPais <> '') Move ('('+sQueryPais+')') to sQueryPais
+        
+        Move "FCL" to sMod
+        
+        Clear CSAG340
+    	Move HCGS3004.CSAG320_ID to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End 
+    	Else Move 'CD' to sTipoCliente 
+        
+        If (sCidade <> '') Begin
+
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "select top 25 C.CODIGO ,C.DESCRICAO ,P.DESCRICAO ,uf.no_uf" to sQuery      
+        
+		    Move (sQuery*",TARIFA.CSAG325_DESTINO") to sQuery
+        
+            Move (sQuery*"from dbo.CSAG325 C ") to sQuery
+            
+            Move (sQuery*"left join (select distinct AA.CSAG325_DESTINO from dbo.HCGS3000 AA") to sQuery
+            Move (sQuery*"where AA.TAXA_CLASSE='F' and (AA.CCGS202_ID='%1' or AA.CCGS202_ID='DTA')") to sQuery
+            Move (sQuery*"and (AA.ID_TIPO_CLCD='%2' or AA.ID_TIPO_CLCD='AL')") to sQuery
+            Move (sQuery*"and (TAXA_ID = 9 OR TAXA_ID = 42) and (%3 between AA.DT_INICIAL and AA.DT_FINAL)") to sQuery
+            Move (sQuery*") TARIFA on (TARIFA.CSAG325_DESTINO = C.CODIGO)") to sQuery
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+
+			Move (sQuery*"where C.CSAG336_ID=1") to sQuery
+			Move (sQuery*"and (C.DESCRICAO like '%4')") to sQuery
+            Move (SFormat(sQuery,sMod,sTipoCliente,ToSQLDate(dDate),sCidade)) to sQuery
+
+            If (sQueryPais) Move (sQuery*SFormat("AND %1", sQueryPais)) to sQuery 
+            
+            Move (sQuery*"AND TARIFA.CSAG325_DESTINO <> 0") to sQuery            
+			Move (sQuery*"order by TARIFA.CSAG325_DESTINO desc ,C.DESCRICAO") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesOrigemProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to tListaCidadesOrigemProposta[iIndex].uf
+                
+                Move (ToOEM(Trim(SqlFindValue(hStmt_city,2)))) to sValue
+                Move tListaCidadesOrigemProposta[iIndex].uf to sUf
+                Move (sValue * If(sUf <> '','(' + sUf + ')','') + Trim(SqlFindValue(hStmt_city,3))) to sValue
+                Move (Trim(sValue)) to tListaCidadesOrigemProposta[iIndex].value
+
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //propostaCidadeOrigem
+    
+    { Published = True  }
+    { Description = "autoCompleteCity"  }
+    Function autoCompleteCity String aUsuarioSessao;
+                                  String sCidade;
+                                  String sPais;
+                                  String sMod;
+                                  String sCliente;
+                                 Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+
+        Move (Replaces("'", sCidade, "''")) to sCidade
+        
+        Move (sCidade+'%')        to sCidade
+        
+        Move (Trim(sPais)) to sPais
+        Move (Uppercase(sPais)) to sPais
+    
+        String  sQuery sTipoCliente sValue
+        String  sICAO sIATA sUf
+        Integer iIndex
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        If (sCidade <> '') Begin
+
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "select top 25 C.CODIGO ,C.DESCRICAO ,P.DESCRICAO ,uf.no_uf, uf.sg_uf" to sQuery      
+            Move (sQuery*"from dbo.CSAG325 C ") to sQuery
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+
+			Move (sQuery*"where C.CSAG336_ID=1") to sQuery
+				
+			Move (sQuery*"and (C.DESCRICAO like '%1')") to sQuery
+
+            Move (SFormat(sQuery,sCidade)) to sQuery
+
+            If (sPais) Move (sQuery*SFormat("and C.PAIS = '%1'", sPais)) to sQuery 
+                
+			Move (sQuery*"order by C.DESCRICAO") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesOrigemProposta[iIndex].pais
+                
+                Move ( ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue
+                Move '' to tListaCidadesOrigemProposta[iIndex].port
+            
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to sUf
+                Move (sValue + If(sUf <> '',' (' + sUf + ') - ', ' - ') + Trim(SqlFindValue(hStmt_city,3))) to sValue
+                Move (Trim(sValue)) to tListaCidadesOrigemProposta[iIndex].value
+                
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,5))))) to tListaCidadesOrigemProposta[iIndex].uf
+
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //autoCompleteCity
+    
+    { Published = True  }
+    { Description = "autoCompleteAirport"  }
+    Function autoCompleteAirport String aUsuarioSessao String sCidade Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        
+        Move (Ltrim(sCidade))     to sCidade
+        Move (Trim(sCidade))      to sCidade
+        Move (Uppercase(sCidade)) to sCidade
+
+        Move (Replaces("'", sCidade, "''")) to sCidade
+        
+        Move (sCidade+'%')        to sCidade
+        
+        String  sQuery sTipoCliente sValue
+        String  sICAO sIATA sUf
+        Integer iIndex
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        If (sCidade <> '') Begin
+
+            // VERSAO ABERTA PARA TODAS AS CIDADES, POREM SINALIZANDO AS QUE POSSUEM TARIFARIO.
+            Move "select top 25 C.CODIGO ,C.DESCRICAO ,P.DESCRICAO ,uf.no_uf" to sQuery      
+        	Move (sQuery*",(case when AIR.IATA is null then '' else AIR.IATA end) IATA") to sQuery
+			Move (sQuery*",(case when AIR.NAME is null then '' else AIR.NAME end) AIRPORT") to sQuery
+			
+            Move (sQuery*"from dbo.CSAG325 C ") to sQuery
+            
+        	Move (sQuery*"inner join dbo.HSAG325_AIR AIR on (AIR.CSAG325_ID = C.CODIGO)") to sQuery
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"left join dbo.CSAG329 P on (P.SIGLA = C.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (C.UF = uf.sg_uf and P.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+
+			Move (sQuery*"where C.CSAG336_ID=1") to sQuery
+				
+			Move (sQuery*"and (C.DESCRICAO like '%1' or AIR.NAME like '%1' or AIR.IATA like '%1')") to sQuery
+			
+            Move (SFormat(sQuery,sCidade)) to sQuery
+
+        	Move (sQuery*"order by AIR.IATA ,C.DESCRICAO ,AIR.NAME") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))  to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,3)))  to tListaCidadesOrigemProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,4))))) to tListaCidadesOrigemProposta[iIndex].uf
+                
+               
+                Move (Trim(SqlFindValue(hStmt_city,6))) to tListaCidadesOrigemProposta[iIndex].iata // IATA
+                
+                Move tListaCidadesOrigemProposta[iIndex].iata to sIATA
+                
+                Move ( If(sIATA  <> '', sIATA + ' - ','') + ToOEM(Trim(SqlFindValue(hStmt_city,7))) ) to sValue //NOME AEROPORTO
+                Move ( sValue + If(sValue <> '', ', ','') + ToOEM(Trim(SqlFindValue(hStmt_city,2))) ) to sValue //CIDADE
+
+                Move tListaCidadesOrigemProposta[iIndex].uf to sUf
+                Move (sValue + If(sUf <> '',' (' + sUf + ') - ', ' - ') + Trim(SqlFindValue(hStmt_city,3))) to sValue
+
+                Move (Trim(sValue)) to tListaCidadesOrigemProposta[iIndex].value
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //autoCompleteAirport
+    
+    { Published = True  }
+    { Description = "propostaOrigemDestino"  }
+    Function propostaOrigemDestino String aUsuarioSessao;
+                                   String aCidade;
+                                   String aPaisSiglaIso;
+                                   String aCliente;
+                                   String aPais;   
+                                   String aMod;    
+                                 Returns stCityCountryTrade[]
+        
+        stCityCountryTrade[] tListaCidadesOrigemProposta
+        
+        Move (Ltrim(aCidade))     to aCidade
+        Move (Trim(aCidade))      to aCidade
+        Move (Uppercase(aCidade)) to aCidade
+
+        Move (Replaces("'", aCidade, "''")) to aCidade
+        
+        Move (aCidade+'%')        to aCidade
+        
+        Move (Trim(aPaisSiglaIso)) to aPaisSiglaIso
+        Move (Uppercase(aPaisSiglaIso)) to aPaisSiglaIso
+    
+        String  sQuery sTipoCliente sValue
+        String  sICAO sIATA sUf
+        Integer iIndex
+        Date dDate
+        
+        Sysdate dDate
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return tListaCidadesOrigemProposta
+        
+        Clear CSAG340
+    	Move aCliente to CSAG340.CSAG320_ID
+    	Find EQ CSAG340 by 2
+    	If (Found) Begin
+        	If (CSAG340.IND_TER = 'I') Move 'CD' to sTipoCliente
+        	If (CSAG340.IND_TER = 'T') Move 'CL' to sTipoCliente
+    	End
+    	Else Move 'CD' to sTipoCliente 
+        
+        If (aCidade <> '') Begin
+
+            CREATE_MAIN_CONNECTION BYFILE CSAG325
+            
+            Move "select top 25" to sQuery   
+            Move (sQuery*"cid.codigo as codcidade") to sQuery 
+            Move (sQuery*",rtrim(ltrim(pais.DESCRICAO)) as PAIS") to sQuery
+            Move (sQuery*",rtrim(ltrim(cid.DESCRICAO)) as CIDADE") to sQuery 
+            Move (sQuery*",cid.UF ,coalesce(uf.no_UF,'') as State_Province_Comune") to sQuery 
+            Move (sQuery*",cat.Name as categoria") to sQuery 
+            Move (sQuery*",pais.SIGLA_ISO, cid.CITY_CODE, (pais.SIGLA_ISO + cid.CITY_CODE) as UNLOCODE") to sQuery 
+        
+			If (aMod = 'AIR') Begin
+			    Move (sQuery*",tarifa.ORG_IATA") to sQuery
+				Move (sQuery*",(case when AIR.IATA is null then '' else AIR.IATA end) IATA") to sQuery
+				Move (sQuery*",(case when AIR.NAME is null then '' else AIR.NAME end) AIRPORT") to sQuery
+			End
+			Else Begin
+			    Move (sQuery*",tarifa.CSAG325_ORIGEM") to sQuery
+            End
+        
+            Move (sQuery*"from dbo.CSAG325 cid ") to sQuery
+            
+            If (aMod = 'AIR') Begin
+				Move (sQuery*"inner join dbo.HSAG325_AIR air on (air.CSAG325_ID = cid.CODIGO)") to sQuery
+                Move (sQuery*"left join (select distinct AA.ORG_IATA from dbo.HCGS3000_AIRFR8 AA") to sQuery
+                Move (sQuery*"where %3 <= AA.VALID_UNTIL) tarifa on (tarifa.ORG_IATA = air.IATA)") to sQuery
+            End
+            Else Begin
+                Move (sQuery*"left join (select distinct AA.CSAG325_ORIGEM from dbo.HCGS3000 AA") to sQuery
+                Move (sQuery*"where AA.TAXA_CLASSE='F' and (AA.CCGS202_ID='%1' or AA.CCGS202_ID='DTA')") to sQuery
+                Move (sQuery*"and (AA.ID_TIPO_CLCD='%2' or AA.ID_TIPO_CLCD='AL')") to sQuery
+                Move (sQuery*"and (AA.TAXA_ID = 9 OR AA.TAXA_ID = 42) and (%3 between AA.DT_INICIAL and AA.DT_FINAL)") to sQuery
+                Move (sQuery*") tarifa on (tarifa.CSAG325_ORIGEM = cid.CODIGO)") to sQuery
+            End
+            
+            //-ADICIONADO OS ESTADOS OU DIVISOES            
+            Move (sQuery*"inner join dbo.CSAG329 pais on (pais.SIGLA = cid.PAIS)") to sQuery
+            Move (sQuery*"left join dbo.TsubdivisionCode uf") to sQuery
+            Move (sQuery*"on (cid.UF = uf.sg_uf and pais.SIGLA_ISO = uf.sg_iso2_country)") to sQuery
+            
+            Move (sQuery*"left join dbo.CityCityCategories catcid on (cid.CODIGO = catcid.CityId)") to sQuery
+            Move (sQuery*"left join dbo.CityCategories cat on (catcid.citycategoryid = cat.Id)") to sQuery  
+            
+			Move (sQuery*"where cid.CSAG336_ID=1") to sQuery
+				
+			If (aMod = 'AIR');
+				Move (sQuery*"and (cid.DESCRICAO like '%4' or air.NAME like '%4' or air.IATA like '%4')") to sQuery
+			Else;
+                Move (sQuery*"and rtrim(ltrim(cid.DESCRICAO)) like '%4'") to sQuery
+
+            Move (SFormat(sQuery,aMod,sTipoCliente,ToSQLDate(dDate),aCidade)) to sQuery
+
+            If (aPais <> "");
+                Move (sQuery*SFormat("and cid.PAIS = '%1'", aPais)) to sQuery 
+            If (aPaisSiglaIso <> "");
+                Move (sQuery*SFormat("and (pais.SIGLA_ISO + cid.CITY_CODE) like '%1___'", aPaisSiglaIso)) to sQuery 
+                
+            If (aMod = 'AIR');
+                 Move (sQuery*"and cat.id = 5") to sQuery
+            Else;
+                Move (sQuery*"and cat.id = 2") to sQuery 
+                
+			If (aMod = 'AIR');
+				Move (sQuery*"order by cid.PAIS ,tarifa.ORG_IATA desc ,air.IATA ,cid.DESCRICAO ,air.NAME") to sQuery  
+			Else;
+				Move (sQuery*"order by cid.PAIS ,tarifa.CSAG325_ORIGEM desc ,cid.DESCRICAO") to sQuery  
+            
+            SQL_FIND_BEGIN hStmt_city sQuery
+                Move (SizeOfArray(tListaCidadesOrigemProposta)) to iIndex
+                Move       (Trim(SqlFindValue(hStmt_city,1)))             to tListaCidadesOrigemProposta[iIndex].id
+                Move       (Trim(SqlFindValue(hStmt_city,2)))             to tListaCidadesOrigemProposta[iIndex].pais
+                Move (Trim(Uppercase(ToOEM(SqlFindValue(hStmt_city,5))))) to tListaCidadesOrigemProposta[iIndex].uf
+                Move (Trim(SqlFindValue(hStmt_city,6)))                   to tListaCidadesOrigemProposta[iIndex].port
+                             
+                Move "%4 - %1 (%2) - %3" to sValue
+                Move (SFormat(sValue;
+                                , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,3))));
+                                , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,5))));
+                                , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,2))));
+                                , Trim(SqlFindValue(hStmt_city,9)) ))     to tListaCidadesOrigemProposta[iIndex].value
+                        
+                If (aMod = 'AIR') If (SqlFindValue(hStmt_city,10) <> "") Move (tListaCidadesOrigemProposta[iIndex].value*"- POSSUI FRETE") to tListaCidadesOrigemProposta[iIndex].value //
+                Else If (SqlFindValue(hStmt_city,10) > 0)                Move (tListaCidadesOrigemProposta[iIndex].value*"- POSSUI FRETE") to tListaCidadesOrigemProposta[iIndex].value //
+            SQL_FIND_END hStmt_city
+        End
+        
+        Function_Return tListaCidadesOrigemProposta
+        
+    End_Function //propostaOrigemDestino
+    
+    { Published=False }
+    { Description = "descricaoOrigemDestino"  }
+    Function descricaoOrigemDestino String aUsuarioSessao;
+                                    String aCodigo;
+                                    Returns String
+        
+        String sQuery 
+        String sValue
+        String sRetorno
+        
+        Clear CSAG311
+        Move aUsuarioSessao to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311 by 1
+        If (not(Found)) Function_Return sRetorno
+                
+        Move "select cid.codigo as codcidade" to sQuery
+        Move (sQuery * ",rtrim(ltrim(p.DESCRICAO)) as PAIS") to sQuery
+        Move (sQuery * ",rtrim(ltrim(cid.DESCRICAO)) as CIDADE") to sQuery
+        Move (sQuery * ",cid.UF") to sQuery
+        Move (sQuery * ",coalesce(uf.no_UF,'') as State_Province_Comune") to sQuery
+        Move (sQuery * ",cat.Name as categoria") to sQuery
+        Move (sQuery * ", p.SIGLA_ISO, cid.CITY_CODE,") to sQuery
+        Move (sQuery * "(p.SIGLA_ISO + cid.CITY_CODE) as UNLOCODE") to sQuery
+        Move (sQuery * "from dbo.CSAG325 cid") to sQuery
+        Move (sQuery * "inner join dbo.csag329 p on (cid.PAIS = p.SIGLA)") to sQuery
+        Move (sQuery * "left join dbo.TsubdivisionCode uf on (cid.UF = uf.sg_uf and p.sigla_iso = uf.sg_iso2_country)") to sQuery
+        Move (sQuery * "left join dbo.CityCityCategories catcid on (cid.CODIGO = catcid.CityId)") to sQuery
+        Move (sQuery * "left join dbo.CityCategories cat on (catcid.citycategoryid = cat.Id)") to sQuery
+        Move (sQuery * "where") to sQuery
+        Move (sQuery * "cid.CODIGO = %1") to sQuery
+        Move (sQuery * "and cid.CSAG336_ID = 1") to sQuery
+        Move (sQuery * "and cat.id = 2 --porto") to sQuery
+        
+        Move (SFormat(sQuery, aCodigo)) to sQuery        
+        
+        SQL_FIND_BEGIN hStmt_city sQuery
+            Move "%4 - %1 (%2) - %3" to sValue
+            Move (SFormat(sValue;
+                            , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,3))));
+                            , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,5))));
+                            , Uppercase(Trim(ToOEM(SqlFindValue(hStmt_city,2))));
+                            , Trim(SqlFindValue(hStmt_city,9)) ))     to sRetorno
+        SQL_FIND_END hStmt_city
+        
+        Function_Return sRetorno
+        
+    End_Function //descricaoOrigemDestino
+    
+End_Object //ows_CSAG325

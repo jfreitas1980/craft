@@ -1,0 +1,100 @@
+//-2WA
+Use CtrlData.PKG
+
+Open LOGPROPOSTA
+
+Class cLOGPROPOSTA_DataDictionary is a c_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to LOGPROPOSTA.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+    End_Procedure
+
+
+    Procedure End_Construct_Object
+        Forward Send End_Construct_Object
+
+        //REMOVE EXTERNAL FILE
+        Send Remove_System_File LOGDATA.FILE_NUMBER
+        Send Remove_System_File LOGTEXT.FILE_NUMBER
+    End_Procedure
+    
+    
+    Procedure Creating_LOGPROPOSTA
+        Forward Send Creating
+        DateTime dtCurrentDateTime
+        Move (CurrentDateTime())  to dtCurrentDateTime
+        
+        //---Configurando os dados Usuario Que Esta Cadastrando
+        Clear CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin
+            Move CSAG311.USUARIONUMERO to LOGPROPOSTA.USUARIO_ID_C
+            Move dtCurrentDateTime to LOGPROPOSTA.DATE_TIME_C
+        End
+        
+    End_Procedure // Creating_LOGPROPOSTA
+
+    Procedure Update_LOGPROPOSTA
+        Forward Send Update
+        DateTime dtCurrentDateTime
+        Move (CurrentDateTime())  to dtCurrentDateTime
+        
+        //---Configurando os dados Usuario Que Esta Cadastrando
+        Clear CSAG311
+        Move (psUsuarioSessao(Self))         to CSAG311.USUARIOSESSAO
+        Find Eq CSAG311                      by 1
+        If (Found) Begin
+            Move CSAG311.USUARIONUMERO to LOGPROPOSTA.USUARIO_ID_A
+            Move dtCurrentDateTime     to LOGPROPOSTA.DATE_TIME_A
+        End
+        
+    End_Procedure // Update_LOGPROPOSTA
+
+    Procedure Deleting_LOGPROPOSTA
+       Forward Send Deleting
+    End_Procedure   // Deleting_LOGPROPOSTA
+
+    Procedure Save_Main_File_LOGPROPOSTA
+        Forward Send Save_Main_File
+    End_Procedure // Save_Main_File_LOGPROPOSTA
+    
+    Procedure Backout_LOGPROPOSTA
+        Forward Send Backout
+    End_Procedure   // Backout_LOGPROPOSTA
+    
+    Function Validate_Save_LOGPROPOSTA Returns Integer
+        Integer iReturnval
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        Boolean bFOUND
+        Forward Get Validate_Save to iReturnval
+        If (not(iReturnval)) Begin
+            
+        End 
+        Function_Return iReturnval
+    End_Function // Validate_Save_LOGPROPOSTA
+
+    Function Validate_Delete_LOGPROPOSTA Returns Integer
+        Integer iReturnVal
+        Integer iError_Id
+        String  sError_Ds
+        String  sError_Tabela
+        String sRecnum sQuery
+        
+        Forward Get Validate_Delete to iReturnVal
+        If not (iReturnVal) Begin
+          
+        End    
+        Function_Return iReturnVal
+    End_Function // Validate_Delete_LOGPROPOSTA
+    
+End_Class

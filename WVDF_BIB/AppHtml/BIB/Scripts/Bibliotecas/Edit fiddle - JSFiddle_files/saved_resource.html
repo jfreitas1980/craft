@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://fiddle.jshell.net/_display/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}</style>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="dummy.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="result-light.css">
+  
+
+  
+    
+      <script type="text/javascript" src="angular.js"></script>
+    
+  
+
+  <style type="text/css">
+    
+  </style>
+
+  <title></title>
+
+  
+</head>
+
+<body>
+  <div ng-app="app" ng-controller="Ctrl as frete" class="ng-scope">
+    <table>
+        <tbody>
+            <!-- ngRepeat: proposta in frete.propostas -->
+        </tbody>
+    </table>
+    
+</div>
+
+  
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+var app = angular.module("app",[]);
+
+app.controller("Ctrl", function($scope) {
+    $scope.data = [
+        {categoryName: "category1", items:[
+            {name:"item1.1"},
+            {name:"item1.2"}
+        ]}, 
+        {categoryName: "category2", items:[
+            {name:"item2.1"}
+        ]}
+    ];
+    
+    propostas = [
+  {
+    "id": 1,
+    "data": "",
+    "empresa": "",
+    "executivo": "Sem Vendedor",
+    "incoterm": "",
+    "contato": "1",
+    "observacao": "",
+    "array_item": 
+    [
+      {
+        "id": 1,
+        "origem": "ALTA FLORESTA D OESTE",
+        "destino": "ALTA FLORESTA D OESTE",
+        "armador": "",
+        "tipofrete": "",
+        "ttime": 0,
+        "frequencia": "",
+        "routing": 0,
+        "destinodta": ""
+      },
+      {
+        "id": 2,
+        "origem": "OURO PRETO DO OESTE",
+        "destino": "ALVORADA D OESTE",
+        "armador": "",
+        "tipofrete": "",
+        "ttime": 0,
+        "frequencia": "",
+        "routing": 0,
+        "destinodta": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "data": "",
+    "empresa": "",
+    "executivo": "Sem Vendedor",
+    "incoterm": "",
+    "contato": "1",
+    "observacao": "",
+    "array_item": 
+    [
+
+    ]
+  }
+];
+    
+});
+
+//]]> 
+
+</script>
+
+
+
+
+
+</body></html>

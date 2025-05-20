@@ -1,0 +1,16 @@
+[Properties]
+Version=18.2
+[WorkspacePaths]
+ConfigFile=.\Programs\Config.ws
+[DataDictionary]
+class=c_DataDictionary
+file=CtrlData.PKG
+[Conditionals]
+Is$WebApp=True
+[Projects]
+Project0=WebApp.src
+Project1=WindowsService.src
+[ProjectParameters]
+ManagementFieldNativeType.src=4011
+[Libraries]
+Lib1=Libraries\DataFlex Reports 6.2\DataFlex Reports 18.2.sws

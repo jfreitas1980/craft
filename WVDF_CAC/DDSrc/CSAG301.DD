@@ -1,0 +1,162 @@
+// Class Name: Csag301_DataDictionary
+// Revision  : 19
+// Version   : 2
+//-2WA
+Use  Windows           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  DDvalTbl          // Validation Table Class Definitions
+
+Open Csag301
+
+
+Register_Object Csag301_Tipo_VT
+Register_Object Csag301_Localizacao_VT
+Register_Object Csag301_Infraestrutura_VT
+Register_Object Csag301_Status_VT
+Register_Object Csag301_Classe_VT
+Register_Object Csag301_Tipomenu_VT
+
+Object Csag301_Tipo_VT  is a DescriptionValidationTable
+    Set Validate_State    To FALSE
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "Programa"
+        Send Add_Table_Value  "2"  "Menu"
+        Send Add_Table_Value  "3"  "Titulo"
+        Send Add_Table_Value  "4"  "SubTitulo"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Tipo_VT
+
+Object Csag301_Localizacao_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value "F" "ABAS"
+        Send Add_Table_Value "W" "WINDOW"
+        Send Add_Table_Value "S" "SITE"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Localizacao_VT
+
+Object Csag301_Infraestrutura_VT  is a DescriptionValidationTable
+    Set Validate_State    To FALSE
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "Sim"
+        Send Add_Table_Value  "2"  "Nao"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Infraestrutura_VT
+
+Object Csag301_Status_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "Ativo"
+        Send Add_Table_Value  "2"  "Inativo"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Status_VT
+
+Object Csag301_Classe_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "ADMINISTRADOR"
+        Send Add_Table_Value  "2"  "SUPERVISOR"
+        Send Add_Table_Value  "3"  "MASTER"
+        Send Add_Table_Value  "4"  "DIRETOR"
+        Send Add_Table_Value  "5"  "GERENTE"
+        Send Add_Table_Value  "6"  "OPERADOR COMUM"
+        Send Add_Table_Value  "7"  "CLIENTE"
+        Send Add_Table_Value  "8"  "SEM CLASSIFICACAO"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Classe_VT
+
+Object Csag301_Tipomenu_VT  is a DescriptionValidationTable
+
+    Procedure Fill_List
+        Forward Send Fill_List
+        Send Add_Table_Value  "1"  "Menu Vertical"
+        Send Add_Table_Value  "2"  "Menu Horizontal"
+    End_Procedure    // Fill_List
+End_Object   // Csag301_Tipomenu_VT
+
+Class Csag301_DataDictionary  is a DataDictionary
+
+    // Define_Fields:
+    // This procedure is used to set up all data-dictionary rules.
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Csag301.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        // Field-based properties.......................
+
+        Set Field_Label_Long Field Csag301.Menuclasse To "Classe"
+        Set Field_Option Field Csag301.Menuclasse DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag301.Menunumero To "Numero"
+        Set Field_Option Field Csag301.Menunumero DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag301.Titulo To "Titulo"
+
+        Set Field_Label_Long Field Csag301.Tipo To "Tipo"
+        Set Field_Option Field Csag301.Tipo DD_RETAINALL to True
+        Set Field_Value_Table Field Csag301.Tipo to Csag301_Tipo_VT
+
+        Set Field_Label_Long Field Csag301.Programa To "Programa"
+        Set Field_Option Field Csag301.Programa DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag301.Localizacao To "Localizacao"
+        Set Field_Option Field Csag301.Localizacao DD_RETAINALL to True
+        Set Field_Value_Table Field Csag301.Localizacao to Csag301_Localizacao_VT
+
+        Set Field_Label_Long Field Csag301.Mcchamada To "Menu De Chamada"
+        Set Field_Option Field Csag301.Mcchamada DD_RETAINALL to True
+
+        Set Field_Label_Long Field Csag301.Programacodigo To "Codigo Do Programa"
+        Set Field_Option Field CSAG301.PROGRAMACODIGO DD_CAPSLOCK to True
+
+        Set Field_Label_Long Field Csag301.Infraestrutura To "Infra Estrutura "
+        Set Field_Option Field Csag301.Infraestrutura DD_RETAINALL to True
+        Set Field_Value_Table Field Csag301.Infraestrutura to Csag301_Infraestrutura_VT
+
+        Set Field_Value_Table Field Csag301.Status to Csag301_Status_VT
+        Set Field_Label_Long Field CSAG301.STATUS to "STATUS"
+
+        Set Field_Option Field Csag301.Classe DD_RETAINALL to True
+        Set Field_Value_Table Field Csag301.Classe to Csag301_Classe_VT
+        Set Field_Label_Long Field CSAG301.CLASSE to "CLASSE"
+
+        Set Field_Label_Long Field Csag301.Imagem_Fisico To "Imagem Caminho Fisico"
+
+        Set Field_Label_Long Field Csag301.Imagem_Logico To "Imagem Caminho Logico"
+
+        Set Field_Label_Long Field Csag301.Tipomenu To "Tipo de Menu"
+        Set Field_Option Field Csag301.Tipomenu DD_RETAINALL to True
+        Set Field_Value_Table Field Csag301.Tipomenu to Csag301_Tipomenu_VT
+
+        Set Field_Label_Long Field CSAG301.ICONEB00TSP to "Icone Bootstrap"
+
+    End_Procedure    // Construct_Object
+
+    // Field_Defaults:
+    // This procedure is used to establish default field values.
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value   Field Csag301.Menuclasse To 1
+        Set Field_Changed_Value   Field Csag301.Infraestrutura To "2"
+    End_Procedure    // Field_Defaults
+
+End_Class    // Csag301_DataDictionary
+

@@ -1,0 +1,52 @@
+// Class Name: Csag305_DataDictionary
+// Revision  : 23
+// Version   : 2
+//-2WA
+Use  Windows           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  DDvalTbl          // Validation Table Class Definitions
+
+Open Csag305
+Open Csag306
+
+
+Class Csag305_DataDictionary  is a DataDictionary
+
+    // Define_Fields:
+    // This procedure is used to set up all data-dictionary rules.
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Csag305.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        // External (System) file structure.............
+        Set Add_System_File to Csag306.File_Number DD_LOCK_ON_ALL
+
+        // Field-based properties.......................
+
+        Set Field_Label_Long Field Csag305.Classemenu To "ID"
+
+        Set Field_Label_Long Field Csag305.Descricao to "DESCRCAO"
+
+        Set Field_Label_Long Field Csag305.Endereco to "ENDERECO"
+
+    End_Procedure    // Construct_Object
+
+    // Field_Defaults:
+    // This procedure is used to establish default field values.
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+End_Class    // Csag305_DataDictionary
+

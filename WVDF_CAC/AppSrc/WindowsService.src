@@ -1,0 +1,25 @@
+//-2WA
+Use DfAllEnt.pkg
+
+// Project Object Structure
+//   oApplication is a cApplication
+
+Register_Object oApplication
+
+//  Set date attributes as needed
+Set_Date_Attribute SysDate4_State to True
+Set_Date_Attribute Date4_State    to True
+Set_Date_Attribute Epoch_Value    to 30
+
+Use Help_Ids.inc // Developer should provide this file of help context links.
+Use Std_Help.pkg
+
+// use an application object to make your program workspace aware.
+
+Use cApplication.pkg
+
+Object oApplication is a cApplication
+End_Object    // oApplication
+
+Use WindowsService.bp
+Send p_Work_Loop of oWindowsService

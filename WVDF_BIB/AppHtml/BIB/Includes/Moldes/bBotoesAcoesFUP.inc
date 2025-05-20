@@ -1,0 +1,3 @@
+<button type="button" id="btnSalvar" class="btn btn-success"  onClick="jsSalvar(0)">  <i class="fa fa-floppy-o"></i> <%=oPAG312_01.DDValue("Csag312.Salvar")%> </button>
+<button type="button" id="btnNovo" class="btn btn-primary"  onClick="jsRefresh(0)"> <i class="fa fa-file-o">  </i> <%=oPAG312_01.DDValue("Csag312.Limpar")%> </button>
+<button type="button" id="btnExcluir" class="btn btn-danger"   onClick="jsExcluir(0)"> <i class="fa fa-trash-o"> </i> <%=oPAG312_01.DDValue("Csag312.Excluir")%></button>
