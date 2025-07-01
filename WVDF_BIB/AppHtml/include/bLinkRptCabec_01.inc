@@ -1,1 +1,0 @@
-<div class="row" style="float: right;">

@@ -1,1 +1,0 @@
-<script type="text/javascript" src="/wvdf_bib/scripts/shortcut.js"></script>

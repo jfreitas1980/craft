@@ -1,0 +1,53 @@
+2025-06-26 16:50:20.630 -03:00 [INF] Database connection verified successfully
+2025-06-26 16:50:20.688 -03:00 [INF] CROSS API starting up...
+2025-06-26 16:58:15.251 -03:00 [INF] Database connection verified successfully
+2025-06-26 16:58:15.303 -03:00 [INF] CROSS API starting up...
+2025-06-26 17:21:10.103 -03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2025-06-26 17:21:10.876 -03:00 [INF] Executed DbCommand (49ms) [Parameters=[@p0='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Nullable = false) (Size = 50), @p1='S' (Nullable = false) (Size = 1), @p2='2025-06-26T20:21:09.5181228Z', @p3='2025-06-26T20:21:09.5181892Z' (Nullable = true), @p4='string' (Nullable = false) (Size = 20), @p5='::1' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CSAG311] ([UsuarioSessao], [Ativo], [DtInicio], [DtUltimoAcesso], [IdUsuario], [IpOrigem])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-06-26 17:21:10.942 -03:00 [INF] Login realizado com sucesso para usuário string - Sessão SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ
+2025-06-26 17:21:10.980 -03:00 [INF] HTTP POST /api/Auth/login responded 200 in 1563.8059 ms
+2025-06-26 17:21:26.319 -03:00 [INF] HTTP GET /api/Tax/all-classes responded 400 in 50.9162 ms
+2025-06-26 17:21:31.368 -03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__userSession_0='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 17:21:31.413 -03:00 [INF] Executed DbCommand (12ms) [Parameters=[@p1='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Nullable = false) (Size = 50), @p0='2025-06-26T20:21:31.3921451Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 17:21:31.423 -03:00 [INF] Session validated successfully for user string
+2025-06-26 17:21:31.433 -03:00 [INF] HTTP GET /api/Tax/all-classes responded 200 in 440.2497 ms
+2025-06-26 17:21:38.558 -03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userSession_0='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 17:21:38.579 -03:00 [INF] Executed DbCommand (11ms) [Parameters=[@p1='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Nullable = false) (Size = 50), @p0='2025-06-26T20:21:38.5681344Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 17:21:38.582 -03:00 [INF] Session validated successfully for user string
+2025-06-26 17:21:38.601 -03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[IdTaxa], [h].[NmTaxa]
+FROM [HCGS3001] AS [h]
+WHERE [h].[Ativo] = N'S'
+ORDER BY [h].[NmTaxa]
+2025-06-26 17:21:38.609 -03:00 [INF] HTTP GET /api/Tax/list responded 200 in 74.7792 ms
+2025-06-26 17:23:07.419 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userSession_0='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 17:23:07.432 -03:00 [INF] Executed DbCommand (8ms) [Parameters=[@p1='SESS_1750969269_aCJGxHbNoyArqECqqjGTtQ' (Nullable = false) (Size = 50), @p0='2025-06-26T20:23:07.4242529Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 17:23:07.448 -03:00 [INF] HTTP GET /api/Auth/validate-session responded 200 in 41.8226 ms

@@ -1,4 +1,0 @@
-#REPLACE FILE3036 Tgrupo_economico_pessoas
-#REPLACE Tgrupo_economico_pessoas.File_Number |CI3036
-#REPLACE Tgrupo_economico_pessoas.id_grupo_economico |FN3036,1
-#REPLACE Tgrupo_economico_pessoas.id_pessoa |FN3036,2

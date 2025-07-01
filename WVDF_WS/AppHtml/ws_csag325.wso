@@ -1,7 +1,0 @@
-[WebService]
-Application=CrossWS
-Object=ows_CSAG325
-ServicePageGenerator=DefaultWebServiceHomePage.xslt
-TestPageGenerator=DefaultWebServiceMethodPage.xslt
-WSDLGenerator=DefaultWebServiceDescription.xslt
-SoapBodyStyle=document

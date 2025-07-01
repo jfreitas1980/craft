@@ -1,0 +1,510 @@
+[
+  {
+    "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__10",
+    "RelativePath": "",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "\u003C\u003Ef__AnonymousType6\u00605[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CROSS.Application.DTOs.Requests.LoginRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.AuthController",
+    "Method": "RenewSession",
+    "RelativePath": "api/Auth/renew-session",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.AuthController",
+    "Method": "ValidateSession",
+    "RelativePath": "api/Auth/validate-session",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "GetCountryCode",
+    "RelativePath": "api/City/country-code/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cityId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "GetCityDescription",
+    "RelativePath": "api/City/description/{cityCode}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cityCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "GetProposalDestinationCities",
+    "RelativePath": "api/City/proposal-destinations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Pol",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pod",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClientId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityNamePrefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CountryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsAirMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "GetProposalOriginCities",
+    "RelativePath": "api/City/proposal-origins",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Pol",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pod",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClientId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityNamePrefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CountryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsAirMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "GetProposalViaPoints",
+    "RelativePath": "api/City/proposal-via-points",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Pol",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pod",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClientId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityNamePrefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CountryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsAirMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "SearchByTrade",
+    "RelativePath": "api/City/search-trade",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CityNamePrefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CountryIds",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.CityController",
+    "Method": "SearchViaPoints",
+    "RelativePath": "api/City/search-via",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CityNamePrefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CountryIds",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "GetAllClasses",
+    "RelativePath": "api/Tax/all-classes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "GetAllTaxesWithClasses",
+    "RelativePath": "api/Tax/all-with-classes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "GetTaxList",
+    "RelativePath": "api/Tax/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "GetTaxesForProposal",
+    "RelativePath": "api/Tax/proposal/{proposalId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "proposalId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "classFilter",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "SearchByClass",
+    "RelativePath": "api/Tax/search-by-class",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "SearchByClassFilter",
+    "RelativePath": "api/Tax/search-by-class-filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classFilter",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "SearchByName",
+    "RelativePath": "api/Tax/search-by-name/{initial}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "initial",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "SearchByClassAndName",
+    "RelativePath": "api/Tax/search-combined",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "initial",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "classId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CROSS.API.Controllers.TaxController",
+    "Method": "GetSelectedClasses",
+    "RelativePath": "api/Tax/selected-classes/{taxId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taxId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userSession",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

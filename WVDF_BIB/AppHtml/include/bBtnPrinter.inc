@@ -1,1 +1,0 @@
-        <td><input type="Button" title="Imprimir" name="ets_03" value="Imprimir..." onclick="javascript:window.open('ets_03.asp?RunReport=1','RptETS_03','menubar=1,toolbar=0,location=0,directories=0,status=1,scrollbars=1,resizable=1,copyhistory=0'+',width='+screen.width+',height='+screen.height+',left=0,top=0');" class="BotaoImprimir" /></td>

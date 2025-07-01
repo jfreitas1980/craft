@@ -1,0 +1,102 @@
+-- Script de criação das tabelas do sistema CROSS
+-- Baseado nas configurações do Entity Framework
+
+-- Criação da tabela de países
+CREATE TABLE CSAG329 (
+    Sigla NVARCHAR(2) NOT NULL PRIMARY KEY,
+    Descricao NVARCHAR(100) NOT NULL
+);
+
+-- Criação da tabela de cidades
+CREATE TABLE CSAG325 (
+    IdCidade NVARCHAR(10) NOT NULL PRIMARY KEY,
+    Descricao NVARCHAR(100) NOT NULL,
+    Uf NVARCHAR(5) NULL,
+    Pais NVARCHAR(2) NOT NULL,
+    Ativo NCHAR(1) NOT NULL DEFAULT 'S',
+    CONSTRAINT FK_CSAG325_PAIS FOREIGN KEY (Pais) REFERENCES CSAG329(Sigla)
+);
+
+-- Criação da tabela de aeroportos
+CREATE TABLE HSAG325_AIR (
+    IdCidade NVARCHAR(10) NOT NULL PRIMARY KEY,
+    Iata NVARCHAR(3) NULL,
+    Nome NVARCHAR(100) NULL,
+    CONSTRAINT FK_HSAG325_AIR_CIDADE FOREIGN KEY (IdCidade) REFERENCES CSAG325(IdCidade)
+);
+
+-- Criação da tabela de clientes
+CREATE TABLE CSAG340 (
+    IdCliente NVARCHAR(10) NOT NULL PRIMARY KEY,
+    Nome NVARCHAR(200) NOT NULL,
+    Tipo NVARCHAR(2) NOT NULL
+);
+
+-- Criação da tabela de sessões de usuário
+CREATE TABLE CSAG311 (
+    UsuarioSessao NVARCHAR(50) NOT NULL PRIMARY KEY,
+    IdUsuario NVARCHAR(20) NOT NULL,
+    DtInicio DATETIME2 NOT NULL,
+    DtUltimoAcesso DATETIME2 NULL,
+    IpOrigem NVARCHAR(15) NULL,
+    Ativo NCHAR(1) NOT NULL DEFAULT 'S'
+);
+
+-- Criação da tabela de classes de taxa
+CREATE TABLE CCGS221 (
+    Classe NCHAR(1) NOT NULL PRIMARY KEY,
+    Descricao NVARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela de taxas
+CREATE TABLE HCGS3001 (
+    IdTaxa NVARCHAR(10) NOT NULL PRIMARY KEY,
+    NmTaxa NVARCHAR(100) NOT NULL,
+    ClasseTaxa NVARCHAR(10) NULL,
+    Ativo NCHAR(1) NOT NULL DEFAULT 'S'
+);
+
+-- Criação da tabela de tarifários
+CREATE TABLE HCGS3000 (
+    IdTarifa NVARCHAR(10) NOT NULL PRIMARY KEY,
+    Origem NVARCHAR(10) NOT NULL,
+    Destino NVARCHAR(10) NOT NULL,
+    Via NVARCHAR(10) NULL,
+    Modal NVARCHAR(5) NULL,
+    TipoCliente NVARCHAR(2) NOT NULL,
+    DtValidadeInicio DATETIME2 NOT NULL,
+    DtValidadeFim DATETIME2 NOT NULL,
+    Ativo NCHAR(1) NOT NULL DEFAULT 'S',
+    CONSTRAINT FK_HCGS3000_ORIGEM FOREIGN KEY (Origem) REFERENCES CSAG325(IdCidade),
+    CONSTRAINT FK_HCGS3000_DESTINO FOREIGN KEY (Destino) REFERENCES CSAG325(IdCidade),
+    CONSTRAINT FK_HCGS3000_VIA FOREIGN KEY (Via) REFERENCES CSAG325(IdCidade)
+);
+
+-- Criação da tabela de tarifários aéreos
+CREATE TABLE HCGS3000_AIRFR8 (
+    IdTarifa NVARCHAR(10) NOT NULL PRIMARY KEY,
+    Origem NVARCHAR(10) NOT NULL,
+    Destino NVARCHAR(10) NOT NULL,
+    IdCidade NVARCHAR(10) NOT NULL,
+    TipoCliente NVARCHAR(2) NOT NULL,
+    DtValidadeInicio DATETIME2 NOT NULL,
+    DtValidadeFim DATETIME2 NOT NULL,
+    Ativo NCHAR(1) NOT NULL DEFAULT 'S',
+    CONSTRAINT FK_HCGS3000_AIRFR8_ORIGEM FOREIGN KEY (Origem) REFERENCES CSAG325(IdCidade),
+    CONSTRAINT FK_HCGS3000_AIRFR8_DESTINO FOREIGN KEY (Destino) REFERENCES CSAG325(IdCidade),
+    CONSTRAINT FK_HCGS3000_AIRFR8_CIDADE FOREIGN KEY (IdCidade) REFERENCES CSAG325(IdCidade)
+);
+
+-- Criação da tabela de taxas de proposta
+CREATE TABLE HCGS3006 (
+    IdProposta NVARCHAR(10) NOT NULL,
+    IdTaxa NVARCHAR(10) NOT NULL,
+    Descricao NVARCHAR(200) NULL,
+    Valor DECIMAL(15,2) NULL,
+    Moeda NVARCHAR(3) NULL,
+    PRIMARY KEY (IdProposta, IdTaxa),
+    CONSTRAINT FK_HCGS3006_TAXA FOREIGN KEY (IdTaxa) REFERENCES HCGS3001(IdTaxa)
+);
+
+PRINT 'Tabelas criadas com sucesso!';
+

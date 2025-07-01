@@ -1,1 +1,0 @@
-<script type="text/javascript" src="/wvdf_bib/scripts/third/multiple-item-input.js"></script>

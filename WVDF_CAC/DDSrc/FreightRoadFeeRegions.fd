@@ -1,6 +1,0 @@
-#REPLACE FILE20 FreightRoadFeeRegions
-#REPLACE FreightRoadFeeRegions.File_Number |CI20
-#REPLACE FreightRoadFeeRegions.Id |FN20,1
-#REPLACE FreightRoadFeeRegions.Name |FS20,2
-#REPLACE FreightRoadFeeRegions.CountryCode |FS20,3
-#REPLACE FreightRoadFeeRegions.FreightForwarderId |FN20,4

@@ -1,5 +1,0 @@
-
-        <Div id="0" style="position:relative;                      width:100%; height:50px; z-index:0; background-image: url(../../WVDF_CAC_8/Images/fnd_top.png); background-repeat: Repeat-x; "></Div>
-        <Div id="1" style="position:absolute; top:7px;  left:25px;                           z-index:1;"><img src="<%=aEMPRESA_Logo%>" Width="75px" Height="40px"></div>
-        <Div id="2" style="position:absolute; top:15px; left:80px;                           z-index:1;"><Span Class="Titulo_13"><%=oPAG309_01.DDValue("Csag309.Literal_50")%></Span></Div>
-        <Div id="3" style="position:absolute; top:30px; left:80px;                           z-index:1;"><Span Class="Titulo_13"><%=oPAG309_01.DDValue("Csag309.Literal_01")%></Span></Div>

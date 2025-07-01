@@ -1,7 +1,0 @@
-Set_Date_Attribute SysDate4_State     to True
-set_date_attribute Date4_State        To True
-set_date_attribute Epoch_Value        To 30
-
-Set_Attribute DF_DATE_FORMAT          To DF_DATE_EUROPEAN
-Set_Attribute DF_THOUSANDS_SEPARATOR  To (Ascii("."))
-Set_Attribute DF_DECIMAL_SEPARATOR    To (Ascii(","))

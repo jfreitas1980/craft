@@ -1,6 +1,0 @@
-<!DOCTYPE html><html lang=pt-br><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Proposta</title><script src=scripts/cacheScript.2wa.js></script><script src=js/scriptLoad.js></script>
-
-<body ng-controller=MainCtrl>
-    <div ng-class="ckFluid ? 'container' : 'container-fluid'">
-        <input type=checkbox ng-model=ckFluid ng-init="ckFluid = true">
-        <textarea>{{form | json}}</textarea><div class=menuDescription></div><uib-tabset active=active><uib-tab index=$index ng-repeat="tab in tabs | filter: {hidden: false}" heading={{tab.title}} disable=tab.disabled><ng-include src=tab.include></ng-include></uib-tab></uib-tabset></div><ng-include src="'modais/status.html'"></ng-include><ng-include src="'modais/arquivos.html'"></ng-include><ng-include src="'modais/mensagens.html'"></ng-include><ng-include src="'modais/historico.html'"></ng-include><ng-include src="'modais/negociacao.html'"></ng-include><ng-include src="'modais/editarTaxa.html'"></ng-include><ng-include src="'modais/gerarAcordo.html'"></ng-include>

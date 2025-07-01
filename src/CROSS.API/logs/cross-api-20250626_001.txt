@@ -1,0 +1,22 @@
+2025-06-26 15:14:48.055 -03:00 [INF] Database connection verified successfully
+2025-06-26 15:14:48.103 -03:00 [INF] CROSS API starting up...
+2025-06-26 15:15:23.326 -03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2025-06-26 15:15:24.286 -03:00 [INF] Executed DbCommand (56ms) [Parameters=[@p0='SESS_1750961722_LfSaNTT80U5Ykowbu510A' (Nullable = false) (Size = 50), @p1='S' (Nullable = false) (Size = 1), @p2='2025-06-26T18:15:22.7868199Z', @p3='2025-06-26T18:15:22.7868485Z' (Nullable = true), @p4='string' (Nullable = false) (Size = 20), @p5='::1' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CSAG311] ([UsuarioSessao], [Ativo], [DtInicio], [DtUltimoAcesso], [IdUsuario], [IpOrigem])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-06-26 15:15:24.391 -03:00 [INF] Login realizado com sucesso para usuário string - Sessão SESS_1750961722_LfSaNTT80U5Ykowbu510A
+2025-06-26 15:15:24.422 -03:00 [INF] HTTP POST /api/Auth/login responded 200 in 1715.5216 ms
+2025-06-26 15:15:38.390 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__userSession_0='SESS_1750961722_LfSaNTT80U5Ykowbu510A' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 15:15:38.418 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p1='SESS_1750961722_LfSaNTT80U5Ykowbu510A' (Nullable = false) (Size = 50), @p0='2025-06-26T18:15:38.4102937Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 15:15:38.426 -03:00 [INF] Session validated successfully for user string
+2025-06-26 15:15:38.432 -03:00 [INF] HTTP GET /api/Tax/all-classes responded 200 in 388.1462 ms

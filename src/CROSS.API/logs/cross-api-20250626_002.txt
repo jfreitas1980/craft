@@ -1,0 +1,56 @@
+2025-06-26 14:46:10.067 -03:00 [INF] Database connection verified successfully
+2025-06-26 14:46:10.124 -03:00 [INF] CROSS API starting up...
+2025-06-26 14:46:12.752 -03:00 [INF] HTTP GET /swagger responded 404 in 1.2386 ms
+2025-06-26 14:57:26.629 -03:00 [INF] Database connection verified successfully
+2025-06-26 14:57:26.688 -03:00 [INF] CROSS API starting up...
+2025-06-26 14:57:27.886 -03:00 [INF] HTTP GET /swagger responded 404 in 0.6955 ms
+2025-06-26 14:57:54.092 -03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2025-06-26 14:57:55.128 -03:00 [INF] Executed DbCommand (56ms) [Parameters=[@__userSession_0='SESS123456789' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 14:57:55.280 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[@p1='SESS123456789' (Nullable = false) (Size = 50), @p0='2025-06-26T17:57:55.1980684Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 14:57:55.296 -03:00 [INF] Session validated successfully for user USER001
+2025-06-26 14:57:55.331 -03:00 [INF] HTTP GET /api/Tax/all-classes responded 200 in 1858.0744 ms
+2025-06-26 14:58:11.017 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userSession_0='SESS123456789' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 14:58:11.026 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p1='SESS123456789' (Nullable = false) (Size = 50), @p0='2025-06-26T17:58:11.0247299Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 14:58:11.029 -03:00 [INF] Session validated successfully for user USER001
+2025-06-26 14:58:11.050 -03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[IdTaxa], [h].[NmTaxa]
+FROM [HCGS3001] AS [h]
+WHERE [h].[Ativo] = N'S'
+ORDER BY [h].[NmTaxa]
+2025-06-26 14:58:11.060 -03:00 [INF] HTTP GET /api/Tax/list responded 200 in 66.6112 ms
+2025-06-26 14:58:33.798 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userSession_0='SESS123456789' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[UsuarioSessao], [c].[Ativo], [c].[DtInicio], [c].[DtUltimoAcesso], [c].[IdUsuario], [c].[IpOrigem]
+FROM [CSAG311] AS [c]
+WHERE [c].[UsuarioSessao] = @__userSession_0 AND [c].[Ativo] = N'S'
+2025-06-26 14:58:33.814 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[@p1='SESS123456789' (Nullable = false) (Size = 50), @p0='2025-06-26T17:58:33.8038725Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [CSAG311] SET [DtUltimoAcesso] = @p0
+OUTPUT 1
+WHERE [UsuarioSessao] = @p1;
+2025-06-26 14:58:33.821 -03:00 [INF] Session validated successfully for user USER001
+2025-06-26 14:58:33.834 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__taxId_0='TAX004' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [h].[IdTaxa], [h].[Ativo], [h].[ClasseTaxa], [h].[NmTaxa]
+FROM [HCGS3001] AS [h]
+WHERE [h].[IdTaxa] = @__taxId_0
+2025-06-26 14:58:33.858 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__classId_0='O' (Nullable = false) (Size = 1)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Classe], [c].[Descricao]
+FROM [CCGS221] AS [c]
+WHERE [c].[Classe] = @__classId_0
+2025-06-26 14:58:33.874 -03:00 [INF] HTTP GET /api/Tax/selected-classes/TAX004 responded 200 in 186.5695 ms

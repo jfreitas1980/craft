@@ -1,4 +1,0 @@
-#REPLACE FILE15 FreightRoadFeeRegionLocationCit
-#REPLACE FreightRoadFeeRegionLocationCit.File_Number |CI15
-#REPLACE FreightRoadFeeRegionLocationCit.FreightRoadFeeRegionLocationId |FN15,1
-#REPLACE FreightRoadFeeRegionLocationCit.CityId |FN15,2
