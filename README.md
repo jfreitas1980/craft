@@ -3,6 +3,10 @@
 ## Visão Geral
 Sistema completo de API para gestão de operações logísticas e comerciais, desenvolvido em C# .NET 8.0 seguindo Clean Architecture.
 
+## Documentações levva
+- **Documentação Técnica**: [/docs/Documentacao_Tecnica_POC_QMS_Craft_Levva.pdf](/docs/Documentacao_Tecnica_POC_QMS_Craft_Levva.pdf)
+- **Documentação de negócio**: [/docs/Documentacao_Negocio_POC_QMS_Craft_Levva.pdf](/docs/Documentacao_Negocio_POC_QMS_Craft_Levva.pdf)
+
 ## Estrutura do Projeto
 
 ```
@@ -56,7 +60,7 @@ CROSS.API/
 - **Polly**: Políticas de resiliência
 - **xUnit**: Framework de testes
 
-- **Mais informações**: "/docs/INFORMACOES_ADICIONAIS_TECNICAS-cross-api.md"
+- **Mais informações**: [/docs/INFORMACOES_ADICIONAIS_TECNICAS-cross-api.md](/docs/INFORMACOES_ADICIONAIS_TECNICAS-cross-api.md)
 
 ## Como Executar
 
@@ -110,8 +114,28 @@ CROSS.API/
 - `GET /api/city/proposal-origins` - Cidades origem para proposta
 - `GET /api/city/proposal-destinations` - Cidades destino para proposta
 
-- **Mais informações**: "/docs/INFORMACOES_DETALHADAS_SOLUCAO-cross-api.md"
+- **Mais informações**: [/docs/INFORMACOES_DETALHADAS_SOLUCAO-cross-api.md](/docs/INFORMACOES_DETALHADAS_SOLUCAO-cross-api.md)
 
+
+## Validação de Sessão
+
+Todos os endpoints utilizam o atributo `[ValidateSession]` que:
+- Valida automaticamente tokens de sessão
+- Atualiza último acesso
+- Retorna 401 para sessões inválidas
+- Suporte a retorno de lista vazia (configurável)
+
+- **Mais informações**: [/docs/GUIA-AUTENTICACAO.md](/docs/GUIA-AUTENTICACAO.md)
+
+## Banco de Dados
+
+Estrutura otimizada para SQL Server com:
+- Índices estratégicos para performance
+- Relacionamentos bem definidos
+- Constraints de integridade
+- Nomes de tabela compatíveis com sistema legado
+
+- Scripts iniciais de banco a serem executados em ordem serão encontrados em [/scripts](/scripts)
 
 ## Arquitetura
 
@@ -122,25 +146,16 @@ O projeto segue **Clean Architecture** com separação clara de responsabilidade
 - **Infrastructure**: Implementações concretas, acesso a dados
 - **API**: Controllers, middlewares, configurações
 
-## Validação de Sessão
+## Novas arquiteturas propostas
 
-Todos os endpoints utilizam o atributo `[ValidateSession]` que:
-- Valida automaticamente tokens de sessão
-- Atualiza último acesso
-- Retorna 401 para sessões inválidas
-- Suporte a retorno de lista vazia (configurável)
+Arquiteturas levando em consideração serviços de cloud Azure e estratégias de amortização de consumo:
 
-- **Mais informações**: "/docs/GUIA-AUTENTICACAO.md"
+**Versão 1.0:** Uso de DB de leitura (Read-Only DB) para consultas frequentes, reduzindo carga no banco principal.
+[![Arq_1.0_](docs/Proposta_QMS_CROSS_CRAFT-QMS_1.0.drawio.png)](/docs/Proposta_QMS_CROSS_CRAFT-QMS_1.0.drawio.png)
 
-## Banco de Dados
+**Versão 1.1:** Uso eventos e cache distribuído para melhorar performance e escalabilidade.
+[![Arq_1.1](docs/Proposta_QMS_CROSS_CRAFT-QMS_1.1.drawio.png)](/docs/Proposta_QMS_CROSS_CRAFT-QMS_1.1.drawio.png)
 
-Estrutura otimizada para SQL Server com:
-- Índices estratégicos para performance
-- Relacionamentos bem definidos
-- Constraints de integridade
-- Nomes de tabela compatíveis com sistema legado
-
-- Scripts iniciais de banco a serem executados em ordem serão encontrados em "/scripts"
 
 ## Contato
 
